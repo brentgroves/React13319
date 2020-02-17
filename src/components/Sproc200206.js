@@ -175,7 +175,7 @@ export default function Sproc200206({ isAuthenticated,sprocName,tableName,total,
           <TableCell align="right">Planned</TableCell>
           <TableCell align="right">Actual</TableCell>
           <TableCell align="right">Percent</TableCell>
-          <TableCell align="right">Scrap</TableCell>
+          <TableCell align="right">Scrap%</TableCell>
           <TableCell align="right">Downtime</TableCell>
         </TableRow>
       </TableHead>
@@ -194,7 +194,7 @@ export default function Sproc200206({ isAuthenticated,sprocName,tableName,total,
               <TableCell align="right">{row.planned_production_count}</TableCell>
               <TableCell align="right">{row.actual_production_count}</TableCell>
               <TableCell align="right">{row.actual_vrs_planned_percent}</TableCell>
-              <TableCell align="right">{row.scrap_count}</TableCell>
+              <TableCell align="right">{row.scrap_percent}</TableCell>
               <TableCell align="right">{row.downtime_minutes}</TableCell>
             </TableRow>
           ))}

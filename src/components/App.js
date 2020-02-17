@@ -20,7 +20,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { mainListItems, secondaryListItems } from "./listItems";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
