@@ -52,7 +52,14 @@ client.configure(feathers.authentication({
 // store as a global variable in Saga messes up the generator functions
 const setupServices = async (dispatch) => {
   //const socket = new WebSocket('ws://localhost:8989')
-  const socket = io('http://10.1.0.100:3030');
+  //const socket = io('http://localhost:3030');
+  console.log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`);
+
+  const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
+  console.log(`connectionString: ${connectionString}`);
+  const socket = io(connectionString);
+
+//  const socket = io('http://10.1.0.100:3030');
   const srv = feathers();
 
   // Setup the transport (Rest, Socket, etc.) here
