@@ -64,16 +64,17 @@ function* handleAuthenticate(action) {
     g_dispatch(actions.SetEmail(res.user.email));
     g_dispatch(actions.SetRoles(res.user.roles));
     if(action.setSubmittingOff){
-      g_dispatch(actions.IsSubmitting(false));
+      g_dispatch(actions.Submitting(false));
     }
     if(action.route){
       yield put(push(action.route));
     }
   } catch (err) {
-    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
+        console.log(`err: ${err.message}`);
+    g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
     console.log(err);
     if(action.setSubmittingOff){
-      g_dispatch(actions.IsSubmitting(false));
+      g_dispatch(actions.Submitting(false));
     }
   }
 }
@@ -122,11 +123,11 @@ function* handleSproc200206Create(action) {
       yield put(push(action.route));
     }
     if(!action.fetch&&action.setSubmittingOff){
-      g_dispatch(actions.IsSubmitting(false));
+      g_dispatch(actions.Submitting(false));
     }
   } catch (err) {
     console.log(err);
-    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
+    g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
@@ -155,11 +156,11 @@ function* handleSproc200206Fetch(action) {
       yield put(push(action.route));
     }
     if(action.setSubmittingOff){
-      g_dispatch(actions.IsSubmitting(false));
+      g_dispatch(actions.Submitting(false));
     }
   } catch (err) {
     console.log(err);
-    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
+    g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 

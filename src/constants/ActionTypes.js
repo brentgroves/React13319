@@ -2,9 +2,9 @@
 export const PUSH = 'PUSH'
 
 // Global Reducer
-export const IS_SUBMITTING = 'IS_SUBMITTING'
-export const SET_ERROR ='SET_ERROR'
-export const CLEAR_ERROR = 'CLEAR_ERROR'
+export const SUBMITTING = 'SUBMITTING'
+export const SET_APP_ERROR ='SET_APP_ERROR'
+export const CLEAR_APP_ERROR = 'CLEAR_APP_ERROR'
 // User Reducer
 export const AUTHENTICATE_SAGA = 'AUTHENTICATE_SAGA'
 export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED'

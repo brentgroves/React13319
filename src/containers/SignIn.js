@@ -6,17 +6,17 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
   AuthenticateSaga: (email,password,route,setSubmittingOff) => dispatch(actions.AuthenticateSaga(email,password,route,setSubmittingOff)),
-  ClearError: () => dispatch(actions.ClearError()),
-  IsSubmitting: (isSubmitting) => dispatch(actions.IsSubmitting(isSubmitting))
+  ClearAppError: () => dispatch(actions.ClearAppError()),
+  Submitting: (submitting) => dispatch(actions.Submitting(submitting))
   }
 }
 
 function mapStateToProps(state) {
   const { User,Global } = state
   return {
-    error: Global.error,
+    appError: Global.appError,
     isAuthenticated: User.isAuthenticated,
-    isSubmitting: Global.isSubmitting
+    submitting: Global.submitting
   }
 }
 

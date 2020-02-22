@@ -8,44 +8,59 @@ var firstDayOfWeek = new Date(curr.setDate(first)).toString();
 var lastDayOfWeek= new Date(curr.setDate(last)).toString();
 
 const initState = {
-  isSubmitting: false,
+  submitting: false,
   firstDayOfWeek: firstDayOfWeek,
   lastDayOfWeek: lastDayOfWeek,
-  error: {
+  appError: {
     error:false,
     message:"",
-    type: errorType.NONE,
+    errorType: errorType.NONE,
     severity:errorSeverity.NONE
   }
 }
-
-
+/*
+error: {
+  error:false,
+  message:"",
+  type: errorType.NONE,
+  severity:errorSeverity.NONE
+}
+*/
 const Global = (state = initState, action) => {
   switch (action.type) {
-    case types.IS_SUBMITTING:
+    case types.SUBMITTING:
     {
       // Keep a reference to the service object created in sockets initialization code.
       return Object.assign({}, state, {
-         isSubmitting: action.isSubmitting
+         submitting: action.submitting
        })
     }
-    case types.SET_ERROR:
+    case types.SET_APP_ERROR:
     {
-      return Object.assign({}, state, {
-        error: true,
-        message: action.message,
-        type: action.type,
-        severity: action.severity
-      })
+      return {
+        ...state,
+        appError: {
+          ...state.appError,
+          error:true,
+          message:action.message,
+          errorType: errorType.NONE,
+          severity:errorSeverity.NONE
+        }
+      }
+
     }
-    case types.CLEAR_ERROR:
+    case types.CLEAR_APP_ERROR:
     {
-      return Object.assign({}, state, {
-        error: false,
-        message: "",
-        type: errorType.NONE,
-        severity: errorSeverity.NONE
-      })
+      return {
+        ...state,
+        appError: {
+          ...state.appError,
+          error:false,
+          message:"",
+          errorType: errorType.NONE,
+          severity:errorSeverity.NONE
+        }
+      }
     }
     default:
       return state

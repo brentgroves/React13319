@@ -62,11 +62,11 @@ const useStyles = makeStyles(theme => ({
 //https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
 const SignIn = ({
   AuthenticateSaga,
-  ClearError,
-  IsSubmitting,
-  error,
+  ClearAppError,
+  Submitting,
+  appError,
   isAuthenticated,
-  isSubmitting
+  submitting
 }) => {
 //  const referer = props.location.state.referer || '/';
   const classes = useStyles();
@@ -79,7 +79,7 @@ const SignIn = ({
   };
 
   const handleClose = (event, reason) => {
-    ClearError();
+    ClearAppError();
     if (reason === 'clickaway') {
       return;
     }
@@ -94,7 +94,7 @@ const SignIn = ({
       initialValues={{ email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values.email);
-        IsSubmitting(true);
+        Submitting(true);
         AuthenticateSaga(values.email,values.password,"/",true);
 
         /*
@@ -179,7 +179,7 @@ const SignIn = ({
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                    disabled={isSubmitting}
+                    disabled={submitting}
                   >
                     Sign In
                   </Button>
@@ -194,10 +194,10 @@ const SignIn = ({
                     vertical: 'bottom',
                     horizontal: 'left',
                   }}
-                  open={error.error}
+                  open={appError.error}
                   autoHideDuration={6000}
                   onClose={handleClose}
-                  message={error.message}
+                  message={appError.message}
                   action={
                     <React.Fragment>
                       <Button color="secondary" size="small" onClick={handleClose}>

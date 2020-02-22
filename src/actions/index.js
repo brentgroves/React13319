@@ -12,20 +12,20 @@ export const Push = (path) => ({
 
 
 // Global Reducer
-export const IsSubmitting = (isSubmitting) => ({
-  type: types.IS_SUBMITTING,
-  isSubmitting
+export const Submitting = (submitting) => ({
+  type: types.SUBMITTING,
+  submitting
 })
-export const SetError = (message,type,severity) => ({
-  type: types.SET_ERROR,
+export const SetAppError = (message,errorType,severity) => ({
+  type: types.SET_APP_ERROR,
   message,
-  type,
+  errorType,
   severity
 })
-export const ClearError = () => ({
-  type: types.CLEAR_ERROR,
-  message:"",
-  type:errorType.NONE,
+export const ClearAppError = () => ({
+  type: types.CLEAR_APP_ERROR,
+  error:"",
+  errorType:errorType.NONE,
   severity:errorSeverity.NONE
 })
 
