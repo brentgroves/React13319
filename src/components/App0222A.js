@@ -28,12 +28,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { VisualizationsList } from "../containers/VisualizationsList";
-import { Sproc200206View } from "../containers/Sproc200206View";
+import { Table200206 } from "../containers/Table200206";
 import { Dialogs } from "../containers/Dialogs";
 import { Recharts } from "../containers/Recharts";
-import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
-import { BarChartDownTime200221 } from "../containers/BarChartDownTime200221";
-
+import { Recharts200221 } from "../containers/Recharts200221";
+import {RadialBarChart200221} from "../containers/RadialBarChart200221";
 //import {OEEPartTable} from "../containers/OEEPartTable";
 import { SignIn } from "../containers/SignIn";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -233,11 +232,38 @@ export default function App({
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-              <Switch>
-                <Route exact path="/table200206" component={Sproc200206View} />
-                <Route exact path="/" component={Recharts} />
-                <Route path="/login" component={SignIn} />
-              </Switch>
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={6} lg={6}>
+              <Paper className={fixedHeightPaper}>
+                <Switch>
+                  <Route exact path="/table200206" component={Recharts200221} />
+                  <Route exact path="/" component={Recharts} />
+                  <Route path="/login" component={SignIn} />
+                </Switch>
+              </Paper>
+            </Grid>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={6} lg={6}>
+              <Paper className={fixedHeightPaper}>
+                <Switch>
+                  <Route exact path="/table200206" component={RadialBarChart200221} />
+                  <Route exact path="/" component={Recharts} />
+                  <Route path="/login" component={SignIn} />
+                </Switch>
+              </Paper>
+            </Grid>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Switch>
+                  <Route exact path="/table200206" component={Table200206} />
+                  <Route exact path="/" component={Recharts} />
+                  <Route path="/login" component={SignIn} />
+                </Switch>
+              </Paper>
+            </Grid>
+          </Grid>
         </Container>
       </main>
       <Dialogs />

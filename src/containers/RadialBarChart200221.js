@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Recharts200221Component from "../components/Recharts200221";
+import RadialBarChart200221Component from "../components/RadialBarChart200221";
 import * as actions from '../actions'
 
 function mapStateToProps(state) {
@@ -19,10 +19,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    Push: () => dispatch(actions.Push()),
-  Sproc200221Fetch: (sproc,table,limit,skip,route,setSubmittingOff) => dispatch(actions.QueryFetch(sproc,table,limit,skip,route,setSubmittingOff))
   }
 }
 
 
-export const Recharts200221 = connect(mapStateToProps, mapDispatchToProps)(Recharts200221Component)
+export const RadialBarChart200221 = connect(mapStateToProps, mapDispatchToProps)(RadialBarChart200221Component)

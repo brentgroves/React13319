@@ -28,7 +28,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {VisualizationsList} from '../containers/VisualizationsList';
-import { BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
+import {ResponsiveContainer, BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
   XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList } from 'recharts';
 
 
@@ -187,29 +187,21 @@ const data02 = [
   { name: '201511', uv: 3.27, pv: 6.74 },
 ];
 
-export default function Recharts200221({ data }) {
+export default function BarCharDownTime200221({ data }) {
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
-    <Grid container spacing={3}>
-      {/* Chart */}
-      {/* Recent Orders */}
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-        <BarChart width={1100} height={250} barGap={2} barSize={6} data={data02} margin={{ top: 20, right: 60, bottom: 0, left: 20 }}>
-          <XAxis dataKey="name" />
-          <YAxis tickCount={7} />
-          <Tooltip />
-          <CartesianGrid />
-          <Bar dataKey="uv" fill="#ff7300" radius={[5, 5, 5, 5]} />
-          <Bar dataKey="pv" fill="#387908" radius={[5, 5, 5, 5]} />
-          <Brush dataKey="name" height={30} />
-          <ReferenceLine type="horizontal" value={0} stroke="#666" />
-        </BarChart>
-        </Paper>
-      </Grid>
+    <ResponsiveContainer width={500} height={175}>
 
-    </Grid>
+        <BarChart width={730} height={250} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="part_number" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="downtime_minutes" fill="#ffc658" />
+        </BarChart>
+        </ResponsiveContainer>
   );
 }

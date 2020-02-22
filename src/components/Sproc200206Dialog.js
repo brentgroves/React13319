@@ -23,6 +23,9 @@ import * as Yup from "yup";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import * as errorType from '../constants/ErrorType'
+import * as errorSeverity from '../constants/ErrorSeverity'
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -86,7 +89,11 @@ export default function Sproc200206Dialog(params) {
     lastDayOfWeek,
     OpenSproc200206Dialog,
     Sproc200206Create,
-    Push
+    Sproc200221Create,
+    Push,
+    SetAppError,
+    Submitting,
+    submitting
   } = params;
   const classes = useStyles();
   // The first commit of Material-UI
@@ -160,7 +167,7 @@ const handleEndDateChange = date => {
         password: values.password
       });
 */
-            setSubmitting(true);
+            Submitting(true);
             let sd = new Date(values.startDate);
             let start = format(sd, "yyyy-MM-dd'T00:00:00'")
             console.log(start);
@@ -170,17 +177,22 @@ const handleEndDateChange = date => {
             //Compare the two dates and return 1 if the first date is after the second,
             // -1 if the first date is before the second or 0 if dates are equal.
             if (-1==compareAsc(ed, sd)){
-              setDateError(true);
+        //      setDateError(true);
+              SetAppError("Start date should be before end date.",errorType.DATE,errorSeverity.LOW);
 
+            }else{
+              Sproc200221Create(start,end,true,1000,"",false);
+              Sproc200206Create(start,end,true,1000,"/table200206",true);
+              OpenSproc200206Dialog(false);
             }
+            Submitting(false);
+
             /*
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
             */
-            Sproc200206Create(start,end,true,1000,"/table200206",true);
-            OpenSproc200206Dialog(false);
 
           }}
         >
@@ -209,7 +221,7 @@ const handleEndDateChange = date => {
                 </MuiPickersUtilsProvider>
                 <DialogActions>
                 <Button
-                disabled={isSubmitting}
+                disabled={submitting}
                   type="button"
                   className="outline"
                   onClick={handleClose}
@@ -226,33 +238,13 @@ const handleEndDateChange = date => {
                     Reset
                   </Button>
                   */}
-                  <Button type="submit" disabled={isSubmitting}>
+                  <Button type="submit" disabled={submitting}>
                     Submit
                   </Button>
                   {/* <DisplayFormikState {...props} /> */}
                 </DialogActions>
               </form>
-              <Snackbar
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                open={dateError}
-                autoHideDuration={6000}
-                onClose={() => setDateError(false)}
-                message={"Start date should be before end date."}
-                action={
-                  <React.Fragment>
-                    <Button color="secondary" size="small" onClick={() => setDateError(false)}>
-                      Fail
-                    </Button>
 
-                    <IconButton size="small" aria-label="close" color="inherit" onClick={() => setDateError(false)}>
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                  </React.Fragment>
-                }
-              />
               </div>
             );
           }}

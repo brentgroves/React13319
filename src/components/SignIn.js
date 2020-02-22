@@ -189,26 +189,7 @@ const SignIn = ({
 </Button>
 */}
                 </form>
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  open={appError.error}
-                  autoHideDuration={6000}
-                  onClose={handleClose}
-                  message={appError.message}
-                  action={
-                    <React.Fragment>
-                      <Button color="secondary" size="small" onClick={handleClose}>
-                        Fail
-                      </Button>
-                      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                        <CloseIcon fontSize="small" />
-                      </IconButton>
-                    </React.Fragment>
-                  }
-                />
+
               </div>
             </Container>
           </section>

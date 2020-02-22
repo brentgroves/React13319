@@ -13,7 +13,8 @@ function mapStateToProps(state) {
     skip: Sproc200206.skip,
     data: Sproc200206.data,
     firstDayOfWeek: Global.firstDayOfWeek,
-    lastDayOfWeek: Global.lastDayOfWeek
+    lastDayOfWeek: Global.lastDayOfWeek,
+    submitting: Global.submitting
   }
 }
 
@@ -22,7 +23,10 @@ const mapDispatchToProps = dispatch => {
     // dispatching plain actions
     OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open)),
     Sproc200206Create: (startDate,endDate,fetch,limit,route,setSubmittingOff) => dispatch(actions.Sproc200206Create(startDate,endDate,fetch,limit,route,setSubmittingOff)),
-    Push: (path) => dispatch(actions.Push(path))
+    Sproc200221Create: (startDate,endDate,fetch,limit,route,setSubmittingOff) => dispatch(actions.Sproc200221Create(startDate,endDate,fetch,limit,route,setSubmittingOff)),
+    Push: (path) => dispatch(actions.Push(path)),
+    Submitting: (submitting) => dispatch(actions.Submitting(submitting)),
+    SetAppError: (message,errorType,errorSeverity) => dispatch(actions.SetAppError(message,errorType,errorSeverity))
   }
 }
 

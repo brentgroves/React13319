@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router"; // react-router v4/v5
+import { Route, Switch } from 'react-router' // react-router v4/v5
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -21,26 +21,27 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { VisualizationsList } from "../containers/VisualizationsList";
-import { Sproc200206View } from "../containers/Sproc200206View";
-import { Dialogs } from "../containers/Dialogs";
-import { Recharts } from "../containers/Recharts";
-import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
-import { BarChartDownTime200221 } from "../containers/BarChartDownTime200221";
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import {VisualizationsList} from '../containers/VisualizationsList';
+import {Table200206} from "../containers/Table200206";
+import {Dialogs} from "../containers/Dialogs";
+import {Recharts} from "../containers/Recharts";
 //import {OEEPartTable} from "../containers/OEEPartTable";
-import { SignIn } from "../containers/SignIn";
-import Snackbar from "@material-ui/core/Snackbar";
+import { SignIn } from '../containers/SignIn'
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
-import * as errorType from "../constants/ErrorType";
-import * as errorSeverity from "../constants/ErrorSeverity";
+import CloseIcon from '@material-ui/icons/Close';
+import * as errorType from '../constants/ErrorType'
+import * as errorSeverity from '../constants/ErrorSeverity'
+
+
+
+
 
 //import Chart from './Chart';
 //import Deposits from './Deposits';
@@ -137,6 +138,7 @@ export default function App({
   appError,
   Submitting,
   submitting
+
 }) {
   useEffect(() => {
     // Update the document title using the browser API
@@ -149,7 +151,7 @@ export default function App({
   const [open, setOpen] = React.useState(true);
   const handleLogout = () => {
     Logout();
-  };
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -158,115 +160,110 @@ export default function App({
   };
   const handleClose = (event, reason) => {
     ClearAppError();
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
-    //    setOpen(false);
+//    setOpen(false);
   };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {isAuthenticated && pathname != "/login" && (
-        <React.Fragment>
-          <AppBar
-            position="absolute"
-            className={clsx(classes.appBar, open && classes.appBarShift)}
+      {isAuthenticated && pathname!='/login'  &&
+      <React.Fragment>
+
+      <AppBar
+        position="absolute"
+        className={clsx(classes.appBar, open && classes.appBarShift)}
+      >
+
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}
           >
-            <Toolbar className={classes.toolbar}>
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                className={clsx(
-                  classes.menuButton,
-                  open && classes.menuButtonHidden
-                )}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                component="h1"
-                variant="h6"
-                color="inherit"
-                noWrap
-                className={classes.title}
-              >
-                Data Visualizations
-              </Typography>
-              <div>
-                <IconButton color="inherit">
-                  <Badge badgeContent={0} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton color="inherit">
-                  <Badge onClick={handleLogout} color="primary">
-                    <ExitToAppIcon />
-                  </Badge>
-                </IconButton>
-              </div>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: clsx(
-                classes.drawerPaper,
-                !open && classes.drawerPaperClose
-              )
-            }}
-            open={open}
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
           >
-            <div className={classes.toolbarIcon}>
-              <IconButton onClick={handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
-            <VisualizationsList />
-          </Drawer>
-        </React.Fragment>
-      )}
+            Data Visualizations
+          </Typography>
+            <div>
+          <IconButton color="inherit">
+            <Badge badgeContent={0} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton color="inherit">
+            <Badge onClick={handleLogout} color="primary">
+              <ExitToAppIcon />
+            </Badge>
+          </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+        }}
+        open={open}
+      >
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <VisualizationsList />
+      </Drawer>
+      </React.Fragment>
+    }
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-              <Switch>
-                <Route exact path="/table200206" component={Sproc200206View} />
-                <Route exact path="/" component={Recharts} />
-                <Route path="/login" component={SignIn} />
-              </Switch>
+        <Switch>
+        <Route exact path="/table200206" component={Table200206} />
+        <Route exact path="/" component={Recharts} />
+        <Route path="/login" component={SignIn} />
+        </Switch>
         </Container>
-      </main>
-      <Dialogs />
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        open={appError.error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={appError.message}
-        action={
-          <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
-              Fail
-            </Button>
-            <IconButton
-              size="small"
-              aria-label="close"
-              color="inherit"
-              onClick={handleClose}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </React.Fragment>
-        }
-      />
+         </main>
+         <Dialogs />
+         <Snackbar
+           anchorOrigin={{
+             vertical: 'bottom',
+             horizontal: 'center',
+           }}
+           open={appError.error}
+           autoHideDuration={6000}
+           onClose={handleClose}
+           message={appError.message}
+           action={
+             <React.Fragment>
+               <Button color="secondary" size="small" onClick={handleClose}>
+                 Fail
+               </Button>
+               <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                 <CloseIcon fontSize="small" />
+               </IconButton>
+             </React.Fragment>
+           }
+         />
     </div>
+
   );
 }
 

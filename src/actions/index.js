@@ -141,7 +141,6 @@ export const Sproc200221Create = (startDate,endDate,fetch,limit,route,setSubmitt
   setSubmittingOff
 })
 
-
 export const Sproc200221Fetch = (sproc,table,limit,skip,route,setSubmittingOff) => ({
   type: types.SPROC200221_FETCH,
   sproc,
