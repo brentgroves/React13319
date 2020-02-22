@@ -28,7 +28,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {VisualizationsList} from '../containers/VisualizationsList';
-import {Sproc200206} from "../containers/Sproc200206";
+import {Table200206} from "../containers/Table200206";
 import {Dialogs} from "../containers/Dialogs";
 import {Recharts} from "../containers/Recharts";
 //import {OEEPartTable} from "../containers/OEEPartTable";
@@ -210,7 +210,7 @@ export default function App({ isAuthenticated, isAdmin,pathname, Push, Logout })
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
         <Switch>
-        <Route exact path="/sproc200206" component={Sproc200206} />
+        <Route exact path="/table200206" component={Table200206} />
         <Route exact path="/" component={Recharts} />
         <Route path="/login" component={SignIn} />
         </Switch>

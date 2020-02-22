@@ -70,13 +70,48 @@ const setupServices = async (dispatch) => {
     storageKey: 'auth'
   }))
 /*
+mwhelpley@buschegroup.com/cwAEKkNa%0V3
+kyoung@buschegroup.com/1XdFJlJ!wMDe
+cchaudry@buschegroup.com/!@TIS$iYURtx
+
+"email": "mwhelpley@buschegroup.com",
+"password": "cwAEKkNa%0V3",
+"userName": "mwhelpley",
+"firstName": "Mike",
+"lastName": "Whelpley",
+"isAdmin": true,
+"roles": [ "Admin", "Manager", "Quality"]
+"email": "bgroves@buschegroup.com",
+"password": "JesusLives1!",
+"userName": "bgroves",
+"firstName": "Brent",
+"lastName": "Groves",
+"isAdmin": true,
+"roles": [ "Admin", "Manager", "Quality"]
+"email": "kyoung@buschegroup.com",
+"password": "1XdFJlJ!wMDe",
+"userName": "kyoung",
+"firstName": "Kevin",
+"lastName": "Young",
+"isAdmin": true,
+"roles": [ "Admin", "Manager", "Quality"]
+"email": "cchaudry@buschegroup.com",
+"password": "!@TIS$iYURtx",
+"userName": "cchaudry",
+"firstName": "Casey",
+"lastName": "Chaudry",
+"isAdmin": true,
+"roles": [ "Admin", "Manager", "Quality"]
+
+*/
+/*
   await srv.service('users')
     .create({
-      "email": "bgroves@buschegroup.com",
-      "password": "JesusLives1!",
-      "userName": "bgroves",
-      "firstName": "Brent",
-      "lastName": "Groves",
+      "email": "ccrandall@buschegroup.com",
+      "password": "cpo@NSmD4l1x",
+      "userName": "ccrandall",
+      "firstName": "Charles",
+      "lastName": "Crandall",
       "isAdmin": true,
       "roles": [ "Admin", "Manager", "Quality"]
 

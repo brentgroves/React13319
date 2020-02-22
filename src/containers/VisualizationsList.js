@@ -14,8 +14,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     Push: (path) => dispatch(actions.Push(path)),
-    OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open)),
-    Sproc200206Create: (startDate,endDate) => dispatch(actions.Sproc200206Create(startDate,endDate))
+    OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open))
   }
 }
 

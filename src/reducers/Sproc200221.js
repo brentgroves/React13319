@@ -1,47 +1,47 @@
 import * as types from "../constants/ActionTypes";
 
 const initState = {
-  sprocName: '',
-  tableName: '',
+  sproc: '',
+  table: '',
   total: 0,
   limit: 0,
   skip: 0,
   data: []
 };
 
-const Sproc = (state = initState, action) => {
+const Sproc200221 = (state = initState, action) => {
   switch (action.type) {
-    case types.SET_SPROC_NAME: {
+    case types.SET_200221_SPROC: {
       return {
         ...state,
-        sprocName: action.sprocName
+        sproc: action.sproc
       }
     }
-    case types.SET_TABLE_NAME: {
+    case types.SET_200221_TABLE: {
       return {
         ...state,
-        tableName: action.tableName
+        table: action.table
       }
     }
-    case types.SET_QUERY_TOTAL: {
+    case types.SET_200221_TOTAL: {
       return {
         ...state,
         total: action.total
       };
     }
-    case types.SET_QUERY_LIMIT: {
+    case types.SET_200221_LIMIT: {
       return {
         ...state,
         limit: action.limit
       };
     }
-    case types.SET_QUERY_SKIP: {
+    case types.SET_200221_SKIP: {
       return {
         ...state,
         skip: action.skip
       };
     }
-    case types.SET_QUERY_DATA: {
+    case types.SET_200221_DATA: {
       return {
         ...state,
         data: action.data
@@ -65,4 +65,4 @@ const Sproc = (state = initState, action) => {
 
   }
 };
-export default Sproc;
+export default Sproc200221;

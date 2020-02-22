@@ -5,17 +5,18 @@ import * as actions from '../actions'
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-  AuthenticateSaga: (user) => dispatch(actions.AuthenticateSaga(user)),
-  ClearAuthenticateError: () => dispatch(actions.ClearAuthenticateError()),
+  AuthenticateSaga: (email,password,route,setSubmittingOff) => dispatch(actions.AuthenticateSaga(email,password,route,setSubmittingOff)),
+  ClearError: () => dispatch(actions.ClearError()),
+  IsSubmitting: (isSubmitting) => dispatch(actions.IsSubmitting(isSubmitting))
   }
 }
 
 function mapStateToProps(state) {
-  const { User } = state
+  const { User,Global } = state
   return {
-    authenticateError: User.authenticateError,
-    authenticateIsSubmitting: User.authenticateIsSubmitting,
-    isAuthenticated: User.isAuthenticated
+    error: Global.error,
+    isAuthenticated: User.isAuthenticated,
+    isSubmitting: Global.isSubmitting
   }
 }
 

@@ -62,19 +62,16 @@ const useStyles = makeStyles(theme => ({
 //https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
 const SignIn = ({
   AuthenticateSaga,
-  LogoutSaga,
-  authenticateError,
-  authenticateIsSubmitting,
-  ClearAuthenticateError,
-  firstName,
-  updateFirstName,
+  ClearError,
+  IsSubmitting,
+  error,
   isAuthenticated,
-  isAdmin
+  isSubmitting
 }) => {
 //  const referer = props.location.state.referer || '/';
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
+//  const [isSubmitionCompleted, setSubmitionCompleted] = useState(isSubmitting);
   const history = useHistory();
 
   const handleClick = () => {
@@ -82,7 +79,7 @@ const SignIn = ({
   };
 
   const handleClose = (event, reason) => {
-    ClearAuthenticateError();
+    ClearError();
     if (reason === 'clickaway') {
       return;
     }
@@ -97,10 +94,8 @@ const SignIn = ({
       initialValues={{ email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values.email);
-        AuthenticateSaga({
-          email: values.email,
-          password: values.password
-        });
+        IsSubmitting(true);
+        AuthenticateSaga(values.email,values.password,"/",true);
 
         /*
       setTimeout(() => {
@@ -184,7 +179,7 @@ const SignIn = ({
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                    disabled={authenticateIsSubmitting}
+                    disabled={isSubmitting}
                   >
                     Sign In
                   </Button>
@@ -199,10 +194,10 @@ const SignIn = ({
                     vertical: 'bottom',
                     horizontal: 'left',
                   }}
-                  open={authenticateError.error}
+                  open={error.error}
                   autoHideDuration={6000}
                   onClose={handleClose}
-                  message={authenticateError.message}
+                  message={error.message}
                   action={
                     <React.Fragment>
                       <Button color="secondary" size="small" onClick={handleClose}>

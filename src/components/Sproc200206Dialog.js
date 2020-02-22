@@ -84,9 +84,9 @@ export default function Sproc200206Dialog(params) {
   const {
     firstDayOfWeek,
     lastDayOfWeek,
-    Push,
     OpenSproc200206Dialog,
-    Sproc200206Create
+    Sproc200206Create,
+    Push
   } = params;
   const classes = useStyles();
   // The first commit of Material-UI
@@ -179,7 +179,7 @@ const handleEndDateChange = date => {
               setSubmitting(false);
             }, 400);
             */
-            Sproc200206Create(start,end);
+            Sproc200206Create(start,end,true,1000,"/table200206",true);
             OpenSproc200206Dialog(false);
 
           }}

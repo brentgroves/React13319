@@ -46,9 +46,11 @@ export default function VisualizationsList(params) {
   const handleSelectOEEClick = () => {
     setOpenSelectOEE(!openSelectOEE);
   };
+  /*
   const handleSproc200206Create = () => {
     Sproc200206Create("2020-02-01T00:00:00","2020-02-07T23:59:00");
   }
+  */
   /*
   const handleSproc200206Dialog = () => {
     Push("/sproc200206params");

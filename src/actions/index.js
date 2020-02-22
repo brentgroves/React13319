@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes'
-
+import * as errorType from '../constants/ErrorType'
+import * as errorSeverity from '../constants/ErrorSeverity'
 
 let nextDS13318Id = 0
 let nextKep13318Id = 0
@@ -15,24 +16,26 @@ export const IsSubmitting = (isSubmitting) => ({
   type: types.IS_SUBMITTING,
   isSubmitting
 })
+export const SetError = (message,type,severity) => ({
+  type: types.SET_ERROR,
+  message,
+  type,
+  severity
+})
+export const ClearError = () => ({
+  type: types.CLEAR_ERROR,
+  message:"",
+  type:errorType.NONE,
+  severity:errorSeverity.NONE
+})
 
 // User Reducer
-export const AuthenticateIsSubmitting = (authenticateIsSubmitting) => ({
-  type: types.AUTHENTICATE_IS_SUBMITTING,
-  authenticateIsSubmitting
-})
-export const AuthenticateSaga = (user) => ({
+export const AuthenticateSaga = (email,password,route,setSubmittingOff) => ({
   type: types.AUTHENTICATE_SAGA,
-  email: user.email,
-  password: user.password
-})
-
-export const SetAuthenticateError = (error) => ({
-  type: types.SET_AUTHENTICATE_ERROR,
-  error: error
-})
-export const ClearAuthenticateError = () => ({
-  type: types.CLEAR_AUTHENTICATE_ERROR
+  email,
+  password,
+  route,
+  setSubmittingOff
 })
 
 export const SetIsAuthenticated = (isAuthenticated) => ({
@@ -68,68 +71,130 @@ export const SetLastName = (lastName) => ({
   lastName
 })
 
-export const LogoutIsSubmitting = (logoutIsSubmitting) => ({
-  type: types.LOGOUT_IS_SUBMITTING,
-  logoutIsSubmitting
-})
 
 export const Logout = () => ({
   type: types.LOGOUT
 })
 
 
-// Sproc Reducer
-export const SetSprocName = (sprocName) => ({
-  type: types.SET_SPROC_NAME,
-  sprocName
+export const Sproc200206Create = (startDate,endDate,fetch,limit,route,setSubmittingOff) => ({
+  type: types.SPROC200206_CREATE,
+  startDate,
+  endDate,
+  fetch,
+  limit,
+  route,
+  setSubmittingOff
 })
 
-export const SetTableName = (tableName) => {
+export const Sproc200206Fetch = (sproc,table,limit,skip,route,setSubmittingOff) => ({
+  type: types.SPROC200206_FETCH,
+  sproc,
+  table,
+  limit,
+  skip,
+  route,
+  setSubmittingOff
+})
+
+
+export const Set200206Sproc = (sproc) => ({
+  type: types.SET_200206_SPROC,
+  sproc
+})
+
+export const Set200206Table = (table) => {
   return  {
-    type: types.SET_TABLE_NAME,
-    tableName
+    type: types.SET_200206_TABLE,
+    table
   }
 }
 
-export const SetQueryTotal = (total) => ({
-  type: types.SET_QUERY_TOTAL,
+export const Set200206Total = (total) => ({
+  type: types.SET_200206_TOTAL,
   total
 })
 
-export const SetQueryLimit = (limit) => ({
-  type: types.SET_QUERY_LIMIT,
+export const Set200206Limit = (limit) => ({
+  type: types.SET_200206_LIMIT,
   limit
 })
 
-export const SetQuerySkip = (skip) => ({
-  type: types.SET_QUERY_SKIP,
+export const Set200206Skip = (skip) => ({
+  type: types.SET_200206_SKIP,
   skip
 })
 
-export const SetQueryData = (data) => ({
-  type: types.SET_QUERY_DATA,
+export const Set200206Data = (data) => ({
+  type: types.SET_200206_DATA,
   data
 })
 
-export const QueryFetch = (sprocName,tableName,limit,skip) => ({
-  type: types.QUERY_FETCH,
+//SAGAS
+export const Sproc200221Create = (startDate,endDate,fetch,limit,route,setSubmittingOff) => ({
+  type: types.SPROC200221_CREATE,
+  startDate,
+  endDate,
+  fetch,
+  limit,
+  route,
+  setSubmittingOff
+})
+
+
+export const Sproc200221Fetch = (sprocName,tableName,limit,skip,route,setSubmittingOff) => ({
+  type: types.SPROC200221_FETCH,
   sprocName,
   tableName,
   limit,
+  skip,
+  route,
+  setSubmittingOff
+})
+
+
+export const Set200221Sproc = (sproc) => ({
+  type: types.SET_200221_SPROC,
+  sproc
+})
+
+export const Set200221Table = (table) => {
+  return  {
+    type: types.SET_200221_TABLE,
+    table
+  }
+}
+
+export const Set200221Total = (total) => ({
+  type: types.SET_200221_TOTAL,
+  total
+})
+
+export const Set200221Limit = (limit) => ({
+  type: types.SET_200221_LIMIT,
+  limit
+})
+
+export const Set200221Skip = (skip) => ({
+  type: types.SET_200221_SKIP,
   skip
 })
 
-export const Sproc200206Create = (startDate,endDate) => ({
-  type: types.SPROC200206_CREATE,
-  startDate,
-  endDate
+export const Set200221Data = (data) => ({
+  type: types.SET_200221_DATA,
+  data
 })
+
+
+
+
 
 // Dialogs
 export const OpenSproc200206Dialog = (open) => ({
   type: types.OPEN_SPROC200206_DIALOG,
   open
 })
+
 
 
 // Obsolete

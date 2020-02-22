@@ -2,50 +2,18 @@ import * as types from '../constants/ActionTypes'
 
 
 const initState = {
-  authenticateIsSubmitting: false,
   isAuthenticated:false,
   isAdmin:false,
   roles:[],
   email:'',
   userName: '',
   firstName:'',
-  lastName:'',
-  authenticateError:{
-    error:false,
-    message:''
-  }
+  lastName:''
 }
 
 
 const User = (state = initState, action) => {
   switch (action.type) {
-    case types.AUTHENTICATE_IS_SUBMITTING:
-    {
-      // Keep a reference to the service object created in sockets initialization code.
-      return Object.assign({}, state, {
-         authenticateIsSubmitting: action.authenticateIsSubmitting
-       })
-    }
-    case types.SET_AUTHENTICATE_ERROR:
-    {
-      // Keep a reference to the service object created in sockets initialization code.
-      return Object.assign({}, state, {
-         authenticateError: {
-           error: true,
-           message: action.error
-         }
-       })
-    }
-    case types.CLEAR_AUTHENTICATE_ERROR:
-    {
-      // Keep a reference to the service object created in sockets initialization code.
-      return Object.assign({}, state, {
-        authenticateError: {
-          error: false,
-          message: ''
-        }
-       })
-    }
     case types.SET_IS_AUTHENTICATED:
     {
       // Keep a reference to the service object created in sockets initialization code.

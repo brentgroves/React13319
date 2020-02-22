@@ -5,7 +5,6 @@ import * as actions from '../actions'
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-  ClearAuthenticateError: () => dispatch(actions.ClearAuthenticateError()),
   Push: (path) => dispatch(actions.Push(path))
   }
 }

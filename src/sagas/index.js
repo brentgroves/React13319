@@ -2,14 +2,20 @@ import { put, takeEvery, all } from "redux-saga/effects";
 import * as types from "../constants/ActionTypes";
 import * as actions from "../actions";
 import { push } from "connected-react-router";
-//import { rcvDS13318, rcvKep13318, isAuthenticated,isAdmin,updateFirstName,SetAuthenticateError,Authen } from '../actions'
+import * as errorType from '../constants/ErrorType'
+import * as errorSeverity from '../constants/ErrorSeverity'
+
 var datetime = require('node-datetime');
+var g_services;
+var g_dispatch;
+
+/*
 var g_test = "Global test";
 var g_services;
 var g_store;
 var g_dispatch;
 var nextTableNumber = 0
-
+*/
 
 /*
 export const handleSignUp = function* handleSignUp({services,dispatch}) {
@@ -40,9 +46,10 @@ function* handlePush(action) {
 }
 
 function* handleAuthenticate(action) {
-  console.log(action);
+  console.log("in handleAuthenticate");
+  console.log(`email : ${action.email}, password: ${action.password}, route: ${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+
   try {
-    g_dispatch(actions.AuthenticateIsSubmitting(true));
     var res = yield g_services.authenticate({
       strategy: "local",
       email: action.email,
@@ -56,70 +63,81 @@ function* handleAuthenticate(action) {
     g_dispatch(actions.SetLastName(res.user.lastName));
     g_dispatch(actions.SetEmail(res.user.email));
     g_dispatch(actions.SetRoles(res.user.roles));
-    g_dispatch(actions.AuthenticateIsSubmitting(false));
-    yield put(push("/"));
+    if(action.setSubmittingOff){
+      g_dispatch(actions.IsSubmitting(false));
+    }
+    if(action.route){
+      yield put(push(action.route));
+    }
   } catch (err) {
-    g_dispatch(actions.SetAuthenticateError(err.message));
+    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
     console.log(err);
-    g_dispatch(actions.AuthenticateIsSubmitting(false));
+    if(action.setSubmittingOff){
+      g_dispatch(actions.IsSubmitting(false));
+    }
   }
 }
 function* handleLogout(action) {
   try {
-    g_dispatch(actions.LogoutIsSubmitting(true));
+    yield put(push("/login"));
     yield g_services.logout();
     g_dispatch(actions.SetIsAuthenticated(false));
-    g_dispatch(actions.LogoutIsSubmitting(false));
   } catch (err) {
     console.log(err);
-    g_dispatch(actions.LogoutIsSubmitting(false));
   }
 }
 
 function* handleSproc200206Create(action) {
   console.log("in handleSproc200206Create");
+  /*
   let dateTime = datetime.create();
   let md = dateTime.format('md');
   let tableNumber = nextTableNumber++;
   let tableName = "rpt" + md + tableNumber;
   console.log(tableName);
-  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}`)
-
+  */
+  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
 
-    g_dispatch(actions.IsSubmitting(true))
+
     // DATA OR PARAM ????
 
     var res = yield g_services.service("sproc200206").create({
-        tableName: tableName,
+//        tableName: tableName,
         startDate: action.startDate,
-        endDate: action.endDate
+        endDate: action.endDate,
+        fetch: action.fetch,
+        limit: action.limit
     });
     console.log(`res: ${res}`);
-    g_dispatch(actions.SetSprocName("sproc200206"));
-    g_dispatch(actions.SetTableName(tableName));
-    g_dispatch(actions.SetQueryTotal(res));
-    g_dispatch(actions.SetQueryLimit(1000));
-    g_dispatch(actions.SetQuerySkip(0));
-    g_dispatch(actions.QueryFetch("sproc200206",tableName,1000,0));
-    yield put(push("/sproc200206"));
-    g_dispatch(actions.IsSubmitting(false));
-
+    g_dispatch(actions.Set200206Sproc("sproc200206"));
+    g_dispatch(actions.Set200206Table(res.table));
+    g_dispatch(actions.Set200206Total(res.record_count));
+    g_dispatch(actions.Set200206Limit(action.limit));
+    g_dispatch(actions.Set200206Skip(0));
+    if(action.fetch){
+      g_dispatch(actions.Sproc200206Fetch("sproc200206",res.table,action.limit,0,action.route,action.setSubmittingOff));
+    }
+    if(!action.fetch&&action.route){
+      yield put(push(action.route));
+    }
+    if(!action.fetch&&action.setSubmittingOff){
+      g_dispatch(actions.IsSubmitting(false));
+    }
   } catch (err) {
     console.log(err);
+    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
-function* handleQueryFetch(action) {
-  g_dispatch(actions.IsSubmitting(true))
-
-  console.log("in handleQueryFetch");
+function* handleSproc200206Fetch(action) {
+  console.log("in handleSproc200206Fetch");
 //  const {Sproc} = g_store;
-  console.log(`sprocName: ${action.sprocName}, limit: ${action.limit},skip: ${action.skip}, tableName: ${action.tableName}`);
+  console.log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
   try {
-    var res = yield g_services.service(action.sprocName).find({
+    var res = yield g_services.service(action.sproc).find({
       query: {
-        $tableName: action.tableName,
+        $table: action.table,
         $limit: action.limit,
         $skip: action.skip,
         $sort: {
@@ -131,12 +149,17 @@ function* handleQueryFetch(action) {
 //    g_dispatch(actions.SetQueryTotal(res.total));
   //  g_dispatch(actions.SetQueryLimit(res.limit));
 //    g_dispatch(actions.SetQuerySkip(res.skip));
-    g_dispatch(actions.SetQueryData(res));
-    g_dispatch(actions.SetQuerySkip(action.skip))
-    g_dispatch(actions.IsSubmitting(false))
+    g_dispatch(actions.Set200206Data(res));
+    g_dispatch(actions.Set200206Skip(action.skip))
+    if(action.route){
+      yield put(push(action.route));
+    }
+    if(action.setSubmittingOff){
+      g_dispatch(actions.IsSubmitting(false));
+    }
   } catch (err) {
     console.log(err);
-    g_dispatch(actions.IsSubmitting(false))
+    g_dispatch(actions.SetError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
@@ -181,10 +204,10 @@ function* watchSproc200206Create(){
     );
 }
 
-function* watchQueryFetch(){
+function* watchSproc200206Fetch(){
   yield takeEvery(
-    types.QUERY_FETCH,
-    handleQueryFetch
+    types.SPROC200206_FETCH,
+    handleSproc200206Fetch
   )
 }
 
@@ -199,7 +222,7 @@ export default function* rootSaga() {
     watchAuthenticate(),
     watchLogout(),
     watchSproc200206Create(),
-    watchQueryFetch()
+    watchSproc200206Fetch()
     //    handleReAuthenticate()
   ]);
 }

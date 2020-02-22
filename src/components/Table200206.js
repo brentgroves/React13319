@@ -16,12 +16,12 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 
-var g_sprocName;
-var g_tableName;
+var g_sproc;
+var g_table;
 var g_total;
 var g_limit;
 var g_skip;
-var g_QueryFetch;
+var g_Sproc200206Fetch;
 var g_firstPage;
 var g_firstBuffPage;
 var g_lastBuffPage;
@@ -41,14 +41,14 @@ function TablePaginationActions(props) {
 
   const handleFirstPageButtonClick = event => {
     if(g_skip>0){
-      g_QueryFetch(g_sprocName,g_tableName,g_limit,0);
+      g_Sproc200206Fetch(g_sproc,g_table,g_limit,0,'',false);
     }
     onChangePage(event, 0);
   };
 
   const handleBackButtonClick = event => {
     if(page==g_firstBuffPage){
-      g_QueryFetch(g_sprocName,g_tableName,g_limit,g_skip-g_limit);
+      g_Sproc200206Fetch(g_sproc,g_table,g_limit,g_skip-g_limit,'',false);
     }
     onChangePage(event,page-1);
   };
@@ -56,14 +56,14 @@ function TablePaginationActions(props) {
   const handleNextButtonClick = event => {
     if(page==g_lastBuffPage){
       console.log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`)
-      g_QueryFetch(g_sprocName,g_tableName,g_limit,g_skip+g_limit);
+      g_Sproc200206Fetch(g_sproc,g_table,g_limit,g_skip+g_limit,'',false);
     }
     onChangePage(event, page + 1);
   };
 
   const handleLastPageButtonClick = event => {
     if(g_skip<(g_total-g_limit)){
-      g_QueryFetch(g_sprocName,g_tableName,g_limit,g_total-g_limit);
+      g_Sproc200206Fetch(g_sproc,g_table,g_limit,g_total-g_limit,'',false);
     }
     onChangePage(event, g_lastPage);
   };
@@ -117,13 +117,13 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function Sproc200206({ isAuthenticated,sprocName,tableName,total, limit, skip, data, Push, QueryFetch }) {
-  g_sprocName=sprocName;
-  g_tableName=tableName;
+export default function Table200206({ isAuthenticated,sproc,table,total, limit, skip, data, Push, Sproc200206Fetch }) {
+  g_sproc=sproc;
+  g_table=table;
   g_total=total;
   g_limit=limit;
   g_skip=skip;
-  g_QueryFetch=QueryFetch;
+  g_Sproc200206Fetch=Sproc200206Fetch;
   useEffect(() => {
     // Update the document title using the browser API
     //document.title = `You clicked ${count} times`;
