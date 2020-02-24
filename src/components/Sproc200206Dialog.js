@@ -88,8 +88,9 @@ export default function Sproc200206Dialog(params) {
     firstDayOfWeek,
     lastDayOfWeek,
     OpenSproc200206Dialog,
-    Sproc200206Create,
-    Sproc200221Create,
+    View200206,
+//    Sproc200206Create,
+//    Sproc200221Create,
     Push,
     SetAppError,
     Submitting,
@@ -181,8 +182,9 @@ const handleEndDateChange = date => {
               SetAppError("Start date should be before end date.",errorType.DATE,errorSeverity.LOW);
 
             }else{
-              Sproc200221Create(start,end,true,1000,"",false);
-              Sproc200206Create(start,end,true,1000,"/table200206",true);
+              View200206(start,end,1000,"/table200206",true);
+//              Sproc200221Create(start,end,true,1000,"",false);
+  //            Sproc200206Create(start,end,true,1000,"/table200206",true);
               OpenSproc200206Dialog(false);
             }
             Submitting(false);

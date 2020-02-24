@@ -30,11 +30,9 @@ import TableRow from '@material-ui/core/TableRow';
 import {VisualizationsList} from '../containers/VisualizationsList';
 import { BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
   XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList } from 'recharts';
-import BarChartEx  from "./BarChartEx";
-import LineChartEx from "./LineChartEx";
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
-//import Deposits from "./Deposits";
+
+
+
 
 //import Chart from './Chart';
 //import Deposits from './Deposits';
@@ -117,15 +115,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   fixedHeight: {
-    height: 300
-  },
-  bullet: {
-  display: 'inline-block',
-  margin: '0 2px',
-  transform: 'scale(0.8)',
-},
-  instructions: {
-    padding:14
+    height: 240
   }
 }));
 
@@ -201,38 +191,25 @@ export default function Recharts({ isAuthenticated, isAdmin,pathname, Push, Logo
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const chart = clsx(classes.paper);
-  const instructions = clsx(classes.paper, classes.instructions);
-    const bull = <span className={classes.bullet}>•</span>;
   return (
-    <Container maxWidth="lg" className={classes.container}>
-         <Grid container spacing={3}>
-           {/* Chart */}
-           <Grid item xs={12} md={5} lg={5} >
-             <Paper className={chart}>
-             <LineChartEx />
-             </Paper>
-           </Grid>
-           <Grid item xs={12} md={7} lg={7}>
-             <Paper className={chart}>
-               <BarChartEx />
-             </Paper>
-           </Grid>
-           <Grid item xs={12}>
-             <Paper >
-             <AppBar position="static">
-               <Toolbar>
-               <PlayCircleFilledWhiteIcon style={{ fontSize: 40 }}/>
-                 <Typography variant="h6" className={instructions}>
-                   To start select a report from the left-hand side menu.
-                 </Typography>
-               </Toolbar>
-             </AppBar>
-             </Paper>
-           </Grid>
-         </Grid>
-       </Container>
+    <Grid container spacing={3}>
+      {/* Chart */}
+      {/* Recent Orders */}
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+        <BarChart width={1100} height={250} barGap={2} barSize={6} data={data02} margin={{ top: 20, right: 60, bottom: 0, left: 20 }}>
+          <XAxis dataKey="name" />
+          <YAxis tickCount={7} />
+          <Tooltip />
+          <CartesianGrid />
+          <Bar dataKey="uv" fill="#ff7300" radius={[5, 5, 5, 5]} />
+          <Bar dataKey="pv" fill="#387908" radius={[5, 5, 5, 5]} />
+          <Brush dataKey="name" height={30} />
+          <ReferenceLine type="horizontal" value={0} stroke="#666" />
+        </BarChart>
+        </Paper>
+      </Grid>
 
-
+    </Grid>
   );
 }

@@ -13,7 +13,6 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
 
 // PROBLEM WITH COLLAPSE SUB LIST AND FIREFOX
 // WAIT FOR NEW VERSION OF MATERIAL-UI WHICH HAS NESTE LIST-ITEM COMPONENT
@@ -31,16 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function VisualizationsList(params) {
-  const {
-    isAuthenticated,
-    isAdmin,
-    firstDayOfWeek,
-    lastDayOfWeek,
-    Push,
-    OpenSproc200206Dialog,
-    View200206,
-    Submitting,
-    } = params;
+  const { isAuthenticated, isAdmin, Push, OpenSproc200206Dialog,Sproc200206Create  } = params;
   const classes = useStyles();
   const [openAdHocOEE, setOpenAdHocOEE] = React.useState(true);
   const [openFixedOEE, setOpenFixedOEE] = React.useState(true);
@@ -69,11 +59,6 @@ export default function VisualizationsList(params) {
   const handleSproc200206Dialog = () => {
     OpenSproc200206Dialog(true);
   }
-  const handleSproc200206LastWeeksView = () => {
-    Submitting(true);
-    View200206(firstDayOfWeek,lastDayOfWeek,1000,"/view200206LastWeeks",true);
-
-  }
 
   return (
     <List>
@@ -86,14 +71,45 @@ export default function VisualizationsList(params) {
       <ListItemText primary="OEE by Part" />
       </ListItem >
     <Divider />
-    <ListSubheader>This Week's</ListSubheader>
+    <ListSubheader>Fixed</ListSubheader>
     <Divider />
-    <ListItem button onClick={handleSproc200206LastWeeksView}>
+    <ListItem button onClick={handleFixedOEEClick}>
     <ListItemIcon>
-      <GroupWorkIcon />
+      <SendIcon />
     </ListItemIcon>
-    <ListItemText primary="OEE by Part" />
+      <ListItemText primary="Previous Week" />
+      {openFixedOEE ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
+    <Collapse in={openFixedOEE} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={classes.nested}  >
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText primary="OEE by Part" />
+        </ListItem>
+      </List>
+    </Collapse>
+    <Divider />
+    <ListSubheader>Select</ListSubheader>
+    <Divider />
+    <ListItem button onClick={handleSelectOEEClick}>
+    <ListItemIcon>
+      <SendIcon />
+    </ListItemIcon>
+      <ListItemText primary="Previous Week" />
+      {openSelectOEE ? <ExpandLess /> : <ExpandMore />}
+    </ListItem>
+    <Collapse in={openSelectOEE} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={classes.nested}  >
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText primary="OEE by Part" />
+        </ListItem>
+      </List>
+    </Collapse>
     </List>
   );
 }

@@ -76,6 +76,15 @@ export const Logout = () => ({
   type: types.LOGOUT
 })
 
+export const View200206 = (startDate,endDate,limit,route,setSubmittingOff) => ({
+  type: types.VIEW_200206,
+  startDate,
+  endDate,
+  limit,
+  route,
+  setSubmittingOff
+})
+
 
 export const Sproc200206Create = (startDate,endDate,fetch,limit,route,setSubmittingOff) => ({
   type: types.SPROC200206_CREATE,

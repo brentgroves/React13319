@@ -87,6 +87,69 @@ function* handleLogout(action) {
     console.log(err);
   }
 }
+
+function* handleView200206(action) {
+  console.log("in handleView200206");
+  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  try {
+    var res1 = yield g_services.service("sproc200206").create({
+//        tableName: tableName,
+        startDate: action.startDate,
+        endDate: action.endDate
+    });
+    console.log(`res1: ${res1}`);
+    g_dispatch(actions.Set200206Sproc("sproc200206"));
+    g_dispatch(actions.Set200206Table(res1.table));
+    g_dispatch(actions.Set200206Total(res1.record_count));
+    g_dispatch(actions.Set200206Limit(action.limit));
+    g_dispatch(actions.Set200206Skip(0));
+    var res2 = yield g_services.service("sproc200206").find({
+      query: {
+        $table: res1.table,
+        $limit: action.limit,
+        $skip: 0
+      }
+    });
+//    console.log(res);
+    g_dispatch(actions.Set200206Data(res2));
+    var res3 = yield g_services.service("sproc200221").create({
+//        tableName: tableName,
+        startDate: action.startDate,
+        endDate: action.endDate
+    });
+    console.log(`res3: ${res3}`);
+    g_dispatch(actions.Set200221Sproc("sproc200221"));
+    g_dispatch(actions.Set200221Table(res3.table));
+    g_dispatch(actions.Set200221Total(res3.record_count));
+    g_dispatch(actions.Set200221Limit(action.limit));
+    g_dispatch(actions.Set200221Skip(0));
+
+    var res4 = yield g_services.service("sproc200221").find({
+      query: {
+        $table: res3.table,
+        $limit: action.limit,
+        $skip: 0
+      }
+    });
+    console.log(res4);
+//    g_dispatch(actions.SetQueryTotal(res.total));
+  //  g_dispatch(actions.SetQueryLimit(res.limit));
+//    g_dispatch(actions.SetQuerySkip(res.skip));
+    g_dispatch(actions.Set200221Data(res4));
+
+    if(action.route){
+      yield put(push(action.route));
+    }
+    if(action.setSubmittingOff){
+      g_dispatch(actions.Submitting(false));
+    }
+//    var error = new Error("The error message");
+  } catch (err) {
+    console.log(err);
+    g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
+  }
+}
+
 function* handleSproc200206Create(action) {
   console.log("in handleSproc200206Create");
   console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
@@ -104,6 +167,7 @@ function* handleSproc200206Create(action) {
     g_dispatch(actions.Set200206Total(res.record_count));
     g_dispatch(actions.Set200206Limit(action.limit));
     g_dispatch(actions.Set200206Skip(0));
+
     if(action.fetch){
       g_dispatch(actions.Sproc200206Fetch("sproc200206",res.table,action.limit,0,action.route,action.setSubmittingOff));
     }
@@ -281,6 +345,13 @@ function* watchSproc200221Fetch(){
   )
 }
 
+function* watchView200206(){
+  yield takeEvery(
+    types.VIEW_200206,
+    handleView200206
+  )
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
@@ -290,6 +361,7 @@ export default function* rootSaga() {
     watchPush(),
     watchAuthenticate(),
     watchLogout(),
+    watchView200206(),
     watchSproc200206Create(),
     watchSproc200206Fetch(),
     watchSproc200221Create(),

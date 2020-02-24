@@ -29,6 +29,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { VisualizationsList } from "../containers/VisualizationsList";
 import { Sproc200206View } from "../containers/Sproc200206View";
+import { View200206LastWeeks } from "../containers/View200206LastWeeks";
 import { Dialogs } from "../containers/Dialogs";
 import { Recharts } from "../containers/Recharts";
 import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
@@ -235,6 +236,7 @@ export default function App({
         <Container maxWidth="lg" className={classes.container}>
               <Switch>
                 <Route exact path="/table200206" component={Sproc200206View} />
+                <Route exact path="/view200206LastWeeks" component={View200206LastWeeks} />
                 <Route exact path="/" component={Recharts} />
                 <Route path="/login" component={SignIn} />
               </Switch>

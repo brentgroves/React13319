@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import { Table200206 } from "../containers/Table200206";
+import { Table200206LastWeeks } from "../containers/Table200206LastWeeks";
 import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
 import { BarChartDownTime200221 } from "../containers/BarChartDownTime200221";
 
@@ -87,9 +87,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Sproc200206View(params) {
+export default function View200206LastWeeks(params) {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
   return (
     <Grid container spacing={3}>
       {/* Chart */}
@@ -106,7 +107,7 @@ export default function Sproc200206View(params) {
       </Grid>
       {/* Recent Orders */}
       <Grid item xs={12}>
-            <Table200206 />
+            <Table200206LastWeeks />
       </Grid>
     </Grid>
   );
