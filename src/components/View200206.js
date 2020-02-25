@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { Table200206 } from "../containers/Table200206";
-import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
-import { BarChartDownTime200221 } from "../containers/BarChartDownTime200221";
+import { BarChart200221Scrap } from "../containers/BarChart200221Scrap";
+import { BarChart200221DownTime } from "../containers/BarChart200221DownTime";
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -87,21 +87,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Sproc200206View(params) {
+
+export default function View200206(params) {
+  const {Push,total} = params;
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  useEffect(() => {
+    // Update the document title using the browser API
+    //document.title = `You clicked ${count} times`;
+    if (total==0) {
+      Push("/");
+    }
+  });
   return (
     <Grid container spacing={3}>
       {/* Chart */}
       <Grid item xs={12} md={6} lg={6}>
       <Paper className={fixedHeightPaper}>
-      <BarChartScrap200221 />
+      <BarChart200221Scrap />
       </Paper>
       </Grid>
       {/* Recent Deposits */}
       <Grid item xs={12} md={6} lg={6}>
       <Paper className={fixedHeightPaper}>
-      <BarChartDownTime200221 />
+      <BarChart200221DownTime />
       </Paper>
       </Grid>
       {/* Recent Orders */}

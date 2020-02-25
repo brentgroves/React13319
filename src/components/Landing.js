@@ -28,11 +28,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {VisualizationsList} from '../containers/VisualizationsList';
-import {ResponsiveContainer, BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
+import { BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
   XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList } from 'recharts';
-
-
-
+import BarChartLanding  from "./BarChartLanding";
+import LineChartLanding from "./LineChartLanding";
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+//import Deposits from "./Deposits";
 
 //import Chart from './Chart';
 //import Deposits from './Deposits';
@@ -115,11 +117,19 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   fixedHeight: {
-    height: 240
+    height: 300
+  },
+  bullet: {
+  display: 'inline-block',
+  margin: '0 2px',
+  transform: 'scale(0.8)',
+},
+  instructions: {
+    padding:14
   }
 }));
 
-const data1 = [
+const data = [
   { name: 'food', uv: 2000, pv: 2013, amt: 4500, time: 1, uvError: [100, 50], pvError: [110, 20] },
   { name: 'cosmetic', uv: 3300, pv: 2000, amt: 6500, time: 2, uvError: 120, pvError: 50 },
   { name: 'storage', uv: 3200, pv: 1398, amt: 5000, time: 3, uvError: [120, 80], pvError: [200, 100] },
@@ -187,21 +197,42 @@ const data02 = [
   { name: '201511', uv: 3.27, pv: 6.74 },
 ];
 
-export default function BarCharDownTime200221({ data }) {
+export default function Landing({ isAuthenticated, isAdmin,pathname, Push, Logout }) {
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const chart = clsx(classes.paper);
+  const instructions = clsx(classes.paper, classes.instructions);
+    const bull = <span className={classes.bullet}>•</span>;
   return (
-    <ResponsiveContainer width={500} height={175}>
+    <Container maxWidth="lg" className={classes.container}>
+         <Grid container spacing={3}>
+           {/* Chart */}
+           <Grid item xs={12} md={5} lg={5} >
+             <Paper className={chart}>
+             <LineChartLanding />
+             </Paper>
+           </Grid>
+           <Grid item xs={12} md={7} lg={7}>
+             <Paper className={chart}>
+               <BarChartLanding />
+             </Paper>
+           </Grid>
+           <Grid item xs={12}>
+             <Paper >
+             <AppBar position="static">
+               <Toolbar>
+               <PlayCircleFilledWhiteIcon style={{ fontSize: 40 }}/>
+                 <Typography variant="h6" className={instructions}>
+                   To start select a report from the left-hand side menu.
+                 </Typography>
+               </Toolbar>
+             </AppBar>
+             </Paper>
+           </Grid>
+         </Grid>
+       </Container>
 
-        <BarChart width={730} height={250} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="part_number" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="downtime_minutes" fill="#ffc658" />
-        </BarChart>
-        </ResponsiveContainer>
+
   );
 }

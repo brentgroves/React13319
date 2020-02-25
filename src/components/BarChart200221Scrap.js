@@ -28,7 +28,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {VisualizationsList} from '../containers/VisualizationsList';
-import { BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
+import {ResponsiveContainer, BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
   XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList } from 'recharts';
 
 
@@ -119,7 +119,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const data = [
+const data1 = [
   { name: 'food', uv: 2000, pv: 2013, amt: 4500, time: 1, uvError: [100, 50], pvError: [110, 20] },
   { name: 'cosmetic', uv: 3300, pv: 2000, amt: 6500, time: 2, uvError: 120, pvError: 50 },
   { name: 'storage', uv: 3200, pv: 1398, amt: 5000, time: 3, uvError: [120, 80], pvError: [200, 100] },
@@ -187,29 +187,22 @@ const data02 = [
   { name: '201511', uv: 3.27, pv: 6.74 },
 ];
 
-export default function Recharts({ isAuthenticated, isAdmin,pathname, Push, Logout }) {
+export default function BarChart200221Scrap({ data }) {
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
-    <Grid container spacing={3}>
-      {/* Chart */}
-      {/* Recent Orders */}
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-        <BarChart width={1100} height={250} barGap={2} barSize={6} data={data02} margin={{ top: 20, right: 60, bottom: 0, left: 20 }}>
-          <XAxis dataKey="name" />
-          <YAxis tickCount={7} />
-          <Tooltip />
-          <CartesianGrid />
-          <Bar dataKey="uv" fill="#ff7300" radius={[5, 5, 5, 5]} />
-          <Bar dataKey="pv" fill="#387908" radius={[5, 5, 5, 5]} />
-          <Brush dataKey="name" height={30} />
-          <ReferenceLine type="horizontal" value={0} stroke="#666" />
-        </BarChart>
-        </Paper>
-      </Grid>
+    <ResponsiveContainer width={500} height={175}>
 
-    </Grid>
+        <BarChart width={730} height={250} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="part_number" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="actual_vrs_planned_percent" fill="#82ca9d" />
+          <Bar dataKey="scrap_percent" fill="#8884d8" />
+        </BarChart>
+        </ResponsiveContainer>
   );
 }

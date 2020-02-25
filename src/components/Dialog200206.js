@@ -25,7 +25,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import * as errorType from '../constants/ErrorType'
 import * as errorSeverity from '../constants/ErrorSeverity'
-
+import { log } from "../utils/log";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -83,11 +83,11 @@ const DatePickerField = ({ field, form, ...other }) => {
   );
 };
 
-export default function Sproc200206Dialog(params) {
+export default function Dialog200206(params) {
   const {
     firstDayOfWeek,
     lastDayOfWeek,
-    OpenSproc200206Dialog,
+    OpenDialog200206,
     View200206,
 //    Sproc200206Create,
 //    Sproc200221Create,
@@ -119,20 +119,21 @@ const handleEndDateChange = date => {
   };
 
   const handleClose = () => {
-    OpenSproc200206Dialog(false);
+    Push("/");
+    OpenDialog200206(false);
   };
   /*
   const handleSubmit = () => {
-  //  console.log(startDate);
+  //  log(startDate);
   let sd = new Date(startDate);
   let start = format(sd, "yyyy-MM-dd'T00:00:00'")
-  console.log(start);
+  log(start);
   let ed = new Date(endDate);
   let end = format(ed, "yyyy-MM-dd'T23:59:59'")
-  console.log(end);
+  log(end);
 
-//    console.log(selectedDate);
-//    console.log(format(selectedDate, "yyyy-MM-dd'T00:00:00'"));
+//    log(selectedDate);
+//    log(format(selectedDate, "yyyy-MM-dd'T00:00:00'"));
     //Sproc200206Create("2020-02-01T00:00:00","2020-02-07T23:59:00");
 
 //    Sproc200206Create(selectedDate);
@@ -154,14 +155,14 @@ const handleEndDateChange = date => {
         <Formik
           initialValues={{ startDate: firstDayOfWeek, endDate: lastDayOfWeek }}
           onSubmit={(values, { setSubmitting }) => {
-            //console.log(values.email);
+            //log(values.email);
             /*
       let sd = new Date(startDate);
       let start = format(sd, "yyyy-MM-dd'T00:00:00'")
-      console.log(start);
+      log(start);
       let ed = new Date(endDate);
       let end = format(ed, "yyyy-MM-dd'T23:59:59'")
-      console.log(end);
+      log(end);
 
       AuthenticateSaga({
         email: values.email,
@@ -171,10 +172,10 @@ const handleEndDateChange = date => {
             Submitting(true);
             let sd = new Date(values.startDate);
             let start = format(sd, "yyyy-MM-dd'T00:00:00'")
-            console.log(start);
+            log(start);
             let ed = new Date(values.endDate);
             let end = format(ed, "yyyy-MM-dd'T23:59:59'")
-            console.log(end);
+            log(end);
             //Compare the two dates and return 1 if the first date is after the second,
             // -1 if the first date is before the second or 0 if dates are equal.
             if (-1==compareAsc(ed, sd)){
@@ -182,10 +183,10 @@ const handleEndDateChange = date => {
               SetAppError("Start date should be before end date.",errorType.DATE,errorSeverity.LOW);
 
             }else{
-              View200206(start,end,1000,"/table200206",true);
+              View200206(start,end,1000,"/view200206",true);
 //              Sproc200221Create(start,end,true,1000,"",false);
   //            Sproc200206Create(start,end,true,1000,"/table200206",true);
-              OpenSproc200206Dialog(false);
+              OpenDialog200206(false);
             }
             Submitting(false);
 

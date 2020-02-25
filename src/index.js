@@ -23,6 +23,7 @@ import { ConnectedRouter } from 'connected-react-router'
 
 export const history = createBrowserHistory()
 
+
 async function main(){
 
   const sagaMiddleware = createSagaMiddleware()

@@ -1,22 +1,24 @@
 import { connect } from "react-redux";
-import View200206LastWeeksComponent from "../components/View200206LastWeeks";
+import View200206Component from "../components/View200206";
 import * as actions from '../actions'
 
 function mapStateToProps(state) {
-  const { User } = state
+  const { User, Sproc200206 } = state
   return {
     isAuthenticated: User.isAuthenticated,
+    total: Sproc200206.total,
     isAdmin: User.isAdmin
   }
 }
+
 
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     Push: (path) => dispatch(actions.Push(path)),
-    OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open))
+    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open))
   }
 }
 
 
-export const View200206LastWeeks = connect(mapStateToProps, mapDispatchToProps)(View200206LastWeeksComponent)
+export const View200206 = connect(mapStateToProps, mapDispatchToProps)(View200206Component)

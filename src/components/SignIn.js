@@ -25,6 +25,7 @@ import CloseIcon from '@material-ui/icons/Close';
 //import { useForm } from 'react-hook-form'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { log } from "../utils/log";
 
 function Copyright() {
   return (
@@ -93,7 +94,8 @@ const SignIn = ({
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values.email);
+        log(`process.env.NODE_ENV=${process.env.NODE_ENV}`)
+        log(values.email);
         Submitting(true);
         AuthenticateSaga(values.email,values.password,"/",true);
 

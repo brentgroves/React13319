@@ -2,10 +2,12 @@
 import * as types from '../constants/ActionTypes'
 import * as actions from '../actions'
 import {setSAGA} from '../sagas'
+import { log } from "../utils/log";
 const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client')
 const io = require('socket.io-client');
 const auth = require('@feathersjs/authentication-client');
+
 
 //const io = require('socket.io-client');
 //const feathers = require('@feathersjs/feathers');
@@ -53,10 +55,10 @@ client.configure(feathers.authentication({
 const setupServices = async (dispatch) => {
   //const socket = new WebSocket('ws://localhost:8989')
   //const socket = io('http://localhost:3030');
-  console.log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`);
+  log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`);
 
   const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
-  console.log(`connectionString: ${connectionString}`);
+  log(`connectionString: ${connectionString}`);
   const socket = io(connectionString);
 
 //  const socket = io('http://10.1.0.100:3030');
@@ -119,8 +121,8 @@ cchaudry@buschegroup.com/!@TIS$iYURtx
   }).then(async (res) => {
     // Logged in
     //const { user } = await srv.get('authentication');
-console.log('created user!')
-//    console.log(res.user.isAdmin);
+log('created user!')
+//    log(res.user.isAdmin);
   //  consollocalhoste.log(res.user.userName);
     // Gets the authenticated accessToken (JWT)
     //const { accessToken } = await app.get('authentication');
@@ -141,8 +143,8 @@ await srv.authenticate({
   // Logged in
   //const { user } = await srv.get('authentication');
 
-  console.log(res.user.isAdmin);
-  console.log(res.user.userName);
+  log(res.user.isAdmin);
+  log(res.user.userName);
   // Gets the authenticated accessToken (JWT)
   //const { accessToken } = await app.get('authentication');
 //  dispatch(addUserName(res.user.userName))
@@ -156,11 +158,11 @@ await srv.authenticate({
 });
 */
 
-console.log('Before reAuthenticate')
+log('Before reAuthenticate')
 
 await srv.reAuthenticate().then((res) => {
-console.log('In reAuthenticate')
-console.log(res.user)
+log('In reAuthenticate')
+log(res.user)
 dispatch(actions.SetIsAuthenticated(true));
 dispatch(actions.SetIsAdmin(res.user.isAdmin));
 dispatch(actions.SetUserName(res.user.userName));

@@ -14,6 +14,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import { log } from "../utils/log";
 
 // PROBLEM WITH COLLAPSE SUB LIST AND FIREFOX
 // WAIT FOR NEW VERSION OF MATERIAL-UI WHICH HAS NESTE LIST-ITEM COMPONENT
@@ -36,8 +37,10 @@ export default function VisualizationsList(params) {
     isAdmin,
     firstDayOfWeek,
     lastDayOfWeek,
+    firstDayOfMonth,
+    lastDayOfMonth,
     Push,
-    OpenSproc200206Dialog,
+    OpenDialog200206,
     View200206,
     Submitting,
     } = params;
@@ -47,13 +50,17 @@ export default function VisualizationsList(params) {
   const [openSelectOEE, setOpenSelectOEE] = React.useState(true);
 
   const handleAdHocOEEClick = () => {
+    log("In handleAdHocOEEClick")
+    Push("/");
     setOpenAdHocOEE(!openAdHocOEE);
   };
 
   const handleFixedOEEClick = () => {
+        Push("/");
     setOpenFixedOEE(!openFixedOEE);
   };
   const handleSelectOEEClick = () => {
+    Push("/");
     setOpenSelectOEE(!openSelectOEE);
   };
   /*
@@ -66,12 +73,20 @@ export default function VisualizationsList(params) {
     Push("/sproc200206params");
   }
   */
-  const handleSproc200206Dialog = () => {
-    OpenSproc200206Dialog(true);
+  const handleView200206AdHoc = () => {
+    Push("/transition")
+    OpenDialog200206(true);
   }
-  const handleSproc200206LastWeeksView = () => {
+  const handleView200206ThisWeek = () => {
+    Push("/transition")
     Submitting(true);
-    View200206(firstDayOfWeek,lastDayOfWeek,1000,"/view200206LastWeeks",true);
+    View200206(firstDayOfWeek,lastDayOfWeek,1000,"/view200206",true);
+
+  }
+  const handleView200206ThisMonth = () => {
+    Push("/transition")
+    Submitting(true);
+    View200206(firstDayOfMonth,lastDayOfMonth,1000,"/view200206",true);
 
   }
 
@@ -79,16 +94,16 @@ export default function VisualizationsList(params) {
     <List>
     <ListSubheader>Ad-Hoc</ListSubheader>
     <Divider />
-    <ListItem button onClick={handleSproc200206Dialog}>
+    <ListItem button onClick={handleView200206AdHoc}>
       <ListItemIcon>
         <SendIcon />
       </ListItemIcon>
       <ListItemText primary="OEE by Part" />
       </ListItem >
     <Divider />
-    <ListSubheader>This Week's</ListSubheader>
+    <ListSubheader>This Week</ListSubheader>
     <Divider />
-    <ListItem button onClick={handleSproc200206LastWeeksView}>
+    <ListItem button onClick={handleView200206ThisWeek}>
     <ListItemIcon>
       <GroupWorkIcon />
     </ListItemIcon>
@@ -97,6 +112,19 @@ export default function VisualizationsList(params) {
     </List>
   );
 }
+/*
+NOT IMPLEMENTED
+<Divider />
+<ListSubheader>This Month</ListSubheader>
+<Divider />
+<ListItem button onClick={handleView200206ThisMonth}>
+<ListItemIcon>
+  <GroupWorkIcon />
+</ListItemIcon>
+<ListItemText primary="OEE by Part" />
+</ListItem>
+
+*/
 
 /*
 export default function Dashboard({ isAuthenticated, isAdmin, Push }) {

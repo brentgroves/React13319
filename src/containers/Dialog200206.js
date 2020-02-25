@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Sproc200206DialogComponent from "../components/Sproc200206Dialog";
+import Dialog200206Component from "../components/Dialog200206";
 import * as actions from '../actions'
 
 function mapStateToProps(state) {
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open)),
+    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open)),
     View200206: (startDate,endDate,limit,route,setSubmittingOff) => dispatch(actions.View200206(startDate,endDate,limit,route,setSubmittingOff)),
 //    Sproc200206Create: (startDate,endDate,fetch,limit,route,setSubmittingOff) => dispatch(actions.Sproc200206Create(startDate,endDate,fetch,limit,route,setSubmittingOff)),
   //  Sproc200221Create: (startDate,endDate,fetch,limit,route,setSubmittingOff) => dispatch(actions.Sproc200221Create(startDate,endDate,fetch,limit,route,setSubmittingOff)),
@@ -25,4 +25,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const Sproc200206Dialog = connect(mapStateToProps, mapDispatchToProps)(Sproc200206DialogComponent)
+export const Dialog200206 = connect(mapStateToProps, mapDispatchToProps)(Dialog200206Component)

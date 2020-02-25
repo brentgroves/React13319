@@ -8,7 +8,9 @@ function mapStateToProps(state) {
     isAuthenticated: User.isAuthenticated,
     isAdmin: User.isAdmin,
     firstDayOfWeek: Global.firstDayOfWeek,
-    lastDayOfWeek: Global.lastDayOfWeek
+    lastDayOfWeek: Global.lastDayOfWeek,
+    firstDayOfMonth: Global.firstDayOfMonth,
+    lastDayOfMonth: Global.lastDayOfMonth
 
   }
 }
@@ -19,7 +21,7 @@ const mapDispatchToProps = dispatch => {
     Push: (path) => dispatch(actions.Push(path)),
     View200206: (startDate,endDate,limit,route,setSubmittingOff) => dispatch(actions.View200206(startDate,endDate,limit,route,setSubmittingOff)),
     Submitting: (submitting) => dispatch(actions.Submitting(submitting)),
-    OpenSproc200206Dialog: (open) => dispatch(actions.OpenSproc200206Dialog(open))
+    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open))
   }
 }
 

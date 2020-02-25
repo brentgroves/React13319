@@ -15,6 +15,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import { log } from "../utils/log";
 
 var g_sproc;
 var g_table;
@@ -55,7 +56,7 @@ function TablePaginationActions(props) {
 
   const handleNextButtonClick = event => {
     if(page==g_lastBuffPage){
-      console.log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`)
+      log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`)
       g_Sproc200206Fetch(g_sproc,g_table,g_limit,g_skip+g_limit,'',false);
     }
     onChangePage(event, page + 1);
@@ -161,7 +162,7 @@ export default function Table200206({ isAuthenticated,sproc,table,total, limit, 
     g_lastBuffPage=g_firstBuffPage + Math.max(0,Math.ceil(data.length/rpp)-1);
     g_lastPage = Math.max(0, Math.ceil(g_total / rpp) - 1); // 0 based pages,
     setPage(g_firstBuffPage);
-    console.log(`g_firstBuffPage: ${g_firstBuffPage},g_lastBuffPage:${g_lastBuffPage},g_lastPage:${g_lastPage}`)
+    log(`g_firstBuffPage: ${g_firstBuffPage},g_lastBuffPage:${g_lastBuffPage},g_lastPage:${g_lastPage}`)
   };
 
   return (

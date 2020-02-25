@@ -40,7 +40,7 @@ export const SET_200221_DATA = 'SET_200221_DATA'
 
 
 // Dialogs
-export const OPEN_SPROC200206_DIALOG = 'OPEN_SPROC200206_DIALOG'
+export const OPEN_DIALOG_200206 = 'OPEN_DIALOG_200206'
 
 
 // Obsolete

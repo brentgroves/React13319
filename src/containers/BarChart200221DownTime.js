@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import BarChartDownTime200221Component from "../components/BarChartDownTime200221";
+import BarChart200221DownTimeComponent from "../components/BarChart200221DownTime";
 import * as actions from '../actions'
 
 function mapStateToProps(state) {
@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const BarChartDownTime200221 = connect(mapStateToProps, mapDispatchToProps)(BarChartDownTime200221Component)
+export const BarChart200221DownTime = connect(mapStateToProps, mapDispatchToProps)(BarChart200221DownTimeComponent)

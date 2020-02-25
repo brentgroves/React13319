@@ -19,7 +19,7 @@ const TABLE_LIST = [
   { name: "Page G", pv: 4300, amt: 2100 }
 ];
 
-export default class BarChartEx extends Component {
+export default class BarChartLanding extends Component {
   state = {
     list: [...TABLE_LIST]
   };

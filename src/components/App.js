@@ -1,47 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router"; // react-router v4/v5
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { VisualizationsList } from "../containers/VisualizationsList";
-import { Sproc200206View } from "../containers/Sproc200206View";
-import { View200206LastWeeks } from "../containers/View200206LastWeeks";
-import { Dialogs } from "../containers/Dialogs";
-import { Recharts } from "../containers/Recharts";
-import { BarChartScrap200221 } from "../containers/BarChartScrap200221";
-import { BarChartDownTime200221 } from "../containers/BarChartDownTime200221";
-
-//import {OEEPartTable} from "../containers/OEEPartTable";
-import { SignIn } from "../containers/SignIn";
-import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CloseIcon from "@material-ui/icons/Close";
-import * as errorType from "../constants/ErrorType";
-import * as errorSeverity from "../constants/ErrorSeverity";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import React, { useEffect } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+
+import { Route, Switch } from "react-router";
+import clsx from "clsx";
+
+import { Dialog200206 } from "../containers/Dialog200206";
+import { Landing } from "../containers/Landing";
+import { SignIn } from "../containers/SignIn";
+import { View200206 } from "../containers/View200206";
+import { VisualizationsList } from "../containers/VisualizationsList";
+import LinearIndeterminate from "./LinearIndeterminate";
 
 //import Chart from './Chart';
 //import Deposits from './Deposits';
@@ -136,6 +120,7 @@ export default function App({
   Logout,
   ClearAppError,
   appError,
+  openDialog200206,
   Submitting,
   submitting
 }) {
@@ -234,15 +219,19 @@ export default function App({
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-              <Switch>
-                <Route exact path="/table200206" component={Sproc200206View} />
-                <Route exact path="/view200206LastWeeks" component={View200206LastWeeks} />
-                <Route exact path="/" component={Recharts} />
-                <Route path="/login" component={SignIn} />
-              </Switch>
+          <Switch>
+            <Route exact path="/view200206" component={View200206} />
+            <Route exact path="/transition" component={LinearIndeterminate} />
+            <Route exact path="/" component={Landing} />
+            <Route path="/login" component={SignIn} />
+          </Switch>
         </Container>
       </main>
-      <Dialogs />
+      {openDialog200206 && (
+        <React.Fragment>
+          <Dialog200206 />
+        </React.Fragment>
+      )}
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",

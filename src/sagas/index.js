@@ -4,6 +4,7 @@ import * as actions from "../actions";
 import { push } from "connected-react-router";
 import * as errorType from '../constants/ErrorType'
 import * as errorSeverity from '../constants/ErrorSeverity'
+import { log } from "../utils/log";
 
 var datetime = require('node-datetime');
 var g_services;
@@ -31,23 +32,23 @@ export const handleSignUp = function* handleSignUp({services,dispatch}) {
     }).then(async (res) => {
       // Logged in
       //const { user } = await srv.get('authentication');
-    console.log('created user!')
-    //    console.log(res.user.isAdmin);
-    //  console.log(res.user.userName);
+    log('created user!')
+    //    log(res.user.isAdmin);
+    //  log(res.user.userName);
       // Get//  setSAGA(srv,store);
 //  dispatch(setServices(srv));
 */
 
 // will not work
 function* handlePush(action) {
-  console.log("in handlePush()");
+  log("in handlePush()");
   yield put(push(action.path));
 //  yield put(push("/login"));
 }
 
 function* handleAuthenticate(action) {
-  console.log("in handleAuthenticate");
-  console.log(`email : ${action.email}, password: ${action.password}, route: ${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  log("in handleAuthenticate");
+  log(`email : ${action.email}, password: ${action.password}, route: ${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
 
   try {
     var res = yield g_services.authenticate({
@@ -55,7 +56,7 @@ function* handleAuthenticate(action) {
       email: action.email,
       password: action.password
     });
-    console.log(res.user.isAdmin);
+    log(res.user.isAdmin);
     g_dispatch(actions.SetIsAuthenticated(true));
     g_dispatch(actions.SetIsAdmin(res.user.isAdmin));
     g_dispatch(actions.SetUserName(res.user.userName));
@@ -70,9 +71,9 @@ function* handleAuthenticate(action) {
       yield put(push(action.route));
     }
   } catch (err) {
-        console.log(`err: ${err.message}`);
+        log(`err: ${err.message}`);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
-    console.log(err);
+    log(err);
     if(action.setSubmittingOff){
       g_dispatch(actions.Submitting(false));
     }
@@ -84,20 +85,20 @@ function* handleLogout(action) {
     yield g_services.logout();
     g_dispatch(actions.SetIsAuthenticated(false));
   } catch (err) {
-    console.log(err);
+    log(err);
   }
 }
 
 function* handleView200206(action) {
-  console.log("in handleView200206");
-  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  log("in handleView200206");
+  log(`startDate : ${action.startDate}, endDate: ${action.endDate}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
     var res1 = yield g_services.service("sproc200206").create({
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate
     });
-    console.log(`res1: ${res1}`);
+    log(`res1: ${res1}`);
     g_dispatch(actions.Set200206Sproc("sproc200206"));
     g_dispatch(actions.Set200206Table(res1.table));
     g_dispatch(actions.Set200206Total(res1.record_count));
@@ -110,14 +111,14 @@ function* handleView200206(action) {
         $skip: 0
       }
     });
-//    console.log(res);
+//    log(res);
     g_dispatch(actions.Set200206Data(res2));
     var res3 = yield g_services.service("sproc200221").create({
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate
     });
-    console.log(`res3: ${res3}`);
+    log(`res3: ${res3}`);
     g_dispatch(actions.Set200221Sproc("sproc200221"));
     g_dispatch(actions.Set200221Table(res3.table));
     g_dispatch(actions.Set200221Total(res3.record_count));
@@ -131,7 +132,7 @@ function* handleView200206(action) {
         $skip: 0
       }
     });
-    console.log(res4);
+    log(res4);
 //    g_dispatch(actions.SetQueryTotal(res.total));
   //  g_dispatch(actions.SetQueryLimit(res.limit));
 //    g_dispatch(actions.SetQuerySkip(res.skip));
@@ -145,14 +146,14 @@ function* handleView200206(action) {
     }
 //    var error = new Error("The error message");
   } catch (err) {
-    console.log(err);
+    log(err);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
 function* handleSproc200206Create(action) {
-  console.log("in handleSproc200206Create");
-  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  log("in handleSproc200206Create");
+  log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
     var res = yield g_services.service("sproc200206").create({
 //        tableName: tableName,
@@ -161,7 +162,7 @@ function* handleSproc200206Create(action) {
         fetch: action.fetch,
         limit: action.limit
     });
-    console.log(`res: ${res}`);
+    log(`res: ${res}`);
     g_dispatch(actions.Set200206Sproc("sproc200206"));
     g_dispatch(actions.Set200206Table(res.table));
     g_dispatch(actions.Set200206Total(res.record_count));
@@ -179,15 +180,15 @@ function* handleSproc200206Create(action) {
     }
 //    var error = new Error("The error message");
   } catch (err) {
-    console.log(err);
+    log(err);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
 function* handleSproc200206Fetch(action) {
-  console.log("in handleSproc200206Fetch");
+  log("in handleSproc200206Fetch");
 //  const {Sproc} = g_store;
-  console.log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
+  log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
   try {
     var res = yield g_services.service(action.sproc).find({
       query: {
@@ -199,7 +200,7 @@ function* handleSproc200206Fetch(action) {
         }
       }
     });
-//    console.log(res);
+//    log(res);
 //    g_dispatch(actions.SetQueryTotal(res.total));
   //  g_dispatch(actions.SetQueryLimit(res.limit));
 //    g_dispatch(actions.SetQuerySkip(res.skip));
@@ -212,14 +213,14 @@ function* handleSproc200206Fetch(action) {
       g_dispatch(actions.Submitting(false));
     }
   } catch (err) {
-    console.log(err);
+    log(err);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
 function* handleSproc200221Create(action) {
-  console.log("in handleSproc200221Create");
-  console.log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  log("in handleSproc200221Create");
+  log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
     var res = yield g_services.service("sproc200221").create({
 //        tableName: tableName,
@@ -228,7 +229,7 @@ function* handleSproc200221Create(action) {
         fetch: action.fetch,
         limit: action.limit
     });
-    console.log(`res: ${res}`);
+    log(`res: ${res}`);
     g_dispatch(actions.Set200221Sproc("sproc200221"));
     g_dispatch(actions.Set200221Table(res.table));
     g_dispatch(actions.Set200221Total(res.record_count));
@@ -245,15 +246,15 @@ function* handleSproc200221Create(action) {
     }
 //    var error = new Error("The error message");
   } catch (err) {
-    console.log(err);
+    log(err);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
 function* handleSproc200221Fetch(action) {
-  console.log("in handleSproc200221Fetch");
+  log("in handleSproc200221Fetch");
 //  const {Sproc} = g_store;
-  console.log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
+  log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
   try {
     var res = yield g_services.service(action.sproc).find({
       query: {
@@ -265,7 +266,7 @@ function* handleSproc200221Fetch(action) {
         }
       }
     });
-    console.log(res);
+    log(res);
 //    g_dispatch(actions.SetQueryTotal(res.total));
   //  g_dispatch(actions.SetQueryLimit(res.limit));
 //    g_dispatch(actions.SetQuerySkip(res.skip));
@@ -278,13 +279,13 @@ function* handleSproc200221Fetch(action) {
       g_dispatch(actions.Submitting(false));
     }
   } catch (err) {
-    console.log(err);
+    log(err);
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
 
 function* handleFetchNextHourlyOEEValues(action) {
-  console.log("in handleFetchNextHourlyOEEValues");
+  log("in handleFetchNextHourlyOEEValues");
   try {
     var res = yield g_services.service("hourlyoeevalues").find({
       query: {
@@ -300,7 +301,7 @@ function* handleFetchNextHourlyOEEValues(action) {
     g_dispatch(actions.SetHourlyOEEValuesSkip(res.skip));
     g_dispatch(actions.SetHourlyOEEValuesData(res.data));
   } catch (err) {
-    console.log(err);
+    log(err);
   }
 }
 
@@ -399,7 +400,7 @@ export default function* rootSaga() {
 
 /*
 Kep13318Service.on('created', message => {
-  console.log('Received a Kep13318 message', message);
+  log('Received a Kep13318 message', message);
   dispatch(messageReceived(message.text, 'Kep13313'));
 
 });

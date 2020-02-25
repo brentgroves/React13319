@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import BarChartScrap200221Component from "../components/BarChartScrap200221";
+import BarChart200221ScrapComponent from "../components/BarChart200221Scrap";
 import * as actions from '../actions'
 
 function mapStateToProps(state) {
@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const BarChartScrap200221 = connect(mapStateToProps, mapDispatchToProps)(BarChartScrap200221Component)
+export const BarChart200221Scrap = connect(mapStateToProps, mapDispatchToProps)(BarChart200221ScrapComponent)

@@ -1,15 +1,15 @@
 import * as types from "../constants/ActionTypes";
 
 const initState = {
-  openSproc200206Dialog: false
+  openDialog200206: false
 };
 
 const Dialogs = (state = initState, action) => {
   switch (action.type) {
-    case types.OPEN_SPROC200206_DIALOG: {
+    case types.OPEN_DIALOG_200206: {
       return {
         ...state,
-        openSproc200206Dialog: action.open
+        openDialog200206: action.open
       }
     }
     /*
