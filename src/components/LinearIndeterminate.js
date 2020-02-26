@@ -1,14 +1,14 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import React from "react";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2)
+    }
+  }
 }));
 
 export default function LinearIndeterminate() {
@@ -21,14 +21,3 @@ export default function LinearIndeterminate() {
     </div>
   );
 }
-
-/*
-export default function Dashboard({ isAuthenticated, isAdmin, Push }) {
-  useEffect(() => {
-    // Update the document title using the browser API
-    //document.title = `You clicked ${count} times`;
-    if (!isAuthenticated) {
-      Push("/login");
-    }
-  });
-*/

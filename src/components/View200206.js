@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -87,15 +87,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 export default function View200206(params) {
-  const {Push,total} = params;
+  const { Push, total } = params;
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   useEffect(() => {
     // Update the document title using the browser API
-    //document.title = `You clicked ${count} times`;
-    if (total==0) {
+    // document.title = `You clicked ${count} times`;
+    if (total === 0) {
       Push("/");
     }
   });
@@ -103,19 +102,19 @@ export default function View200206(params) {
     <Grid container spacing={3}>
       {/* Chart */}
       <Grid item xs={12} md={6} lg={6}>
-      <Paper className={fixedHeightPaper}>
-      <BarChart200221Scrap />
-      </Paper>
+        <Paper className={fixedHeightPaper}>
+          <BarChart200221Scrap />
+        </Paper>
       </Grid>
       {/* Recent Deposits */}
       <Grid item xs={12} md={6} lg={6}>
-      <Paper className={fixedHeightPaper}>
-      <BarChart200221DownTime />
-      </Paper>
+        <Paper className={fixedHeightPaper}>
+          <BarChart200221DownTime />
+        </Paper>
       </Grid>
       {/* Recent Orders */}
       <Grid item xs={12}>
-            <Table200206 />
+        <Table200206 />
       </Grid>
     </Grid>
   );
