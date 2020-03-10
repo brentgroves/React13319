@@ -13,7 +13,7 @@ import reducers from './reducers';
 import rootSaga from './sagas';
 import setupServices from './services';
 import { ConnectedRouter } from 'connected-react-router';
-//import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 export const history = createBrowserHistory();
 
 async function main() {
@@ -21,7 +21,7 @@ async function main() {
   let store;
 
   if (process.env.NODE_ENV === 'production') {
- //   disableReactDevTools();
+    disableReactDevTools();
     store = createStore(
       reducers(history), // root reducer with router state
       applyMiddleware(
