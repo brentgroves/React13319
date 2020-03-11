@@ -13,13 +13,12 @@ import reducers from './reducers';
 import rootSaga from './sagas';
 import setupServices from './services';
 import { ConnectedRouter } from 'connected-react-router';
-import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+const disableReactDevTools = require('@fvilers/disable-react-devtools');  // gives an error if imported.
 export const history = createBrowserHistory();
 
 async function main() {
   const sagaMiddleware = createSagaMiddleware();
   let store;
-
   if (process.env.NODE_ENV === 'production') {
     disableReactDevTools();
     store = createStore(
@@ -40,7 +39,7 @@ async function main() {
       ),
     );
   }
-
+  console.log('After apply middleware');
   //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 
   const services = await setupServices(store.dispatch);
