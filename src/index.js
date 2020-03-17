@@ -13,14 +13,21 @@ import reducers from './reducers';
 import rootSaga from './sagas';
 import setupServices from './services';
 import { ConnectedRouter } from 'connected-react-router';
-const disableReactDevTools = require('@fvilers/disable-react-devtools');  // gives an error if imported.
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 export const history = createBrowserHistory();
 
 async function main() {
   const sagaMiddleware = createSagaMiddleware();
   let store;
+  /* https://github.com/facebook/react-devtools/issues/191
+  if (!window.location.port && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
+    window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
+  } */
+
   if (process.env.NODE_ENV === 'production') {
     disableReactDevTools();
+  }
+  if (process.env.NODE_ENV === 'production') {
     store = createStore(
       reducers(history), // root reducer with router state
       applyMiddleware(
