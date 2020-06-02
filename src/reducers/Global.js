@@ -1,14 +1,28 @@
 import * as types from '../constants/ActionTypes'
 import * as errorType from '../constants/ErrorType'
 import * as errorSeverity from '../constants/ErrorSeverity'
+import { log } from "../utils/log";
+import { firstOfWeek, endOfWeek } from "../utils/dates";
+
+//dt = new Date(); 
+
+//console.log(endOfWeek(dt).toString());
+
+
+//var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+//var last = curr.getDate() - curr.getDay() + 6; 
+//var last = date.getDate() - (date.getDay() - 1) + 6;
+//var lastday = date.getDate() - (date.getDay() - 1) + 6;
+// var last = first + 6; // last day is the first day + 6
+//var firstDayOfWeek = new Date(curr.setDate(first)).toString();
+// var lastDayOfWeek= new Date(curr.setDate(last)).toString();
+var firstDayOfWeek = firstOfWeek(new Date());
+var lastDayOfWeek = endOfWeek(new Date());
 var curr = new Date(); // get current date
-var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-var last = first + 6; // last day is the first day + 6
-var firstDayOfWeek = new Date(curr.setDate(first)).toString();
-var lastDayOfWeek= new Date(curr.setDate(last)).toString();
+// This section is wrong. Replace with a function.
 var firstDayOfMonth = new Date(curr.getFullYear(), curr.getMonth(), 1);
 var lastDayOfMonth = new Date(curr.getFullYear(), curr.getMonth() + 1, 0);
-
+log(`cur: ${curr},firstDayOfWeek:${firstDayOfWeek},lastDayOfWeek:${lastDayOfWeek}`);
 function addDays(theDate, days) {
     return new Date(theDate.getTime() + days*24*60*60*1000);
 }

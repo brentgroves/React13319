@@ -88,23 +88,36 @@ function* handleLogout(action) {
     log(err);
   }
 }
-
+ /* 
+ This is called from a visualization menu item click
+ */
 function* handleView200206(action) {
   log("in handleView200206");
+  log(`process.env.REACT_APP_FEATHERS_200206_SERVICE:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`);
+  log(`process.env.REACT_APP_FEATHERS_200221_SERVICE:${process.env.REACT_APP_FEATHERS_200221_SERVICE}`);
   log(`startDate : ${action.startDate}, endDate: ${action.endDate}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
-    var res1 = yield g_services.service("sproc200206").create({
+    let srv200206=process.env.REACT_APP_FEATHERS_200206_SERVICE;
+    var res1 = yield g_services.service(srv200206).create({
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate
     });
     log(`res1: ${res1}`);
-    g_dispatch(actions.Set200206Sproc("sproc200206"));
+    /*
+    There are 3 services which do the same thing
+    1. sproc200206 calls the MSSQL Kors production database that is updated by Mach2. 
+    2. mysql200206 calls the MySQL Kors database using an MySQL connector. 
+    3. maria200206 calls the MySQL Kors database using an MariaDb connector. 
+    The MySQL Kors database lives in a docker container and is updated from records 
+    exported from the MSSQL Kors database.  
+    */
+    g_dispatch(actions.Set200206Sproc(srv200206));
     g_dispatch(actions.Set200206Table(res1.table));
     g_dispatch(actions.Set200206Total(res1.record_count));
     g_dispatch(actions.Set200206Limit(action.limit));
     g_dispatch(actions.Set200206Skip(0));
-    var res2 = yield g_services.service("sproc200206").find({
+    var res2 = yield g_services.service(srv200206).find({
       query: {
         $table: res1.table,
         $limit: action.limit,

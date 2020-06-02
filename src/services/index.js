@@ -8,54 +8,10 @@ const socketio = require('@feathersjs/socketio-client')
 const io = require('socket.io-client');
 const auth = require('@feathersjs/authentication-client');
 
-
-//const io = require('socket.io-client');
-//const feathers = require('@feathersjs/feathers');
-//const socketio = require('@feathersjs/socketio-client');
-//import feathers from '@feathersjs/client';
-//import client from '../feathers';
-/*
-const setupSocket = (dispatch, username) => {
-  const socket = new WebSocket('ws://localhost:8989')
-  socket.onopen = () => {
-    socket.send(JSON.stringify({
-      type: types.ADD_USER,
-      name: username
-    }))
-  }
-  socket.onmessage = (event) => {
-    const data = JSON.parse(event.data)
-    switch (data.type) {
-      case types.ADD_MESSAGE:
-        dispatch(messageReceived(data.message, data.author))
-        break
-      case types.USERS_LIST:
-        dispatch(populateUsersList(data.users))
-        break
-      default:
-        break
-    }
-  }
-
-  return socket
-}
-*/
-
-/*
-const socket = io(config.BPGServicesURI);
-const client = feathers();
-
-client.configure(feathers.socketio(socket));
-client.configure(feathers.authentication({
-  storage: window.localStorage
-}));
-*/
 // seting dispatch as a global variable works, but setting
 // store as a global variable in Saga messes up the generator functions
 const setupServices = async (dispatch) => {
-  //const socket = new WebSocket('ws://localhost:8989')
-  //const socket = io('http://localhost:3030');
-  log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`);
+  log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`);
 
   const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
   log(`connectionString: ${connectionString}`);

@@ -19,9 +19,10 @@ import { log } from "../utils/log";
 import * as errorSeverity from "../constants/ErrorSeverity";
 import * as errorType from "../constants/ErrorType";
 
-const DatePickerField = ({ field, form, ...other }) => {
+const DatePickerField = ({ field, form, myLabel,...other }) => {
   const currentError = form.errors[field.name];
-
+  log(`field: ${field.name},${myLabel}`);
+ 
   return (
     <KeyboardDatePicker
       required
@@ -30,7 +31,7 @@ const DatePickerField = ({ field, form, ...other }) => {
       margin="normal"
       id={field.name}
       name={field.name}
-      label="Start Date"
+      label={myLabel}
       value={field.value}
       format="MM/dd/yyyy"
       helperText={currentError}
@@ -114,8 +115,8 @@ export default function Dialog200206(params) {
                 <form onSubmit={handleSubmit}>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
-                      <Field name="startDate" component={DatePickerField} />
-                      <Field name="endDate" component={DatePickerField} />
+                      <Field name="startDate" placeholder="Start Date" myLabel="Start Date" component={DatePickerField} />
+                      <Field name="endDate" placeholder="End Date" myLabel="End Date" component={DatePickerField} />
                     </Grid>
                   </MuiPickersUtilsProvider>
                   <DialogActions>

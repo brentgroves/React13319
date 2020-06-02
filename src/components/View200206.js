@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { Table200206 } from "../containers/Table200206";
 import { BarChart200221Scrap } from "../containers/BarChart200221Scrap";
 import { BarChart200221DownTime } from "../containers/BarChart200221DownTime";
+import * as errorSeverity from "../constants/ErrorSeverity";
+import * as errorType from "../constants/ErrorType";
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -88,13 +90,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function View200206(params) {
-  const { Push, total } = params;
+  const { Push, total,SetAppError } = params;
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   useEffect(() => {
-    // Update the document title using the browser API
-    // document.title = `You clicked ${count} times`;
     if (total === 0) {
+      SetAppError(
+        "No records for that date range.",
+        errorType.DATE,
+        errorSeverity.LOW
+      );
       Push("/");
     }
   });

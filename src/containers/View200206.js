@@ -16,7 +16,8 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     Push: (path) => dispatch(actions.Push(path)),
-    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open))
+    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open)),
+    SetAppError: (message,errorType,errorSeverity) => dispatch(actions.SetAppError(message,errorType,errorSeverity))
   }
 }
 
