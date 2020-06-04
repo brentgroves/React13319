@@ -8,6 +8,7 @@ import { BarChart200221Scrap } from "../containers/BarChart200221Scrap";
 import { BarChart200221DownTime } from "../containers/BarChart200221DownTime";
 import * as errorSeverity from "../constants/ErrorSeverity";
 import * as errorType from "../constants/ErrorType";
+import { log } from '../utils/log';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -100,6 +101,7 @@ export default function View200206(params) {
         errorType.DATE,
         errorSeverity.LOW
       );
+      log('View200206=>No records, before push()');
       Push("/");
     }
   });

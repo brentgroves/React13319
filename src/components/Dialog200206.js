@@ -85,7 +85,7 @@ export default function Dialog200206(params) {
         <Formik
           initialValues={{ startDate: firstDayOfWeek, endDate: lastDayOfWeek }}
           onSubmit={(values, { setSubmitting }) => {
-            Submitting(true);
+            Submitting(true);  // buttons look at this to determine if they should be enabled?
             let sd = new Date(values.startDate);
             let start = format(sd, "yyyy-MM-dd'T00:00:00'");
             log(start);
@@ -100,11 +100,11 @@ export default function Dialog200206(params) {
                 errorType.DATE,
                 errorSeverity.LOW
               );
+              Submitting(false);
             } else {
-              View200206(start, end, 1000, "/view200206", true);
+              View200206(start, end, 1000, "/view200206", true);  // will set submitting to false after done.
               OpenDialog200206(false);
             }
-            Submitting(false);
           }}
         >
           {props => {

@@ -39,7 +39,10 @@ export const handleSignUp = function* handleSignUp({services,dispatch}) {
 //  dispatch(setServices(srv));
 */
 
-// will not work
+// will not work?
+/*  put(push(action.route)) Works when called from handleView200206 and others
+    unsure if it works when called from UI menu item click via an action dispatch.
+*/
 function* handlePush(action) {
   log("in handlePush()");
   yield put(push(action.path));
@@ -97,8 +100,10 @@ function* handleView200206(action) {
   log(`process.env.REACT_APP_FEATHERS_200221_SERVICE:${process.env.REACT_APP_FEATHERS_200221_SERVICE}`);
   log(`startDate : ${action.startDate}, endDate: ${action.endDate}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
   try {
-    let srv200206=process.env.REACT_APP_FEATHERS_200206_SERVICE;
-    var res1 = yield g_services.service(srv200206).create({
+    const srv200206=process.env.REACT_APP_FEATHERS_200206_SERVICE;
+    const srv200221=process.env.REACT_APP_FEATHERS_200221_SERVICE;
+    // Creates the table to scroll through but does not return the dataset
+    var res1 = yield g_services.service(srv200206).create({  
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate
@@ -113,10 +118,11 @@ function* handleView200206(action) {
     exported from the MSSQL Kors database.  
     */
     g_dispatch(actions.Set200206Sproc(srv200206));
-    g_dispatch(actions.Set200206Table(res1.table));
-    g_dispatch(actions.Set200206Total(res1.record_count));
-    g_dispatch(actions.Set200206Limit(action.limit));
+    g_dispatch(actions.Set200206Table(res1.table));  // set by service
+    g_dispatch(actions.Set200206Total(res1.record_count));  // set by service
+    g_dispatch(actions.Set200206Limit(action.limit));  // set by UI
     g_dispatch(actions.Set200206Skip(0));
+    // Returns a portion of the table records defined by limit and skip variables
     var res2 = yield g_services.service(srv200206).find({
       query: {
         $table: res1.table,
@@ -126,35 +132,33 @@ function* handleView200206(action) {
     });
 //    log(res);
     g_dispatch(actions.Set200206Data(res2));
-    var res3 = yield g_services.service("sproc200221").create({
+    // creates a table for bar charts.
+    var res3 = yield g_services.service(srv200221).create({
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate
     });
     log(`res3: ${res3}`);
-    g_dispatch(actions.Set200221Sproc("sproc200221"));
+    g_dispatch(actions.Set200221Sproc(srv200221));  
     g_dispatch(actions.Set200221Table(res3.table));
     g_dispatch(actions.Set200221Total(res3.record_count));
     g_dispatch(actions.Set200221Limit(action.limit));
     g_dispatch(actions.Set200221Skip(0));
 
-    var res4 = yield g_services.service("sproc200221").find({
+    var res4 = yield g_services.service(srv200221).find({
       query: {
         $table: res3.table,
         $limit: action.limit,
-        $skip: 0
+        $skip: 0  // start with the first record in the table.
       }
     });
     log(res4);
-//    g_dispatch(actions.SetQueryTotal(res.total));
-  //  g_dispatch(actions.SetQueryLimit(res.limit));
-//    g_dispatch(actions.SetQuerySkip(res.skip));
-    g_dispatch(actions.Set200221Data(res4));
+    g_dispatch(actions.Set200221Data(res4));  // set the dataset variable.
 
     if(action.route){
-      yield put(push(action.route));
+      yield put(push(action.route));  // The UI asked us to change routes after we were done.
     }
-    if(action.setSubmittingOff){
+    if(action.setSubmittingOff){  // Enables buttons in the UI forms and dialogs.
       g_dispatch(actions.Submitting(false));
     }
 //    var error = new Error("The error message");
@@ -163,27 +167,29 @@ function* handleView200206(action) {
     g_dispatch(actions.SetAppError(err.message,errorType.SAGA,errorSeverity.LOW));
   }
 }
-
+// Not tested.
+// I don't think this is used at the moment.
+// Currently handleView200206 calls the create service.
+// Generator function
 function* handleSproc200206Create(action) {
   log("in handleSproc200206Create");
   log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  const srv200206=process.env.REACT_APP_FEATHERS_200206_SERVICE;
   try {
-    var res = yield g_services.service("sproc200206").create({
+    var res = yield g_services.service(srv200206).create({
 //        tableName: tableName,
         startDate: action.startDate,
-        endDate: action.endDate,
-        fetch: action.fetch,
-        limit: action.limit
+        endDate: action.endDate
     });
     log(`res: ${res}`);
-    g_dispatch(actions.Set200206Sproc("sproc200206"));
+    g_dispatch(actions.Set200206Sproc(srv200206));
     g_dispatch(actions.Set200206Table(res.table));
     g_dispatch(actions.Set200206Total(res.record_count));
     g_dispatch(actions.Set200206Limit(action.limit));
     g_dispatch(actions.Set200206Skip(0));
 
     if(action.fetch){
-      g_dispatch(actions.Sproc200206Fetch("sproc200206",res.table,action.limit,0,action.route,action.setSubmittingOff));
+      g_dispatch(actions.Sproc200206Fetch(srv200206,res.table,action.limit,0,action.route,action.setSubmittingOff));
     }
     if(!action.fetch&&action.route){
       yield put(push(action.route));
@@ -200,7 +206,6 @@ function* handleSproc200206Create(action) {
 
 function* handleSproc200206Fetch(action) {
   log("in handleSproc200206Fetch");
-//  const {Sproc} = g_store;
   log(`sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `);
   try {
     var res = yield g_services.service(action.sproc).find({
@@ -214,9 +219,6 @@ function* handleSproc200206Fetch(action) {
       }
     });
 //    log(res);
-//    g_dispatch(actions.SetQueryTotal(res.total));
-  //  g_dispatch(actions.SetQueryLimit(res.limit));
-//    g_dispatch(actions.SetQuerySkip(res.skip));
     g_dispatch(actions.Set200206Data(res));
     g_dispatch(actions.Set200206Skip(action.skip))
     if(action.route){
@@ -231,11 +233,16 @@ function* handleSproc200206Fetch(action) {
   }
 }
 
+// Not tested.
+// I don't think this is used at the moment.
+// Currently handleView200206 calls this create service.
+// Generator function
 function* handleSproc200221Create(action) {
   log("in handleSproc200221Create");
   log(`startDate : ${action.startDate}, endDate: ${action.endDate}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`)
+  const srv200221=process.env.REACT_APP_FEATHERS_200221_SERVICE;
   try {
-    var res = yield g_services.service("sproc200221").create({
+    var res = yield g_services.service(srv200221).create({
 //        tableName: tableName,
         startDate: action.startDate,
         endDate: action.endDate,
@@ -243,13 +250,13 @@ function* handleSproc200221Create(action) {
         limit: action.limit
     });
     log(`res: ${res}`);
-    g_dispatch(actions.Set200221Sproc("sproc200221"));
+    g_dispatch(actions.Set200221Sproc(srv200221));
     g_dispatch(actions.Set200221Table(res.table));
     g_dispatch(actions.Set200221Total(res.record_count));
     g_dispatch(actions.Set200221Limit(action.limit));
     g_dispatch(actions.Set200221Skip(0));
     if(action.fetch){
-      g_dispatch(actions.Sproc200221Fetch("sproc200221",res.table,action.limit,0,action.route,action.setSubmittingOff));
+      g_dispatch(actions.Sproc200221Fetch(srv200221,res.table,action.limit,0,action.route,action.setSubmittingOff));
     }
     if(!action.fetch&&action.route){
       yield put(push(action.route));
@@ -280,9 +287,6 @@ function* handleSproc200221Fetch(action) {
       }
     });
     log(res);
-//    g_dispatch(actions.SetQueryTotal(res.total));
-  //  g_dispatch(actions.SetQueryLimit(res.limit));
-//    g_dispatch(actions.SetQuerySkip(res.skip));
     g_dispatch(actions.Set200221Data(res));
     g_dispatch(actions.Set200221Skip(action.skip))
     if(action.route){
@@ -297,26 +301,7 @@ function* handleSproc200221Fetch(action) {
   }
 }
 
-function* handleFetchNextHourlyOEEValues(action) {
-  log("in handleFetchNextHourlyOEEValues");
-  try {
-    var res = yield g_services.service("hourlyoeevalues").find({
-      query: {
-        $limit: 10,
-        $skip: action.skip,
-        $sort: {
-          ID: 1
-        }
-      }
-    });
-    g_dispatch(actions.SetHourlyOEEValuesTotal(res.total));
-    g_dispatch(actions.SetHourlyOEEValuesLimit(res.limit));
-    g_dispatch(actions.SetHourlyOEEValuesSkip(res.skip));
-    g_dispatch(actions.SetHourlyOEEValuesData(res.data));
-  } catch (err) {
-    log(err);
-  }
-}
+
 
 
 function* watchPush() {

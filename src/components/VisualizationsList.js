@@ -45,7 +45,7 @@ export default function VisualizationsList(params) {
   };
   const handleView200206ThisWeek = () => {
     Push('/transition');
-    Submitting(true);
+    Submitting(true);  // Buttons look at this to see if they should be enabled
     View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/view200206', true);
   };
   const handleView200206ThisMonth = () => {

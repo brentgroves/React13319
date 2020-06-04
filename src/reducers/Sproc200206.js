@@ -3,10 +3,10 @@ import * as types from "../constants/ActionTypes";
 const initState = {
   sproc: '',
   table: '',
-  total: 0,
-  limit: 0,
+  total: 0,  // total number of records in dataset
+  limit: 0,  // how many records returned in one SPROC call
   skip: 0,
-  data: []
+  data: []  // dataset returned by SPROC call.
 };
 
 const Sproc200206 = (state = initState, action) => {

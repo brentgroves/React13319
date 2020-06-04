@@ -12,12 +12,12 @@ var lastDayOfMonth = LastDayMonth(today);
 log(`today: ${today},firstDayOfWeek:${firstDayOfWeek},lastDayOfWeek:${lastDayOfWeek},firstDayOfMonth:${firstDayOfMonth},lastDayOfMonth:${lastDayOfMonth}`);
 
 const initState = {
-  submitting: false,
+  submitting: false,  // Used by forms/dialogs to disable buttons when saga is running.
   firstDayOfWeek,
   lastDayOfWeek,
   firstDayOfMonth,
   lastDayOfMonth,
-  appError: {
+  appError: {  // Used by SnackBar in App.js to show any message to user.
     error:false,
     message:"",
     errorType: errorType.NONE,
