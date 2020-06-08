@@ -1,3 +1,6 @@
+var jstz = require('jstz');
+var moment = require('moment');
+
 /* standard javascript 
 function LastDayWeek(date)
   {
@@ -100,6 +103,8 @@ module.exports = {
     FirstDayWeek,
     LastDayWeek,
     FirstDayMonth,
-    LastDayMonth
+    LastDayMonth,
+    FirstDayQuarter,
+    LastDayQuarter
 }
 

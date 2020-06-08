@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 import * as errorType from '../constants/ErrorType'
 import * as errorSeverity from '../constants/ErrorSeverity'
 import { log } from "../utils/log";
-import { FirstDayWeek,LastDayWeek,FirstDayMonth,LastDayMonth} from "../utils/dates";
+import { FirstDayWeek,LastDayWeek,FirstDayMonth,LastDayMonth,FirstDayQuarter,LastDayQuarter} from "../utils/dates";
 
 var today = new Date();
 var firstDayOfWeek = FirstDayWeek(today);
