@@ -9,6 +9,8 @@ var firstDayOfWeek = FirstDayWeek(today);
 var lastDayOfWeek = LastDayWeek(today);
 var firstDayOfMonth = FirstDayMonth(today);
 var lastDayOfMonth = LastDayMonth(today);
+var firstDayOfQuarter = FirstDayQuarter(today);
+var lastDayOfQuarter = LastDayQuarter(today);
 log(`today: ${today},firstDayOfWeek:${firstDayOfWeek},lastDayOfWeek:${lastDayOfWeek},firstDayOfMonth:${firstDayOfMonth},lastDayOfMonth:${lastDayOfMonth}`);
 
 const initState = {
@@ -17,6 +19,8 @@ const initState = {
   lastDayOfWeek,
   firstDayOfMonth,
   lastDayOfMonth,
+  firstDayOfQuarter,
+  lastDayOfQuarter,
   appError: {  // Used by SnackBar in App.js to show any message to user.
     error:false,
     message:"",
