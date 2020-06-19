@@ -102,8 +102,9 @@ export default function Dialog200206(params) {
               );
               Submitting(false);
             } else {
+              Push('/transition');
               View200206(start, end, 1000, "/view200206", true);  // will set submitting to false after done.
-              OpenDialog200206(false);
+           //   OpenDialog200206(false);
             }
           }}
         >

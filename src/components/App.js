@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
+import AppsIcon from '@material-ui/icons/Apps';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CloseIcon from "@material-ui/icons/Close";
 import Container from "@material-ui/core/Container";
@@ -19,7 +20,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { Route, Switch } from "react-router";
 import clsx from "clsx";
-
+import { AppsMenu } from "../containers/AppsMenu";
 import { Dialog200206 } from "../containers/Dialog200206";
 import { Landing } from "../containers/Landing";
 import { SignIn } from "../containers/SignIn";
@@ -183,16 +184,20 @@ export default function App({
                 Data Visualizations
               </Typography>
               <div>
+               {/* 
                 <IconButton color="inherit">
                   <Badge badgeContent={0} color="secondary">
-                    <NotificationsIcon />
+                    <AppsIcon />
                   </Badge>
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge onClick={handleLogout} color="primary">
                     <ExitToAppIcon />
                   </Badge>
-                </IconButton>
+                </IconButton>                
+                */}
+                <AppsMenu />
+
               </div>
             </Toolbar>
           </AppBar>
@@ -221,17 +226,13 @@ export default function App({
         <Container maxWidth="lg" className={classes.container}>
           <Switch>
             <Route exact path="/view200206" component={View200206} />
+            <Route exact path="/dialog200206" component={Dialog200206} />
             <Route exact path="/transition" component={LinearIndeterminate} />
             <Route exact path="/" component={Landing} />
             <Route path="/login" component={SignIn} />
           </Switch>
         </Container>
       </main>
-      {openDialog200206 && (
-        <React.Fragment>
-          <Dialog200206 />
-        </React.Fragment>
-      )}
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",

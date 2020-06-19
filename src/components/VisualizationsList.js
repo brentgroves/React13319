@@ -40,8 +40,9 @@ export default function VisualizationsList(params) {
   const [openSelectOEE, setOpenSelectOEE] = React.useState(true);
 
   const handleView200206AdHoc = () => {
-    Push('/transition');
-    OpenDialog200206(true);
+//    Push('/transition');
+//    OpenDialog200206(true);
+    Push('/dialog200206');
   };
   const handleView200206ThisWeek = () => {
     Push('/transition');
