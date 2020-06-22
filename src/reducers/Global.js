@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 import * as errorType from '../constants/ErrorType'
 import * as errorSeverity from '../constants/ErrorSeverity'
+import * as appSet from '../constants/AppSet'
 import { log } from "../utils/log";
 import { FirstDayWeek,LastDayWeek,FirstDayMonth,LastDayMonth,FirstDayQuarter,LastDayQuarter} from "../utils/dates";
 
@@ -12,8 +13,11 @@ var lastDayOfMonth = LastDayMonth(today);
 var firstDayOfQuarter = FirstDayQuarter(today);
 var lastDayOfQuarter = LastDayQuarter(today);
 log(`today: ${today},firstDayOfWeek:${firstDayOfWeek},lastDayOfWeek:${lastDayOfWeek},firstDayOfMonth:${firstDayOfMonth},lastDayOfMonth:${lastDayOfMonth}`);
+log(`process.env.REACT_APP_SET=${process.env.REACT_APP_SET}`);
 
 const initState = {
+  appSet: process.env.REACT_APP_SET,
+  currentApp:0,  // 0 = none,1=OEE,2=CNC
   submitting: false,  // Used by forms/dialogs to disable buttons when saga is running.
   firstDayOfWeek,
   lastDayOfWeek,
@@ -71,6 +75,14 @@ const Global = (state = initState, action) => {
           severity:errorSeverity.NONE
         }
       }
+    }
+    case types.SET_CURRENT_APP:
+    {
+      // Keep a reference to the service object created in sockets initialization code.
+      return Object.assign({}, state, {
+        currentApp: action.appId
+      })
+
     }
     default:
       return state

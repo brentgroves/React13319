@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import LandingComponent from '../components/Landing'
+import OEELandingComponent from '../components/OEELanding'
 
 import * as actions from '../actions'
 
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
   }
 }
 
-export const Landing = connect(mapStateToProps, mapDispatchToProps)(LandingComponent)
+export const OEELanding = connect(mapStateToProps, mapDispatchToProps)(OEELandingComponent)

@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Landing({
+export default function OEELanding({
   isAuthenticated,
   isAdmin,
   pathname,

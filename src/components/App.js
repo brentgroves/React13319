@@ -22,11 +22,12 @@ import { Route, Switch } from "react-router";
 import clsx from "clsx";
 import { AppsMenu } from "../containers/AppsMenu";
 import { Dialog200206 } from "../containers/Dialog200206";
-import { Landing } from "../containers/Landing";
 import { SignIn } from "../containers/SignIn";
 import { View200206 } from "../containers/View200206";
 import { VisualizationsList } from "../containers/VisualizationsList";
 import LinearIndeterminate from "./LinearIndeterminate";
+import { LaunchMenu } from "../containers/LaunchMenu";
+import OEELanding from "./OEELanding";
 
 //import Chart from './Chart';
 //import Deposits from './Deposits';
@@ -155,7 +156,7 @@ export default function App({
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {isAuthenticated && pathname != "/login" && (
+      {isAuthenticated && pathname != "/login" && pathname != "/" && (
         <React.Fragment>
           <AppBar
             position="absolute"
@@ -228,7 +229,8 @@ export default function App({
             <Route exact path="/view200206" component={View200206} />
             <Route exact path="/dialog200206" component={Dialog200206} />
             <Route exact path="/transition" component={LinearIndeterminate} />
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={LaunchMenu} />
+            <Route path="/oee" component={OEELanding} />
             <Route path="/login" component={SignIn} />
           </Switch>
         </Container>

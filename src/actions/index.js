@@ -11,6 +11,10 @@ export const Push = path => ({
 });
 
 // Global Reducer
+export const SetCurrentApp = appId => ({
+  type: types.SET_CURRENT_APP,
+  appId
+});
 export const Submitting = submitting => ({
   type: types.SUBMITTING,
   submitting
