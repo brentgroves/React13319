@@ -1,4 +1,3 @@
-
 import * as types from '../constants/ActionTypes'
 import * as actions from '../actions'
 import {setSAGA} from '../sagas'
@@ -7,6 +6,7 @@ const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client')
 const io = require('socket.io-client');
 const auth = require('@feathersjs/authentication-client');
+const common = require('@bgroves/common');
 
 // seting dispatch as a global variable works, but setting
 // store as a global variable in Saga messes up the generator functions
@@ -30,7 +30,7 @@ const setupServices = async (dispatch) => {
 /*
 mwhelpley@buschegroup.com/cwAEKkNa%0V3
 kyoung@buschegroup.com/1XdFJlJ!wMDe
-cchaudry@buschegroup.com/!@TIS$iYURtx
+cchaudry@buschegroup.com/!@TIS$iYURtxsrv
 
 "email": "mwhelpley@buschegroup.com",
 "password": "cwAEKkNa%0V3",
@@ -130,6 +130,33 @@ dispatch(actions.SetRoles(res.user.roles))
   // Show login page (potentially with `e.message`)
   console.error('reAuthenticate error', e);
 });
+
+common.log('connecting to Kep13318');
+const kep13319 = await srv.service('kep13319');
+kep13319.on('updated', (message, context) => {
+  common.log('updated', message);
+  dispatch(actions.UpdateNode(message.updateId,message.value));
+//  console.log(`context=>${context}`);
+});
+/*
+kep13319.on('updated', (message,context) => {
+  console.log('Received a Kep13319 message', message);
+  console.log('context => ', context);
+//  dispatch(actions.RcvKep13318(message.text));
+});
+*/
+/*
+app
+.service('kep13319')
+.update(p.updateId, { value: p.value })
+.then(async (res) => {
+  common.log(`updated kep13319 updateId=${p.updateId}, value=${p.value}`);
+})
+.catch((e) => {
+  console.error('Authentication error', e);
+});
+*/
+
 
   // seting dispatch as a global variable works, but setting
   // store as a global variable messes up the generator functions

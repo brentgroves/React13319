@@ -1,6 +1,9 @@
 // No Reducer
 export const PUSH = 'PUSH'
 
+// Kep13319 Reducer
+export const UPDATE_NODE = 'UPDATE_NODE'
+
 // Global Reducer
 export const SUBMITTING = 'SUBMITTING'
 export const SET_CURRENT_APP ='SET_CURRENT_APP'

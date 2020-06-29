@@ -10,6 +10,13 @@ export const Push = path => ({
   path
 });
 
+// Kep13319 Reducer
+export const UpdateNode = (updateId,value) => ({
+  type: types.UPDATE_NODE,
+  updateId,
+  value
+});
+
 // Global Reducer
 export const SetCurrentApp = appId => ({
   type: types.SET_CURRENT_APP,
