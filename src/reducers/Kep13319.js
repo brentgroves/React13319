@@ -13,6 +13,12 @@ const Kep13319 = (state = config, action) => {
         )
      }
     }
+    case types.SET_NODES: {
+      return {
+        ...state,
+        nodes: action.nodes
+      };
+    }
     default:
       return state
   }

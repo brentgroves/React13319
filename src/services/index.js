@@ -1,32 +1,96 @@
-import * as types from '../constants/ActionTypes'
-import * as actions from '../actions'
-import {setSAGA} from '../sagas'
-import { log } from "../utils/log";
+import * as types from '../constants/ActionTypes';
+import * as actions from '../actions';
+import { setSAGA } from '../sagas';
+import * as common from '@bgroves/common';
 const feathers = require('@feathersjs/feathers');
-const socketio = require('@feathersjs/socketio-client')
+const socketio = require('@feathersjs/socketio-client');
 const io = require('socket.io-client');
 const auth = require('@feathersjs/authentication-client');
-const common = require('@bgroves/common');
 
 // seting dispatch as a global variable works, but setting
 // store as a global variable in Saga messes up the generator functions
 const setupServices = async (dispatch) => {
-  log(`In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`);
+  common.log(
+    `In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`,
+  );
 
   const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
-  log(`connectionString: ${connectionString}`);
+  common.log(`connectionString: ${connectionString}`);
   const socket = io(connectionString);
 
-//  const socket = io('http://10.1.0.100:3030');
+  //  const socket = io('http://10.1.0.100:3030');
   const srv = feathers();
 
   // Setup the transport (Rest, Socket, etc.) here
   srv.configure(socketio(socket));
 
   // Available options are listed in the "Options" section
-  srv.configure(auth({
-    storageKey: 'auth'
-  }))
+  srv.configure(
+    auth({
+      storageKey: 'auth',
+    }),
+  );
+
+  // seting dispatch as a global variable works, but setting
+  // store as a global variable messes up the generator functions
+  setSAGA(srv, dispatch);
+  common.log('connecting to Kep13318');
+  // This did not seem to work?  I did not see any log message from the
+  // SAGA handler; so I called the service directly.
+  // dispatch(actions.Kep13319Fetch('',false));
+  await srv
+    .service('kep13319')
+    .find({
+      query: {
+        $sort: {
+          ID: 1,
+        },
+      },
+    })
+    .then((nodes) => {
+      common.log('Done with Kep13319.find()');
+      let msgString = JSON.stringify(nodes[0]);
+      const obj = JSON.parse(msgString.toString()); // payload is a buffer
+      common.log(obj);
+
+      dispatch(actions.SetNodes(nodes));
+    })
+    .catch((e) => {
+      // Show login page (potentially with `e.message`)
+      console.error('Kep13319.find() error', e);
+    });
+
+  common.log('Before reAuthenticate');
+  await srv
+    .reAuthenticate()
+    .then((res) => {
+      common.log('In reAuthenticate');
+      common.log(res.user);
+      dispatch(actions.SetIsAuthenticated(true));
+      dispatch(actions.SetIsAdmin(res.user.isAdmin));
+      dispatch(actions.SetUserName(res.user.userName));
+      dispatch(actions.SetFirstName(res.user.firstName));
+      dispatch(actions.SetLastName(res.user.lastName));
+      dispatch(actions.SetEmail(res.user.email));
+      dispatch(actions.SetRoles(res.user.roles));
+    })
+    .catch((e) => {
+      // Show login page (potentially with `e.message`)
+      console.error('reAuthenticate error', e);
+    });
+
+  const kep13319 = srv.service('kep13319');
+  kep13319.on('updated', (message, context) => {
+    common.log('updated', message);
+    dispatch(actions.UpdateNode(message.updateId, message.value));
+    //  console.common.log(`context=>${context}`);
+  });
+
+  return srv;
+};
+
+export default setupServices;
+
 /*
 mwhelpley@buschegroup.com/cwAEKkNa%0V3
 kyoung@buschegroup.com/1XdFJlJ!wMDe
@@ -77,9 +141,9 @@ cchaudry@buschegroup.com/!@TIS$iYURtxsrv
   }).then(async (res) => {
     // Logged in
     //const { user } = await srv.get('authentication');
-log('created user!')
-//    log(res.user.isAdmin);
-  //  consollocalhoste.log(res.user.userName);
+common.log('created user!')
+//    common.log(res.user.isAdmin);
+  //  consollocalhoste.common.log(res.user.userName);
     // Gets the authenticated accessToken (JWT)
     //const { accessToken } = await app.get('authentication');
   //  dispatch(addUserName(res.user.userName))
@@ -99,8 +163,8 @@ await srv.authenticate({
   // Logged in
   //const { user } = await srv.get('authentication');
 
-  log(res.user.isAdmin);
-  log(res.user.userName);
+  common.log(res.user.isAdmin);
+  common.log(res.user.userName);
   // Gets the authenticated accessToken (JWT)
   //const { accessToken } = await app.get('authentication');
 //  dispatch(addUserName(res.user.userName))
@@ -114,61 +178,6 @@ await srv.authenticate({
 });
 */
 
-log('Before reAuthenticate')
-
-await srv.reAuthenticate().then((res) => {
-log('In reAuthenticate')
-log(res.user)
-dispatch(actions.SetIsAuthenticated(true));
-dispatch(actions.SetIsAdmin(res.user.isAdmin));
-dispatch(actions.SetUserName(res.user.userName));
-dispatch(actions.SetFirstName(res.user.firstName));
-dispatch(actions.SetLastName(res.user.lastName));
-dispatch(actions.SetEmail(res.user.email));
-dispatch(actions.SetRoles(res.user.roles))
-}).catch(e => {
-  // Show login page (potentially with `e.message`)
-  console.error('reAuthenticate error', e);
-});
-
-common.log('connecting to Kep13318');
-const kep13319 = await srv.service('kep13319');
-kep13319.on('updated', (message, context) => {
-  common.log('updated', message);
-  dispatch(actions.UpdateNode(message.updateId,message.value));
-//  console.log(`context=>${context}`);
-});
-/*
-kep13319.on('updated', (message,context) => {
-  console.log('Received a Kep13319 message', message);
-  console.log('context => ', context);
-//  dispatch(actions.RcvKep13318(message.text));
-});
-*/
-/*
-app
-.service('kep13319')
-.update(p.updateId, { value: p.value })
-.then(async (res) => {
-  common.log(`updated kep13319 updateId=${p.updateId}, value=${p.value}`);
-})
-.catch((e) => {
-  console.error('Authentication error', e);
-});
-*/
-
-
-  // seting dispatch as a global variable works, but setting
-  // store as a global variable messes up the generator functions
-  setSAGA(srv,dispatch);
-
 //await srv.logout().then(dispatch(isAuthenticated(false)));
- // dispatch(isAdmin(true));
-  //dispatch(addApp(srv));
-
-
-
-  return srv
-}
-
-export default setupServices
+// dispatch(isAdmin(true));
+//dispatch(addApp(srv));
