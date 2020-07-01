@@ -32,6 +32,10 @@ export const UpdateNode = (updateId,value) => ({
 });
 
 // Global Reducer
+export const SetAppSet = appSet => ({
+  type: types.SET_APPSET,
+  appSet
+});
 export const SetCurrentApp = appId => ({
   type: types.SET_CURRENT_APP,
   appId

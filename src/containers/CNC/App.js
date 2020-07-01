@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import AppComponent from "../components/App";
+import AppComponent from "../../components/App";
 
-import * as actions from "../actions";
+import * as actions from "../../actions";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -25,7 +25,6 @@ function mapStateToProps(state) {
     search: router.location.search,
     hash: router.location.hash,
     submitting: Global.submitting,
-    appSet: Global.appSet,
     appError: Global.appError,
     openDialog200206: Dialogs.openDialog200206
   };

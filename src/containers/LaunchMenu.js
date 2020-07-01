@@ -23,6 +23,7 @@ function mapStateToProps(state) {
     appSet: Global.appSet,
     appError: Global.appError,
     isAuthenticated: User.isAuthenticated,
+    roles: User.roles,
     submitting: Global.submitting,
   };
 }

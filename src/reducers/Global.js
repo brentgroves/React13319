@@ -49,6 +49,14 @@ const Global = (state = initState, action) => {
          submitting: action.submitting
        })
     }
+    case types.SET_APPSET:
+    {
+      // Keep a reference to the service object created in sockets initialization code.
+      return Object.assign({}, state, {
+        appSet: action.appSet
+      })
+
+    }
     case types.SET_APP_ERROR:
     {
       return {

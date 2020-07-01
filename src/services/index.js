@@ -2,10 +2,12 @@ import * as types from '../constants/ActionTypes';
 import * as actions from '../actions';
 import { setSAGA } from '../sagas';
 import * as common from '@bgroves/common';
+import * as appSet from '../constants/AppSet';
 const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client');
 const io = require('socket.io-client');
 const auth = require('@feathersjs/authentication-client');
+
 
 // seting dispatch as a global variable works, but setting
 // store as a global variable in Saga messes up the generator functions
@@ -73,6 +75,24 @@ const setupServices = async (dispatch) => {
       dispatch(actions.SetLastName(res.user.lastName));
       dispatch(actions.SetEmail(res.user.email));
       dispatch(actions.SetRoles(res.user.roles));
+      let set;
+      switch(res.user.roles[0]) {
+        case 'Admin':
+          set=appSet.BPG;
+          break;
+        case 'Manager':
+          set=appSet.BPG;
+          break;
+        case 'Quality':
+          set=appSet.BPG;
+          break;
+          case 'Home':
+            set=appSet.HOME;
+            break;
+          default:
+          set=appSet.BPG;
+      }
+      dispatch(actions.SetAppSet(set));
     })
     .catch((e) => {
       // Show login page (potentially with `e.message`)
