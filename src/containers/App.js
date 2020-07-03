@@ -27,6 +27,7 @@ function mapStateToProps(state) {
     submitting: Global.submitting,
     appSet: Global.appSet,
     appError: Global.appError,
+    currentApp: Global.currentApp,
     openDialog200206: Dialogs.openDialog200206
   };
 }

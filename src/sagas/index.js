@@ -1,40 +1,28 @@
-import { put, takeEvery, all } from "redux-saga/effects";
-import * as types from "../constants/ActionTypes";
-import * as actions from "../actions";
-import { push } from "connected-react-router";
-import * as errorType from '../constants/ErrorType'
-import * as errorSeverity from '../constants/ErrorSeverity'
+import { put, takeEvery, all } from 'redux-saga/effects';
+import * as types from '../constants/ActionTypes';
+import { push } from 'connected-react-router';
 import * as users from './Users';
 import * as sproc200206 from './Sproc200206';
 import * as sproc200221 from './Sproc200221';
 import * as kep13319 from './Kep13319';
-const common = require('@bgroves/common');
-var datetime = require('node-datetime');
+import * as common from '@bgroves/common';
 
-var g_services;
-var g_dispatch;
-
-
+//var g_services;
+//var g_dispatch;
 
 // will not work?
 /*  put(push(action.route)) Works when called from handleView200206 and others
     unsure if it works when called from UI menu item click via an action dispatch.
 */
 function* handlePush(action) {
-  common.log("in handlePush()");
+  common.log('in handlePush()');
   yield put(push(action.path));
-//  yield put(push("/login"));
+  //  yield put(push("/login"));
 }
-
-
-
-
 
 function* watchPush() {
   yield takeEvery(types.PUSH, handlePush);
 }
-
-
 
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
@@ -50,20 +38,19 @@ export default function* rootSaga() {
     sproc200206.watchSproc200206Fetch(),
     sproc200221.watchSproc200221Create(),
     sproc200221.watchSproc200221Fetch(),
-    kep13319.watchKep13319Fetch()
+    kep13319.watchKep13319Fetch(),
 
     //    handleReAuthenticate()
   ]);
 }
 
-
 export function setSAGA(services, dispatch) {
-  g_services = services;
-  g_dispatch = dispatch;
-  users.setSAGA(services,dispatch);
-  sproc200206.setSAGA(services,dispatch);
-  sproc200221.setSAGA(services,dispatch);
-  kep13319.setSAGA(services,dispatch);
+  //  g_services = services;
+  //  g_dispatch = dispatch;
+  users.setSAGA(services, dispatch);
+  sproc200206.setSAGA(services, dispatch);
+  sproc200221.setSAGA(services, dispatch);
+  kep13319.setSAGA(services, dispatch);
 }
 /*
 const delay = (ms) => new Promise(res => setTimeout(res, ms))

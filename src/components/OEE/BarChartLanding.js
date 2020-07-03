@@ -28,8 +28,8 @@ export default class BarChartLanding extends Component {
     const { list } = this.state;
     return (
       <BarChart
-        width={480}
-        height={240}
+        width={530}
+        height={250}
         data={list}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >

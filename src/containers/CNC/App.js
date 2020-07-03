@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import AppComponent from "../../components/App";
+import AppComponent from "../../components/CNC/App";
 
 import * as actions from "../../actions";
 
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
   };
 }
 
-export const App = connect(
+export const CNC = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AppComponent);

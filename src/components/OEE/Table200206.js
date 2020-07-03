@@ -15,8 +15,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
-import { log } from '../utils/log';
+import * as common from '@bgroves/common';
 
 let g_sproc;
 let g_table;
@@ -38,7 +37,7 @@ const useStyles1 = makeStyles(theme => ({
 function TablePaginationActions(props) {
   const classes = useStyles1();
   const theme = useTheme();
-  const { count, page, onChangePage } = props;
+  const { page, onChangePage } = props;
 
   const handleFirstPageButtonClick = event => {
     if (g_skip > 0) {
@@ -63,7 +62,7 @@ function TablePaginationActions(props) {
 
   const handleNextButtonClick = event => {
     if (page === g_lastBuffPage) {
-      log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`);
+      common.log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`);
       g_Sproc200206Fetch(
         g_sproc,
         g_table,
@@ -199,7 +198,7 @@ export default function Table200206({
       g_firstBuffPage + Math.max(0, Math.ceil(data.length / rpp) - 1);
     g_lastPage = Math.max(0, Math.ceil(g_total / rpp) - 1); // 0 based pages,
     setPage(g_firstBuffPage);
-    log(
+    common.log(
       `g_firstBuffPage: ${g_firstBuffPage},g_lastBuffPage:${g_lastBuffPage},g_lastPage:${g_lastPage}`,
     );
   };
@@ -228,7 +227,7 @@ export default function Table200206({
               )
             : data
           ).map(row => (
-            <TableRow key={row.ID}>
+            <TableRow key={row.primary_key}>
               <TableCell component="th" scope="row">
                 {row.start_week}
               </TableCell>
@@ -247,7 +246,7 @@ export default function Table200206({
           ))}
 
           {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
+            <TableRow key="9999" style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
           )}

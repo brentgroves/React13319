@@ -1,60 +1,56 @@
-import * as errorSeverity from "../constants/ErrorSeverity";
-import * as errorType from "../constants/ErrorType";
-import * as types from "../constants/ActionTypes";
+import * as errorSeverity from '../constants/ErrorSeverity';
+import * as errorType from '../constants/ErrorType';
+import * as types from '../constants/ActionTypes';
 
-let nextDS13318Id = 0;
 let nextKep13318Id = 0;
 // No Reducer
-export const Push = path => ({
+export const Push = (path) => ({
   type: types.PUSH,
-  path
+  path,
 });
 
 // Kep13319 Reducer
-export const Kep13319Fetch = (
-  route,
-  setSubmittingOff
-) => ({
+export const Kep13319Fetch = (route, setSubmittingOff) => ({
   type: types.KEP13319_FETCH,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
-export const SetNodes = nodes => ({
+export const SetNodes = (nodes) => ({
   type: types.SET_NODES,
-  nodes
+  nodes,
 });
 
-export const UpdateNode = (updateId,value) => ({
+export const UpdateNode = (updateId, value) => ({
   type: types.UPDATE_NODE,
   updateId,
-  value
+  value,
 });
 
 // Global Reducer
-export const SetAppSet = appSet => ({
+export const SetAppSet = (appSet) => ({
   type: types.SET_APPSET,
-  appSet
+  appSet,
 });
-export const SetCurrentApp = appId => ({
+export const SetCurrentApp = (appId) => ({
   type: types.SET_CURRENT_APP,
-  appId
+  appId,
 });
-export const Submitting = submitting => ({
+export const Submitting = (submitting) => ({
   type: types.SUBMITTING,
-  submitting
+  submitting,
 });
 export const SetAppError = (message, errorType, severity) => ({
   type: types.SET_APP_ERROR,
   message,
   errorType,
-  severity
+  severity,
 });
 export const ClearAppError = () => ({
   type: types.CLEAR_APP_ERROR,
-  error: "",
+  error: '',
   errorType: errorType.NONE,
-  severity: errorSeverity.NONE
+  severity: errorSeverity.NONE,
 });
 
 // User Reducer
@@ -63,44 +59,44 @@ export const AuthenticateSaga = (email, password, route, setSubmittingOff) => ({
   email,
   password,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
-export const SetIsAuthenticated = isAuthenticated => ({
+export const SetIsAuthenticated = (isAuthenticated) => ({
   type: types.SET_IS_AUTHENTICATED,
-  isAuthenticated
+  isAuthenticated,
 });
 
-export const SetIsAdmin = isAdmin => ({
+export const SetIsAdmin = (isAdmin) => ({
   type: types.SET_IS_ADMIN,
-  isAdmin
+  isAdmin,
 });
 
-export const SetRoles = roles => ({
+export const SetRoles = (roles) => ({
   type: types.SET_ROLES,
-  roles
+  roles,
 });
-export const SetEmail = email => ({
+export const SetEmail = (email) => ({
   type: types.SET_EMAIL,
-  email
+  email,
 });
 
-export const SetUserName = userName => ({
+export const SetUserName = (userName) => ({
   type: types.SET_USERNAME,
-  userName
+  userName,
 });
 
-export const SetFirstName = firstName => ({
+export const SetFirstName = (firstName) => ({
   type: types.SET_FIRSTNAME,
-  firstName
+  firstName,
 });
-export const SetLastName = lastName => ({
+export const SetLastName = (lastName) => ({
   type: types.SET_LASTNAME,
-  lastName
+  lastName,
 });
 
 export const Logout = () => ({
-  type: types.LOGOUT
+  type: types.LOGOUT,
 });
 
 export const View200206 = (
@@ -108,14 +104,14 @@ export const View200206 = (
   endDate,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 ) => ({
   type: types.VIEW_200206,
   startDate,
   endDate,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
 export const Sproc200206Create = (
@@ -124,7 +120,7 @@ export const Sproc200206Create = (
   fetch,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 ) => ({
   type: types.SPROC200206_CREATE,
   startDate,
@@ -132,7 +128,7 @@ export const Sproc200206Create = (
   fetch,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
 export const Sproc200206Fetch = (
@@ -141,7 +137,7 @@ export const Sproc200206Fetch = (
   limit,
   skip,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 ) => ({
   type: types.SPROC200206_FETCH,
   sproc,
@@ -149,39 +145,39 @@ export const Sproc200206Fetch = (
   limit,
   skip,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
-export const Set200206Sproc = sproc => ({
+export const Set200206Sproc = (sproc) => ({
   type: types.SET_200206_SPROC,
-  sproc
+  sproc,
 });
 
-export const Set200206Table = table => {
+export const Set200206Table = (table) => {
   return {
     type: types.SET_200206_TABLE,
-    table
+    table,
   };
 };
 
-export const Set200206Total = total => ({
+export const Set200206Total = (total) => ({
   type: types.SET_200206_TOTAL,
-  total
+  total,
 });
 
-export const Set200206Limit = limit => ({
+export const Set200206Limit = (limit) => ({
   type: types.SET_200206_LIMIT,
-  limit
+  limit,
 });
 
-export const Set200206Skip = skip => ({
+export const Set200206Skip = (skip) => ({
   type: types.SET_200206_SKIP,
-  skip
+  skip,
 });
 
-export const Set200206Data = data => ({
+export const Set200206Data = (data) => ({
   type: types.SET_200206_DATA,
-  data
+  data,
 });
 
 //SAGAS
@@ -191,7 +187,7 @@ export const Sproc200221Create = (
   fetch,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 ) => ({
   type: types.SPROC200221_CREATE,
   startDate,
@@ -199,7 +195,7 @@ export const Sproc200221Create = (
   fetch,
   limit,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
 export const Sproc200221Fetch = (
@@ -208,7 +204,7 @@ export const Sproc200221Fetch = (
   limit,
   skip,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 ) => ({
   type: types.SPROC200221_FETCH,
   sproc,
@@ -216,86 +212,86 @@ export const Sproc200221Fetch = (
   limit,
   skip,
   route,
-  setSubmittingOff
+  setSubmittingOff,
 });
 
-export const Set200221Sproc = sproc => ({
+export const Set200221Sproc = (sproc) => ({
   type: types.SET_200221_SPROC,
-  sproc
+  sproc,
 });
 
-export const Set200221Table = table => {
+export const Set200221Table = (table) => {
   return {
     type: types.SET_200221_TABLE,
-    table
+    table,
   };
 };
 
-export const Set200221Total = total => ({
+export const Set200221Total = (total) => ({
   type: types.SET_200221_TOTAL,
-  total
+  total,
 });
 
-export const Set200221Limit = limit => ({
+export const Set200221Limit = (limit) => ({
   type: types.SET_200221_LIMIT,
-  limit
+  limit,
 });
 
-export const Set200221Skip = skip => ({
+export const Set200221Skip = (skip) => ({
   type: types.SET_200221_SKIP,
-  skip
+  skip,
 });
 
-export const Set200221Data = data => ({
+export const Set200221Data = (data) => ({
   type: types.SET_200221_DATA,
-  data
+  data,
 });
 
 // Dialogs
-export const OpenDialog200206 = open => ({
+export const OpenDialog200206 = (open) => ({
   type: types.OPEN_DIALOG_200206,
-  open
+  open,
 });
 
 // Obsolete
-export const SetHourlyOEEValuesTotal = total => ({
+export const SetHourlyOEEValuesTotal = (total) => ({
   type: types.SET_HOURLY_OEE_VALUES_TOTAL,
-  total
+  total,
 });
 
-export const SetHourlyOEEValuesLimit = limit => ({
+export const SetHourlyOEEValuesLimit = (limit) => ({
   type: types.SET_HOURLY_OEE_VALUES_LIMIT,
-  limit
+  limit,
 });
 
-export const SetHourlyOEEValuesSkip = skip => ({
+export const SetHourlyOEEValuesSkip = (skip) => ({
   type: types.SET_HOURLY_OEE_VALUES_SKIP,
-  skip
+  skip,
 });
 
-export const SetHourlyOEEValuesData = data => ({
+export const SetHourlyOEEValuesData = (data) => ({
   type: types.SET_HOURLY_OEE_VALUES_DATA,
-  data
+  data,
 });
 
-export const FetchNextHourlyOEEValues = skip => ({
+export const FetchNextHourlyOEEValues = (skip) => ({
   type: types.FETCH_NEXT_HOURLY_OEE_VALUES,
-  skip
+  skip,
 });
 
 /* add from UI is obviously not needed but is for testing */
-export const AddKep13318 = text => ({
+export const AddKep13318 = (text) => ({
   type: types.ADD_KEP13318,
   id: nextKep13318Id++,
-  text
+  text,
 });
-export const RcvKep13318 = text => ({
+export const RcvKep13318 = (text) => ({
   type: types.RCV_KEP13318,
   id: nextKep13318Id++,
-  text
+  text,
 });
 
-export const RcvDS13318 = records => ({
+export const RcvDS13318 = (records) => ({
   type: types.RCV_DS13318,
-  records
+  records,
 });

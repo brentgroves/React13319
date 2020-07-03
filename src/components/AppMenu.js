@@ -1,22 +1,23 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import Badge from '@material-ui/core/Badge';
 import AppsIcon from '@material-ui/icons/Apps';
 import IconButton from '@material-ui/core/IconButton';
-import { log } from '../utils/log';
 import * as AppId from '../constants/AppId';
 import * as AppSet from '../constants/AppSet';
-export default function SimpleMenu({
+import CssBaseline from '@material-ui/core/CssBaseline';
+import * as common from '@bgroves/common';
+
+export default function AppMenu({
   Push,
   currentApp,
   SetCurrentApp,
   appSet,
   Logout,
 }) {
-  log(`currentApp=${currentApp}`);
+  common.log(`currentApp=${currentApp}`);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -39,7 +40,7 @@ export default function SimpleMenu({
     //    OpenDialog200206(true);
     // setAnchorEl(event.currentTarget);
     setAnchorEl(null);
-    Push('/oee');
+    // Push('/oee');
     SetCurrentApp(AppId.CNC);
   };
   const handleSensor = () => {
@@ -48,7 +49,7 @@ export default function SimpleMenu({
     // setAnchorEl(event.currentTarget);
     setAnchorEl(null);
     SetCurrentApp(AppId.SENSOR);
-    Push('/oee');
+    // Push('/oee');
     SetCurrentApp(AppId.CNC);
   };
 
@@ -57,7 +58,8 @@ export default function SimpleMenu({
   };
 
   return (
-    <div>
+    <React.Fragment>
+    <CssBaseline />
       {/* 
                 <IconButton color="inherit">
                   <Badge onClick={handleLogout} color="primary">
@@ -71,13 +73,12 @@ export default function SimpleMenu({
 
                 */}
 
-      <IconButton color="inherit">
-        <Badge badgeContent={0} onClick={handleClick} color="secondary">
+      <IconButton color="inherit" onClick={handleClick} >
+        <Badge badgeContent={0}  color="secondary">
           <AppsIcon />
         </Badge>
       </IconButton>
-      {appSet == AppSet.BPG && (
-        <React.Fragment>
+      {appSet === AppSet.BPG && (
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -86,21 +87,15 @@ export default function SimpleMenu({
             onClose={handleClose}
           >
             {currentApp !== AppId.OEE && (
-              <React.Fragment>
                 <MenuItem onClick={handleOEE}>OEE</MenuItem>
-              </React.Fragment>
             )}
             {currentApp !== AppId.CNC && (
-              <React.Fragment>
-                <MenuItem onClick={handleCNC}>CNC</MenuItem>
-              </React.Fragment>
+                <MenuItem onClick={handleOEE}>CNC</MenuItem>
             )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
-        </React.Fragment>
       )}
-      {appSet == AppSet.HOME && (
-        <React.Fragment>
+      {appSet === AppSet.HOME && (
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -109,24 +104,14 @@ export default function SimpleMenu({
             onClose={handleClose}
           >
             {currentApp !== AppId.OEE && (
-              <React.Fragment>
                 <MenuItem onClick={handleOEE}>OEE</MenuItem>
-              </React.Fragment>
             )}
             {currentApp !== AppId.CNC && (
-              <React.Fragment>
-                <MenuItem onClick={handleCNC}>CNC</MenuItem>
-              </React.Fragment>
-            )}
-            {currentApp !== AppId.SENSOR && (
-              <React.Fragment>
-                <MenuItem onClick={handleSensor}>SENSOR</MenuItem>
-              </React.Fragment>
+                <MenuItem onClick={handleOEE}>CNC</MenuItem>
             )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
-        </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 }

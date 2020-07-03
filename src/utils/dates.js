@@ -1,4 +1,4 @@
-var jstz = require('jstz');
+//var jstz = require('jstz');
 var moment = require('moment');
 
 /* standard javascript 
@@ -45,66 +45,50 @@ function LastDayWeek(date)
 /*
 MariaDb does not work with datetime literals that include timezones. 
 */
- function FirstDayWeek(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
- 
-   const firstDay = moment(newDate).startOf('week');
-   return firstDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
- 
- 
- function LastDayWeek(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
-   const lastDay = moment(newDate).endOf('week');
-   return lastDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
- 
- function FirstDayMonth(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
- 
-   const firstDay = moment(newDate).startOf('month');
-   return firstDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
- 
- 
- function LastDayMonth(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
-   const lastDay = moment(newDate).endOf('month');
-   return lastDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
- 
- function FirstDayQuarter(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
- 
-   const firstDay = moment(newDate).startOf('quarter');
-   return firstDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
- 
- 
- function LastDayQuarter(date)
- {
-   var newDate = new Date(date.getTime());  // Duplicate date
-   const lastDay = moment(newDate).endOf('quarter');
-   return lastDay.format("YYYY-MM-DDTHH:mm:ss");
- 
- }
+function FirstDayWeek(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
 
-module.exports = {
-    FirstDayWeek,
-    LastDayWeek,
-    FirstDayMonth,
-    LastDayMonth,
-    FirstDayQuarter,
-    LastDayQuarter
+  const firstDay = moment(newDate).startOf('week');
+  return firstDay.format('YYYY-MM-DDTHH:mm:ss');
 }
 
+function LastDayWeek(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
+  const lastDay = moment(newDate).endOf('week');
+  return lastDay.format('YYYY-MM-DDTHH:mm:ss');
+}
+
+function FirstDayMonth(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
+
+  const firstDay = moment(newDate).startOf('month');
+  return firstDay.format('YYYY-MM-DDTHH:mm:ss');
+}
+
+function LastDayMonth(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
+  const lastDay = moment(newDate).endOf('month');
+  return lastDay.format('YYYY-MM-DDTHH:mm:ss');
+}
+
+function FirstDayQuarter(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
+
+  const firstDay = moment(newDate).startOf('quarter');
+  return firstDay.format('YYYY-MM-DDTHH:mm:ss');
+}
+
+function LastDayQuarter(date) {
+  var newDate = new Date(date.getTime()); // Duplicate date
+  const lastDay = moment(newDate).endOf('quarter');
+  return lastDay.format('YYYY-MM-DDTHH:mm:ss');
+}
+
+module.exports = {
+  FirstDayWeek,
+  LastDayWeek,
+  FirstDayMonth,
+  LastDayMonth,
+  FirstDayQuarter,
+  LastDayQuarter,
+};

@@ -49,7 +49,7 @@ async function main() {
   console.log('After apply middleware');
   //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 
-  const services = await setupServices(store.dispatch);
+  await setupServices(store.dispatch);
 
   //sagaMiddleware.run(handleNewMessage, { services, username })
   sagaMiddleware.run(rootSaga);

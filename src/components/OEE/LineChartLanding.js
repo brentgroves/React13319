@@ -60,8 +60,8 @@ export default class LineChartLanding extends PureComponent {
   render() {
     return (
       <LineChart
-        width={400}
-        height={240}
+        width={530}
+        height={250}
         data={data}
         margin={{
           top: 5,

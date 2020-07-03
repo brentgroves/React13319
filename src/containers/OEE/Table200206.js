@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import Table200206Component from "../components/Table200206";
-import * as actions from "../actions";
+import Table200206Component from "../../components/OEE/Table200206";
+import * as actions from "../../actions";
 
 function mapStateToProps(state) {
   const { User, Sproc200206, Global } = state;

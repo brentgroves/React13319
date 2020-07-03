@@ -23,8 +23,8 @@ import clsx from 'clsx';
 import { AppMenu } from '../../containers/AppMenu';
 import { Dialog200206 } from '../../containers/OEE/Dialog200206';
 import { View200206 } from '../../containers/OEE/View200206';
-import { SideMenu } from '../../containers/OEE/SideMenu';
-import { Landing } from '../../containers/OEE/Landing';
+import { SideMenu } from '../../containers/CNC/SideMenu';
+import { Landing } from '../../containers/CNC/Landing';
 import LinearIndeterminate from '../LinearIndeterminate';
 
 const drawerWidth = 240;
@@ -165,7 +165,7 @@ export default function App({
             noWrap
             className={classes.title}
           >
-            OEE Visualizations
+            CNC Visualizations
           </Typography>
           {/* 
                 <IconButton color="inherit">
@@ -208,11 +208,11 @@ export default function App({
 
             </Route>
             <Route path={`${match.path}/dialog200206`}>
-              <Dialog200206 />
+            <h1>CNC Dialog</h1>
 
             </Route>
             <Route path={`${match.path}/view200206`}>
-              <View200206 />
+              <h1>CNC Landing</h1>
 
             </Route>
             <Route path={match.path}>

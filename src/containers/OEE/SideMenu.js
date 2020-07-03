@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import VisualizationsListComponent from "../components/VisualizationsList";
-import * as actions from '../actions'
+import SideMenuComponent from "../../components/OEE/SideMenu";
+import * as actions from '../../actions'
 
 function mapStateToProps(state) {
   const { User, Global } = state
@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const VisualizationsList = connect(mapStateToProps, mapDispatchToProps)(VisualizationsListComponent)
+export const SideMenu = connect(mapStateToProps, mapDispatchToProps)(SideMenuComponent)

@@ -8,6 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
+import * as common from '@bgroves/common';
 
 import {
   MuiPickersUtilsProvider,
@@ -15,13 +16,12 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-import { log } from "../utils/log";
-import * as errorSeverity from "../constants/ErrorSeverity";
-import * as errorType from "../constants/ErrorType";
+import * as errorSeverity from "../../constants/ErrorSeverity";
+import * as errorType from "../../constants/ErrorType";
 
 const DatePickerField = ({ field, form, myLabel,...other }) => {
   const currentError = form.errors[field.name];
-  log(`field: ${field.name},${myLabel}`);
+  common.log(`field: ${field.name},${myLabel}`);
  
   return (
     <KeyboardDatePicker
@@ -88,10 +88,10 @@ export default function Dialog200206(params) {
             Submitting(true);  // buttons look at this to determine if they should be enabled?
             let sd = new Date(values.startDate);
             let start = format(sd, "yyyy-MM-dd'T00:00:00'");
-            log(start);
+            common.log(start);
             let ed = new Date(values.endDate);
             let end = format(ed, "yyyy-MM-dd'T23:59:59'");
-            log(end);
+            common.log(end);
             //Compare the two dates and return 1 if the first date is after the second,
             // -1 if the first date is before the second or 0 if dates are equal.
             if (-1 === compareAsc(ed, sd)) {
@@ -102,8 +102,8 @@ export default function Dialog200206(params) {
               );
               Submitting(false);
             } else {
-              Push('/transition');
-              View200206(start, end, 1000, "/view200206", true);  // will set submitting to false after done.
+              Push('/oee/transition');
+              View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
            //   OpenDialog200206(false);
             }
           }}

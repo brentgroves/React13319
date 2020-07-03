@@ -30,7 +30,7 @@ function mapStateToProps(state) {
   };
 }
 
-export const OEEApp = connect(
+export const OEE = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AppComponent);

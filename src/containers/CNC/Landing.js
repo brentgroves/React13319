@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import LandingComponent from '../../components/CNC/Landing'
+import LandingComponent from '../../components/OEE/Landing'
 
 import * as actions from '../../actions'
 

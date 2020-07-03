@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import View200206Component from "../components/View200206";
-import * as actions from '../actions'
+import View200206Component from "../../components/OEE/View200206";
+import * as actions from '../../actions'
 
 function mapStateToProps(state) {
   const { User, Sproc200206 } = state

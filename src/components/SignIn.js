@@ -11,9 +11,12 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 
-import { log } from '../utils/log';
+import * as common from '@bgroves/common';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -49,8 +52,8 @@ const SignIn = ({
     <Formik
       initialValues={{ email: '', password: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
-        log(values.email);
+        common.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
+        common.log(values.email);
         Submitting(true);
         AuthenticateSaga(values.email, values.password, '/', true);
       }}
@@ -72,10 +75,9 @@ const SignIn = ({
         } = props;
 
         return (
-          <section id="new-message">
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <div className={classes.paper}>
+          <React.Fragment>
+          <CssBaseline />
+          <Container className={classes.paper} component="main" maxWidth="xs">
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
@@ -125,9 +127,8 @@ const SignIn = ({
                     Sign In
                   </Button>
                 </form>
-              </div>
             </Container>
-          </section>
+            </React.Fragment>
         );
       }}
     </Formik>

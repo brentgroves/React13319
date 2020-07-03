@@ -1,4 +1,4 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 import { push } from "connected-react-router";
 import * as actions from "../actions";
 import * as types from "../constants/ActionTypes";
@@ -64,7 +64,7 @@ function* handleAuthenticate(action) {
 }
 function* handleLogout(action) {
   try {
-    yield put(push("/login"));
+//    yield put(push("/login"));
     yield g_services.logout();
     g_dispatch(actions.SetIsAuthenticated(false));
   } catch (err) {

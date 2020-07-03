@@ -1,5 +1,4 @@
 import {
-  ResponsiveContainer,
   BarChart,
   Bar,
   CartesianGrid,
@@ -13,8 +12,7 @@ import PropTypes from "prop-types";
 
 export default function BarChart200221DownTime({ data }) {
   return (
-    <ResponsiveContainer width={500} height={175}>
-      <BarChart width={730} height={250} data={data}>
+      <BarChart width={530} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="part_number" />
         <YAxis />
@@ -22,7 +20,6 @@ export default function BarChart200221DownTime({ data }) {
         <Legend />
         <Bar dataKey="downtime_minutes" fill="#ffc658" />
       </BarChart>
-    </ResponsiveContainer>
   );
 }
 
