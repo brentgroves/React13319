@@ -1,5 +1,5 @@
-import * as types from '../constants/ActionTypes';
-const config = require('../config/config.json');
+import * as types from '../../constants/ActionTypes';
+const config = require('../../config/config.json');
 
 const Kep13319 = (state = config, action) => {
   switch (action.type) {

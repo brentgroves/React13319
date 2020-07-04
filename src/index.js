@@ -14,6 +14,7 @@ import rootSaga from './sagas';
 import setupServices from './services';
 import { ConnectedRouter } from 'connected-react-router';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
 export const history = createBrowserHistory();
 
 async function main() {
@@ -27,6 +28,8 @@ async function main() {
   if (process.env.NODE_ENV === 'production') {
     disableReactDevTools();
   }
+
+  // store = setupStore();
   if (process.env.NODE_ENV === 'production') {
     store = createStore(
       reducers(history), // root reducer with router state
@@ -50,7 +53,7 @@ async function main() {
   //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 
   await setupServices(store.dispatch);
-
+  
   //sagaMiddleware.run(handleNewMessage, { services, username })
   sagaMiddleware.run(rootSaga);
 

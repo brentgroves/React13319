@@ -1,5 +1,6 @@
-import * as types from '../constants/ActionTypes'
+import * as allTypes from '../../constants/ActionTypes'
 
+const types = allTypes.home;
 
 const initState = {
   isAuthenticated:false,
@@ -10,7 +11,6 @@ const initState = {
   firstName:'',
   lastName:''
 }
-
 
 const User = (state = initState, action) => {
   switch (action.type) {

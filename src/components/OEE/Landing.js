@@ -6,14 +6,12 @@ import Paper from "@material-ui/core/Paper";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from "@material-ui/core/Container";
 import clsx from "clsx";
 
 import BarChartLanding from "./BarChartLanding";
 import LineChartLanding from "./LineChartLanding";
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as errorType from '../constants/ErrorType';
 import * as errorSeverity from '../constants/ErrorSeverity';
-import { log } from '../utils/log';
+import * as common from '@bgroves/common';
 import {
   FirstDayWeek,
   LastDayWeek,
@@ -18,10 +18,10 @@ var firstDayOfMonth = FirstDayMonth(today);
 var lastDayOfMonth = LastDayMonth(today);
 var firstDayOfQuarter = FirstDayQuarter(today);
 var lastDayOfQuarter = LastDayQuarter(today);
-log(
+common.log(
   `today: ${today},firstDayOfWeek:${firstDayOfWeek},lastDayOfWeek:${lastDayOfWeek},firstDayOfMonth:${firstDayOfMonth},lastDayOfMonth:${lastDayOfMonth}`,
 );
-log(`process.env.REACT_APP_SET=${process.env.REACT_APP_SET}`);
+common.log(`process.env.REACT_APP_SET=${process.env.REACT_APP_SET}`);
 
 const initState = {
   appSet: process.env.REACT_APP_SET,

@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 function mapStateToProps(state) {
-  const { User,Global,router } = state
+  const { Global } = state
   return {
     currentApp: Global.currentApp,
     appSet: Global.appSet

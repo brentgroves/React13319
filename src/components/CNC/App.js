@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
+  useRouteMatch
 } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,13 +18,11 @@ import Typography from '@material-ui/core/Typography';
 
 import clsx from 'clsx';
 import { AppMenu } from '../../containers/AppMenu';
-import { Dialog200206 } from '../../containers/OEE/Dialog200206';
-import { View200206 } from '../../containers/OEE/View200206';
 import { SideMenu } from '../../containers/CNC/SideMenu';
 import { Landing } from '../../containers/CNC/Landing';
 import LinearIndeterminate from '../LinearIndeterminate';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -139,7 +134,7 @@ export default function App({
   return (
     <React.Fragment>
     <CssBaseline />
-    {isAuthenticated && pathname != "/login" && pathname != "/" && (
+    {isAuthenticated && pathname !== "/login" && pathname !== "/" && (
               <React.Fragment>
 <AppBar
         position="absolute"
@@ -207,12 +202,12 @@ export default function App({
               <LinearIndeterminate />
 
             </Route>
-            <Route path={`${match.path}/dialog200206`}>
+            <Route path={`${match.path}/dialog13319`}>
             <h1>CNC Dialog</h1>
 
             </Route>
-            <Route path={`${match.path}/view200206`}>
-              <h1>CNC Landing</h1>
+            <Route path={`${match.path}/view13319`}>
+              <h1>CNC Dynamic View</h1>
 
             </Route>
             <Route path={match.path}>

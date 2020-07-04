@@ -1,20 +1,13 @@
-import { combineReducers } from 'redux'
-import { connectRouter } from 'connected-react-router'
-import Global from './Global'
-import User from './User'
-import Sproc200206 from './Sproc200206'
-import Sproc200221 from './Sproc200221'
-import Dialogs from './Dialogs'
-import Kep13319 from './Kep13319'
+import BPGReducer from './bpg';
+import HomeReducer from './home';
 
-const RootReducer = (history) => combineReducers({
-  router: connectRouter(history),
-  Global,
-  User,
-  Sproc200206,
-  Sproc200221,
-  Dialogs,
-  Kep13319
-})
+
+var RootReducer;
+if (process.env.REACT_APP_SET === 'bpg') {
+  RootReducer = BPGReducer;
+}
+if (process.env.REACT_APP_SET === 'home') {
+  RootReducer = HomeReducer;
+}
 
 export default RootReducer

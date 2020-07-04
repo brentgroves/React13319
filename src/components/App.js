@@ -1,23 +1,15 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
-import Box from '@material-ui/core/Box';
 
-import * as AppSet from '../constants/AppSet';
 import { OEE } from '../containers/OEE/App';
 import { CNC } from '../containers/CNC/App';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import * as AppId from '../constants/AppId';
 import { LaunchMenu } from '../containers/LaunchMenu';
 import { SignIn } from '../containers/SignIn';
 import LinearIndeterminate from './LinearIndeterminate';

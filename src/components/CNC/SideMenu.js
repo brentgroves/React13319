@@ -15,20 +15,17 @@ import GroupWorkIcon from '@material-ui/icons/GroupWork';
 
 export default function SideMenu(params) {
   const {
-    firstDayOfWeek,
-    lastDayOfWeek,
     Push,
-    View200206,
-    Submitting,
   } = params;
 
-  const handleView200206AdHoc = () => {
-    Push('/cnc/dialog200206');
+  const handleView13319Live = () => {
+    Push('/cnc/view13319');
   };
-  const handleView200206ThisWeek = () => {
-    Push('/cnc/transition');
-    Submitting(true); // Buttons look at this to see if they should be enabled
-    View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/cnc/view200206', true);
+  const handleView13319AdHoc = () => {
+    Push('/cnc/dialog13319');
+    // Push('/cnc/transition');
+    // Submitting(true); // Buttons look at this to see if they should be enabled
+    // View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/cnc/view200206', true);
   };
   /*
   const handleView200206ThisMonth = () => {
@@ -39,22 +36,22 @@ export default function SideMenu(params) {
 */
   return (
     <List>
-      <ListSubheader>Ad-Hoc</ListSubheader>
+      <ListSubheader>Live</ListSubheader>
       <Divider />
-      <ListItem button onClick={handleView200206AdHoc}>
+      <ListItem button onClick={handleView13319Live}>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
-        <ListItemText primary="OEE by Part" />
+        <ListItemText primary="CNC" />
       </ListItem>
       <Divider />
-      <ListSubheader>Week</ListSubheader>
+      <ListSubheader>Ad-Hoc</ListSubheader>
       <Divider />
-      <ListItem button onClick={handleView200206ThisWeek}>
+      <ListItem button onClick={handleView13319AdHoc}>
         <ListItemIcon>
           <GroupWorkIcon />
         </ListItemIcon>
-        <ListItemText primary="OEE by Part" />
+        <ListItemText primary="Compare" />
       </ListItem>
     </List>
   );

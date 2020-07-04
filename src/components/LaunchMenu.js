@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,13 +12,11 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import * as AppId from '../constants/AppId';
 import * as AppSet from '../constants/AppSet';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +46,6 @@ export default function LaunchMenu(params) {
   const { SetCurrentApp, appSet, Push } = params;
 
   const classes = useStyles();
-  const instructions = clsx(classes.paper, classes.instructions);
 
   const handleOEE = () => {
     //    Push('/transition');

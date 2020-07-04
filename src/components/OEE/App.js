@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useRouteMatch,
-  useParams
 } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,7 +24,7 @@ import { SideMenu } from '../../containers/OEE/SideMenu';
 import { Landing } from '../../containers/OEE/Landing';
 import LinearIndeterminate from '../LinearIndeterminate';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -139,7 +136,7 @@ export default function App({
   return (
     <React.Fragment>
     <CssBaseline />
-    {isAuthenticated && pathname != "/login" && pathname != "/" && (
+    {isAuthenticated && pathname !== "/login" && pathname !== "/" && (
               <React.Fragment>
 <AppBar
         position="absolute"

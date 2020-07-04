@@ -40,9 +40,10 @@ export default function AppMenu({
     //    OpenDialog200206(true);
     // setAnchorEl(event.currentTarget);
     setAnchorEl(null);
-    // Push('/oee');
+    Push('/cnc');
     SetCurrentApp(AppId.CNC);
   };
+  /*
   const handleSensor = () => {
     //    Push('/transition');
     //    OpenDialog200206(true);
@@ -52,7 +53,7 @@ export default function AppMenu({
     // Push('/oee');
     SetCurrentApp(AppId.CNC);
   };
-
+*/
   const handleLogout = () => {
     Logout();
   };
@@ -90,7 +91,7 @@ export default function AppMenu({
                 <MenuItem onClick={handleOEE}>OEE</MenuItem>
             )}
             {currentApp !== AppId.CNC && (
-                <MenuItem onClick={handleOEE}>CNC</MenuItem>
+                <MenuItem onClick={handleCNC}>CNC</MenuItem>
             )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
@@ -107,7 +108,7 @@ export default function AppMenu({
                 <MenuItem onClick={handleOEE}>OEE</MenuItem>
             )}
             {currentApp !== AppId.CNC && (
-                <MenuItem onClick={handleOEE}>CNC</MenuItem>
+                <MenuItem onClick={handleCNC}>CNC</MenuItem>
             )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
