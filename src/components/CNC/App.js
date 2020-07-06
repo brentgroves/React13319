@@ -20,6 +20,7 @@ import clsx from 'clsx';
 import { AppMenu } from '../../containers/AppMenu';
 import { SideMenu } from '../../containers/CNC/SideMenu';
 import { Landing } from '../../containers/CNC/Landing';
+import { View13319 } from '../../containers/CNC/View13319';
 import LinearIndeterminate from '../LinearIndeterminate';
 
 const drawerWidth = 200;
@@ -207,7 +208,7 @@ export default function App({
 
             </Route>
             <Route path={`${match.path}/view13319`}>
-              <h1>CNC Dynamic View</h1>
+              <View13319 />
 
             </Route>
             <Route path={match.path}>
