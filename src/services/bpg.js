@@ -50,9 +50,10 @@ const setupServices = async (dispatch) => {
     })
     .then((nodes) => {
       common.log('Done with Kep13319.find()');
-      let msgString = JSON.stringify(nodes[0]);
-      const obj = JSON.parse(msgString.toString()); // payload is a buffer
-      common.log(obj);
+      //const obj = JSON.parse(nodes[0].toString()); // payload is a buffer
+      let msg = JSON.stringify(nodes[0]);
+      //const obj = JSON.parse(msg); // payload is a buffer
+      common.log(`Kep.Find()=>${msg}`);
 
       dispatch(actions.SetNodes(nodes));
     })
@@ -107,8 +108,8 @@ const setupServices = async (dispatch) => {
 
   const kep13319 = srv.service('kep13319');
   kep13319.on('updated', (message, context) => {
-    common.log('updated', message);
-    dispatch(actions.UpdateNode(message.updateId, message.value));
+    common.log('Kep13319.update=>', message);
+    dispatch(actions.UpdateNode(message.updateId, message.value, message.transDate));
     //  console.common.log(`context=>${context}`);
   });
 
