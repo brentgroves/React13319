@@ -4,3 +4,5 @@ export const OpenDialog200206 = (open) => ({
   type: types.OPEN_DIALOG_200206,
   open,
 });
+
+

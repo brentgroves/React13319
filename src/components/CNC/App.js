@@ -21,6 +21,8 @@ import { AppMenu } from '../../containers/AppMenu';
 import { SideMenu } from '../../containers/CNC/SideMenu';
 import { Landing } from '../../containers/CNC/Landing';
 import { View13319 } from '../../containers/CNC/View13319';
+import { DialogCompareContainer } from '../../containers/CNC/DialogCompareContainer';
+import { ViewCompareContainer } from '../../containers/CNC/ViewCompareContainer';
 import LinearIndeterminate from '../LinearIndeterminate';
 
 const drawerWidth = 200;
@@ -203,12 +205,14 @@ export default function App({
               <LinearIndeterminate />
 
             </Route>
-            <Route path={`${match.path}/dialog13319`}>
-            <h1>CNC Dialog</h1>
-
+            <Route path={`${match.path}/dialogCompareContainer`}>
+              <DialogCompareContainer />
             </Route>
             <Route path={`${match.path}/view13319`}>
               <View13319 />
+            </Route>
+            <Route path={`${match.path}/viewCompareContainer`}>
+              <ViewCompareContainer />
 
             </Route>
             <Route path={match.path}>

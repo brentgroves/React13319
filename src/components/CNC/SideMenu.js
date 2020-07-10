@@ -21,12 +21,19 @@ export default function SideMenu(params) {
   const handleView13319Live = () => {
     Push('/cnc/view13319');
   };
-  const handleView13319AdHoc = () => {
-    Push('/cnc/dialog13319');
+  const handleViewCompareContainerAdHoc = () => {
+    Push('/cnc/dialogCompareContainer');
     // Push('/cnc/transition');
     // Submitting(true); // Buttons look at this to see if they should be enabled
     // View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/cnc/view200206', true);
   };
+  /*
+  const handleView200206ThisWeek = () => {
+    Push('/oee/transition');
+    Submitting(true); // Buttons look at this to see if they should be enabled
+    View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/oee/view200206', true);
+  };
+*/
   /*
   const handleView200206ThisMonth = () => {
     Push('/transition');
@@ -47,7 +54,7 @@ export default function SideMenu(params) {
       <Divider />
       <ListSubheader>Ad-Hoc</ListSubheader>
       <Divider />
-      <ListItem button onClick={handleView13319AdHoc}>
+      <ListItem button onClick={handleViewCompareContainerAdHoc}>
         <ListItemIcon>
           <GroupWorkIcon />
         </ListItemIcon>

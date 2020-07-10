@@ -1,33 +1,10 @@
 import React, { useEffect } from 'react';
-// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import { Table13319 } from '../../containers/CNC/Table13319';
+import { TableCompareContainer } from '../../containers/CNC/TableCompareContainer';
 
-// import * as common from '@bgroves/common';
-
-/*
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1),
-      width: theme.spacing(16),
-      height: theme.spacing(16),
-    },
-  },
-}));
-*/
-/*
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-});
-*/
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -35,9 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function View13319(params) {
-  //  const { Push, total, SetAppError } = params;
+export default function ViewCompareContainer({isAuthenticated,Push}) {
   useEffect(() => {
+    // Update the document title using the browser API
+    //document.title = `You clicked ${count} times`;
+    if (!isAuthenticated) {
+      Push("/login");
+    }
     // if (total === 0) {
     //   SetAppError(
     //     'No records for that date range.',
@@ -55,18 +36,18 @@ export default function View13319(params) {
       <Box p={1} bgcolor="grey.300">
         <div className={classes.root}>
           <Typography variant="h6" align="center" gutterBottom>
-            CNC part counters
+            Compare Plex Containers
           </Typography>
           <Typography variant="body1" gutterBottom>
-            These part counters are CNC common variables that have been
-            programmed to increment by G-Code and are being updated
-            continuously. Zero values may mean the CNC has been turned off or
-            there is a network error preventing access to the CNC.
+            This report compares the values of setup containers on the Plex production and test
+            servers.  It is meant to validate the Mach2 software is correctly updating 
+            container counts on the test server before trusting it to update the real
+            container counts on the Plex production server.
           </Typography>
         </div>
       </Box>
       <Box>
-        <Table13319 />
+        <TableCompareContainer />
       </Box>
     </Box>
   );

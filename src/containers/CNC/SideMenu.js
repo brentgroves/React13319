@@ -19,9 +19,8 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     Push: (path) => dispatch(actions.Push(path)),
-    View200206: (startDate,endDate,limit,route,setSubmittingOff) => dispatch(actions.View200206(startDate,endDate,limit,route,setSubmittingOff)),
     Submitting: (submitting) => dispatch(actions.Submitting(submitting)),
-    OpenDialog200206: (open) => dispatch(actions.OpenDialog200206(open))
+    OpenCompareContainerDialog: (open) => dispatch(actions.OpenCompareContainerDialog(open))
   }
 }
 

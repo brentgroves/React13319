@@ -18,6 +18,7 @@ import DateFnsUtils from "@date-io/date-fns";
 
 import * as errorSeverity from "../../constants/ErrorSeverity";
 import * as errorType from "../../constants/ErrorType";
+import { OpenCompareContainerDialog, CompareContainerFetch } from "../../actions/bpg/CompareContainer";
 
 const DatePickerField = ({ field, form, myLabel,...other }) => {
   const currentError = form.errors[field.name];
@@ -53,12 +54,12 @@ const DatePickerField = ({ field, form, myLabel,...other }) => {
   );
 };
 
-export default function Dialog200206(params) {
+export default function DialogCompareContainer(params) {
   const {
     firstDayOfWeek,
     lastDayOfWeek,
-    OpenDialog200206,
-    View200206,
+    OpenCompareContainerDialog,
+    CompareContainerFetch,
     Push,
     SetAppError,
     Submitting,
@@ -67,7 +68,7 @@ export default function Dialog200206(params) {
 
   const handleClose = () => {
     Push("/");
-    OpenDialog200206(false);
+    OpenCompareContainerDialog(false);
   };
   return (
     <Dialog
@@ -75,7 +76,7 @@ export default function Dialog200206(params) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">OEE by Part</DialogTitle>
+      <DialogTitle id="form-dialog-title">Compare Plex Containers</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Select the start and end date. The start date's time is 00:00:00 and
@@ -102,8 +103,8 @@ export default function Dialog200206(params) {
               );
               Submitting(false);
             } else {
-              Push('/oee/transition');
-              View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
+              Push('/cnc/transition');
+              CompareContainerFetch(start, end, 1000, 0, "/cnc/viewCompareContainer", true);  // will set submitting to false after done.
            //   OpenDialog200206(false);
             }
           }}
