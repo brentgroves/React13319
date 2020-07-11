@@ -18,7 +18,6 @@ import DateFnsUtils from "@date-io/date-fns";
 
 import * as errorSeverity from "../../constants/ErrorSeverity";
 import * as errorType from "../../constants/ErrorType";
-import { OpenCompareContainerDialog, CompareContainerFetch } from "../../actions/bpg/CompareContainer";
 
 const DatePickerField = ({ field, form, myLabel,...other }) => {
   const currentError = form.errors[field.name];

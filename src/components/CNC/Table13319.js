@@ -114,14 +114,17 @@ export default function Table13319({
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   g_firstPage = 0;
-  g_lastPage = Math.ceil(data.length / rowsPerPage) - 1; // 0 based pages,
+  g_lastPage= Math.max(0, Math.ceil(data.length / rowsPerPage) - 1); // 0 based pages,
 
+  /* I THINK THIS WRONG SO I CHANGED IT
   let emptyRows;
   if(rowsPerPage>data.length){
     emptyRows = 0;
   }else{
     emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
   }
+  */
+  let emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
 
   useEffect(() => {
    });

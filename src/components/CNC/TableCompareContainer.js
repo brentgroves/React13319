@@ -163,16 +163,32 @@ export default function TableCompareContainer({
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  /* 
+  I don't think this will work unless skip is evenly divisible by 
+  rowsPerPage
+  */
   g_firstBuffPage = Math.max(0, g_skip / rowsPerPage);
   g_lastBuffPage =
     g_firstBuffPage + Math.max(0, Math.ceil(data.length / rowsPerPage) - 1);
   g_lastPage = Math.max(0, Math.ceil(g_total / rowsPerPage) - 1); // 0 based pages,
+  /*
+  If the total number of records has decreased then we could be on 
+  a page that does not exist any longer
+  */
+ if(page>g_lastPage){
+   setPage(g_lastPage);
+ }
 
-  let emptyRows = 0;
-  if (g_skip + g_limit > g_total) {
-    emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-  }
+/* I THINK THIS IS WRONG SO I CHANGED IT
+ let emptyRows;
+ if(rowsPerPage>data.length){
+   emptyRows = 0;
+ }else{
+   emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
+ }
+*/
+
+ let emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

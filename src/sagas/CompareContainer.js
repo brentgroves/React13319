@@ -30,7 +30,7 @@ export function* handleCompareContainerFetch(action) {
       g_dispatch(actions.SetCompareContainerTotal(res.record_count));
       g_dispatch(actions.SetCompareContainerLimit(action.limit));
       g_dispatch(actions.SetCompareContainerSkip(action.skip));
-      g_dispatch(actions.SetCompareContainerData(res));
+      g_dispatch(actions.SetCompareContainerData(res.data));
       if (action.route) {
         yield put(push(action.route));
       }
