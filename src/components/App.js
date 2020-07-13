@@ -6,6 +6,7 @@ import {
 
 import { OEE } from '../containers/OEE/App';
 import { CNC } from '../containers/CNC/App';
+import { Profit } from '../containers/Profit/App';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -59,6 +60,9 @@ export default function App({
           <Route path="/cnc">
             <CNC />
           </Route>
+          <Route path="/profit">
+            <Profit />
+          </Route>
           <Route exact path="/transition" component={LinearIndeterminate} />
           <Route exact path="/" component={LaunchMenu} />
           <Route path="/login" component={SignIn} />
@@ -92,28 +96,4 @@ export default function App({
   );
 }
 
-//export default Dashboard
 
-/*
-<Box display="flex" p={1} bgcolor="background.paper">
-
-      {currentApp === 0 && !isAuthenticated && <SignIn />}
-      {currentApp === 0 && isAuthenticated && <LaunchMenu />}
-      {currentApp === AppId.OEE && isAuthenticated && <OEEApp />}
-      {currentApp === AppId.CNC && isAuthenticated && <CNCApp />}
-
-
-const App = (props) => {
-  const {firstName} = props
-  return (
-      <Switch>
-      <Route exact path="/" component={Dashboard} />
-      <Route path="/login" component={SignIn} />
-      <Route path="/dashboard" component={Dashboard} />
-      </Switch>
-
-  )
-
-}
-export default App
-*/

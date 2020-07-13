@@ -12,7 +12,6 @@ import clsx from "clsx";
 import BarChartLanding from "./BarChartLanding";
 import LineChartLanding from "./LineChartLanding";
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +45,6 @@ export default function Landing({
   const instructions = clsx(classes.paper, classes.instructions);
   return (
     <Container maxWidth="lg" className={classes.container}>
-
       <Grid container spacing={3}>
         {/* Chart */}
         <Grid item xs={12} md={12} lg={5}>

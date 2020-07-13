@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -11,6 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import * as common from '@bgroves/common';
 
 export default function AppMenu({
+  isAuthenticated,
   Push,
   currentApp,
   SetCurrentApp,
@@ -20,6 +21,13 @@ export default function AppMenu({
   common.log(`currentApp=${currentApp}`);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      Push('/login');
+    }
+  });
+  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -28,20 +36,19 @@ export default function AppMenu({
     setAnchorEl(null);
   };
   const handleOEE = () => {
-    //    Push('/transition');
-    //    OpenDialog200206(true);
-    // setAnchorEl(event.currentTarget);
     setAnchorEl(null);
     Push('/oee');
     SetCurrentApp(AppId.OEE);
   };
   const handleCNC = () => {
-    //    Push('/transition');
-    //    OpenDialog200206(true);
-    // setAnchorEl(event.currentTarget);
     setAnchorEl(null);
     Push('/cnc');
     SetCurrentApp(AppId.CNC);
+  };
+  const handleProfit = () => {
+    setAnchorEl(null);
+    Push('/profit');
+    SetCurrentApp(AppId.PROFIT);
   };
   /*
   const handleSensor = () => {
@@ -92,6 +99,9 @@ export default function AppMenu({
             )}
             {currentApp !== AppId.CNC && (
                 <MenuItem onClick={handleCNC}>CNC</MenuItem>
+            )}
+            {currentApp !== AppId.PROFIT && (
+                <MenuItem onClick={handleProfit}>Profit</MenuItem>
             )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>

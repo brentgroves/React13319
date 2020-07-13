@@ -7,7 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import BuildIcon from '@material-ui/icons/Build';
+import SpeedIcon from '@material-ui/icons/Speed';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import * as AppId from '../constants/AppId';
 import * as AppSet from '../constants/AppSet';
@@ -48,16 +50,16 @@ export default function LaunchMenu(params) {
   const classes = useStyles();
 
   const handleOEE = () => {
-    //    Push('/transition');
-    //    OpenDialog200206(true);
     SetCurrentApp(AppId.OEE);
     Push('/oee');
   };
   const handleCNC = () => {
-    //    Push('/transition');
-    //    OpenDialog200206(true);
     SetCurrentApp(AppId.CNC);
     Push('/cnc');
+  };
+  const handleProfit = () => {
+    SetCurrentApp(AppId.CNC);
+    Push('/profit');
   };
   const handleSensor = () => {
     //    Push('/transition');
@@ -89,15 +91,21 @@ export default function LaunchMenu(params) {
               <Divider />
               <ListItem button onClick={handleOEE}>
                 <ListItemIcon>
-                  <InboxIcon />
+                  <SpeedIcon />
                 </ListItemIcon>
                 <ListItemText bgcolor="primary.main" primary="OEE" />
               </ListItem>
               <ListItem button onClick={handleCNC}>
                 <ListItemIcon>
-                  <DraftsIcon />
+                  <BuildIcon />
                 </ListItemIcon>
                 <ListItemText primary="CNC" />
+              </ListItem>
+              <ListItem button onClick={handleProfit}>
+                <ListItemIcon>
+                  <AttachMoneyIcon />
+                </ListItemIcon>
+                <ListItemText primary="Profit" />
               </ListItem>
             </List>
         )}
@@ -107,7 +115,7 @@ export default function LaunchMenu(params) {
               <Divider />
               <ListItem button onClick={handleOEE}>
                 <ListItemIcon>
-                  <InboxIcon />
+                  <SpeedIcon />
                 </ListItemIcon>
                 <ListItemText bgcolor="primary.main" primary="OEE" />
               </ListItem>

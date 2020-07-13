@@ -3,7 +3,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import SendIcon from '@material-ui/icons/Send';
+import SpeedIcon from '@material-ui/icons/Speed';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
@@ -47,7 +47,7 @@ export default function SideMenu(params) {
       <Divider />
       <ListItem button onClick={handleView13319Live}>
         <ListItemIcon>
-          <SendIcon />
+          <SpeedIcon />
         </ListItemIcon>
         <ListItemText primary="CNC" />
       </ListItem>

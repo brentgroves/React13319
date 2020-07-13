@@ -13,8 +13,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 function mapStateToProps(state) {
-  const { Global } = state
+  const { Global,User } = state
   return {
+    isAuthenticated: User.isAuthenticated,
     currentApp: Global.currentApp,
     appSet: Global.appSet
   }
