@@ -6,6 +6,7 @@ import * as sproc200206 from './Sproc200206';
 import * as sproc200221 from './Sproc200221';
 import * as kep13319 from './Kep13319';
 import * as compareContainer from './CompareContainer';
+import * as partProdRate from './PartProdRate';
 import * as common from '@bgroves/common';
 
 //var g_services;
@@ -40,7 +41,8 @@ export default function* rootSaga() {
     sproc200221.watchSproc200221Create(),
     sproc200221.watchSproc200221Fetch(),
     kep13319.watchKep13319Fetch(),
-    compareContainer.watchCompareContainerFetch()
+    compareContainer.watchCompareContainerFetch(),
+    partProdRate.watchPartProdRateFetch()
     //    handleReAuthenticate()
   ]);
 }
@@ -53,6 +55,7 @@ export function setSAGA(services, dispatch) {
   sproc200221.setSAGA(services, dispatch);
   kep13319.setSAGA(services, dispatch);
   compareContainer.setSAGA(services, dispatch);
+  partProdRate.setSAGA(services, dispatch);
 }
 /*
 const delay = (ms) => new Promise(res => setTimeout(res, ms))

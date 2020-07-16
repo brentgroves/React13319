@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import ViewProductionRateComponent from "../../components/Profit/ViewProductionRate";
+import ViewPartProdRateComponent from "../../components/Profit/ViewPartProdRate";
 import * as actions from '../../actions'
 
 function mapStateToProps(state) {
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export const ViewProductionRate = connect(mapStateToProps, mapDispatchToProps)(ViewProductionRateComponent)
+export const ViewPartProdRate = connect(mapStateToProps, mapDispatchToProps)(ViewPartProdRateComponent)

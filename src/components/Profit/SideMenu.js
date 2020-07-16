@@ -14,11 +14,11 @@ export default function SideMenu(params) {
     Push,
   } = params;
 
-  const handleViewProductionRate = () => {
-    Push('/cnc/ViewProductionRate');
+  const handleViewPartProdRate = () => {
+    Push('/profit/DialogPartProdRate');
   };
   const handleViewToolingRate = () => {
-    Push('/cnc/ViewProdutionRate');
+    Push('/profit/ViewPartProdRate');
   };
 
   /*
@@ -32,7 +32,7 @@ export default function SideMenu(params) {
     <List>
       <ListSubheader>Rates</ListSubheader>
       <Divider />
-      <ListItem button onClick={handleViewProductionRate}>
+      <ListItem button onClick={handleViewPartProdRate}>
         <ListItemIcon>
           <SpeedIcon />
         </ListItemIcon>

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function View13319(params) {
+export default function ViewPartProdRate(params) {
   //  const { Push, total, SetAppError } = params;
   useEffect(() => {
     // if (total === 0) {

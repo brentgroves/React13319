@@ -5,3 +5,4 @@ export * from './Sproc200221';
 export * from './Kep13319';
 export * from './Sagas';
 export * from './CompareContainer';
+export * from './PartProdRate';

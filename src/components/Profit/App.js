@@ -20,7 +20,8 @@ import clsx from 'clsx';
 import { AppMenu } from '../../containers/AppMenu';
 import { SideMenu } from '../../containers/Profit/SideMenu';
 import { Landing } from '../../containers/Profit/Landing';
-import { ViewProductionRate } from '../../containers/Profit/ViewProductionRate';
+import { ViewPartProdRate } from '../../containers/Profit/ViewPartProdRate';
+import { DialogPartProdRate } from '../../containers/Profit/DialogPartProdRate';
 import LinearIndeterminate from '../LinearIndeterminate';
 
 const drawerWidth = 200;
@@ -179,8 +180,11 @@ export default function App({
               <LinearIndeterminate />
 
             </Route>
-            <Route path={`${match.path}/ViewProductionRate`}>
-              <ViewProductionRate />
+            <Route path={`${match.path}/DialogPartProdRate`}>
+              <DialogPartProdRate />
+            </Route>
+            <Route path={`${match.path}/ViewPartProdRate`}>
+              <ViewPartProdRate />
             </Route>
             <Route path={match.path}>
               <Landing />
