@@ -1,100 +1,113 @@
-import { compareAsc, format } from "date-fns";
-import { Formik, Field } from "formik";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Formik } from 'formik';
+import * as yup from 'yup'; // for everything
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-import Grid from "@material-ui/core/Grid";
-import React from "react";
 import * as common from '@bgroves/common';
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-// https://dev.to/finallynero/react-form-using-formik-material-ui-and-yup-2e8h
-import * as errorSeverity from "../../constants/ErrorSeverity";
-import * as errorType from "../../constants/ErrorType";
+import * as errorSeverity from '../../constants/ErrorSeverity';
+import * as errorType from '../../constants/ErrorType';
 
-const Form = (props) => {
-  return (
-   <form onSubmit={() => {}}>
-     <TextField
-       id="name"
-       name="name"
-       label="Name"
-       fullWidth
+let validationSchema = yup.object().shape({
+  startPeriod: yup
+    .number()
+    .when('endPeriod', (endPeriod, schema) => {
+      return schema.test({
+        test: startPeriod => { 
+          if (!endPeriod){
+            return true;
+          }else{
+            return endPeriod >= startPeriod;
+          }
+        },
+//        test: endPeriod => !!startPeriod && endPeriod >= startPeriod,
+        message: "Start should be <= End Period"
+      })
+    })    // .test({
+    //   name: 'max',
+    //   exclusive: true,
+    //   params: { max },
+    //   message: '${path} must be less than ${max} characters',
+    //   test: value => value == null || value.length <= max,
+    // })    
+//    .when('endPeriod')
 
-     />
-     <TextField
-       id="email"
-       name="email"
-       label="Email"
-       fullWidth
-     />
-     <Button
-       type="submit"
-       fullWidth
-       variant="raised"
-       color="primary"
-     >
-       Submit
-     </Button>
-   </form>
- );
-};
+//    .min(0, 'must be >= 0')
+//    .max(10, 'must be <= 4')
+//    .moreThan(yup.ref('startPeriod'), "End should be >= Start")
+// .when(
+//   ["startPeriod", "endPeriod"],
+//   (startPeriod, endPeriod, schema) => {
+//       return !!startPeriod && startPeriod !== endPeriod
+//           ? schema.moreThan(
+//                   endPeriod,
+//                   "Max should be > min"
+//             )
+//           : schema;
+//   }
+// )
+  .required('required'),
+  endPeriod: yup
+    .number()
+
+ //   .min(0, 'must be >= 0')
+ //   .max(10, 'must be <= 4')
+//    .moreThan(yup.ref('startPeriod'), "End should be >= Start")
+    .required('required'),
+});
 
 /*
+  endPeriod: yup
+    .number()
+    .when('startPeriod', (startPeriod, schema) => {
+      return schema.test({
+        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
+        message: "Max should be > min"
+      })
+    })
 
-const DatePickerField = ({ field, form, myLabel,...other }) => {
-  const currentError = form.errors[field.name];
-  common.log(`field: ${field.name},${myLabel}`);
- 
-  return (
-    <KeyboardDatePicker
-      required
-      disableToolbar
-      variant="inline"
-      margin="normal"
-      id={field.name}
-      name={field.name}
-      label={myLabel}
-      value={field.value}
-      format="MM/dd/yyyy"
-      helperText={currentError}
-      error={Boolean(currentError)}
-      onError={error => {
-        // handle as a side effect
-        if (error !== currentError) {
-          form.setFieldError(field.name, error);
-        }
-      }}
-      autoComplete=""
-      // if you are using custom validation schema you probably want to pass `true` as third argument
-      onChange={date => form.setFieldValue(field.name, date, true)}
-      KeyboardButtonProps={{
-        "aria-label": "change date"
-      }}
-      {...other}
-    />
-  );
-};
+test({
+  name: 'max',
+  exclusive: true,
+  params: { max },
+  message: '${path} must be less than ${max} characters',
+  test: value => value == null || value.length <= max,
+})
+    .when('startPeriod', (startPeriod, schema) => {
+      return schema.test({
+        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
+        message: "Max should be > min"
+      })
+    })
 */
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(2),
+    },
+  },
+}));
+
 export default function DialogPartProdRate(params) {
   const {
     PartProdRateFetch,
     Push,
     SetAppError,
     Submitting,
-    submitting
+    submitting,
   } = params;
 
+  const classes = useStyles();
+
   const handleClose = () => {
-    Push("/");
+    Push('/profit');
   };
   return (
     <Dialog
@@ -105,13 +118,14 @@ export default function DialogPartProdRate(params) {
       <DialogTitle id="form-dialog-title">Part Production Rate</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Select the start and end period. Period 0 start on ??? and each period equates to 480 production hours worked.
+          Select the start and end period. Period 0 start on ??? and each period
+          equates to 480 production hours worked.
         </DialogContentText>
-
         <Formik
           initialValues={{ startPeriod: 0, endPeriod: 4 }}
+          validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            Submitting(true);  // buttons look at this to determine if they should be enabled?
+            Submitting(true); // buttons look at this to determine if they should be enabled?
             let start = values.startPeriod;
             common.log(start);
             let end = values.endDate;
@@ -120,29 +134,75 @@ export default function DialogPartProdRate(params) {
             // -1 if the first date is before the second or 0 if dates are equal.
             if (start > end) {
               SetAppError(
-                "Start period should be before or equal to the end period.",
+                'Start period should be before or equal to the end period.',
                 errorType.VALIDATION,
-                errorSeverity.LOW
+                errorSeverity.LOW,
               );
               Submitting(false);
             } else {
               Push('/profit/transition');
-              PartProdRateFetch(start, end, 1000, 0, "/profit/ViewProductionRate", true);  // will set submitting to false after done.
+              PartProdRateFetch(
+                start,
+                end,
+                1000,
+                0,
+                '/profit/ViewProductionRate',
+                true,
+              ); // will set submitting to false after done.
             }
           }}
         >
-          {props => {
-            const { handleSubmit } = props;
+          {(props) => {
+            // const { handleSubmit } = props;
+            const {
+              values: { startPeriod, endPeriod },
+              errors,
+              touched,
+              handleSubmit,
+              handleChange,
+              isValid,
+              setFieldTouched,
+            } = props;
 
+            const change = (name, e) => {
+              e.persist();
+              handleChange(e);
+              setFieldTouched(name, true, false);
+            };
             return (
               <div>
-                           <Formik
-             render={props => <Form {...props} />}
-           />
+                <form className={classes.root} onSubmit={handleSubmit}>
+                  <TextField
+                    id="startPeriod"
+                    name="startPeriod"
+                    helperText={touched.startPeriod ? errors.startPeriod : ''}
+                    error={touched.startPeriod && Boolean(errors.startPeriod)}
+                    label="Start"
+                    value={startPeriod}
+                    onChange={change.bind(null, 'startPeriod')}
+                  />
+                  <TextField
+                    id="endPeriod"
+                    name="endPeriod"
+                    helperText={touched.endPeriod ? errors.endPeriod : ''}
+                    error={touched.endPeriod && Boolean(errors.endPeriod)}
+                    label="End"
+                    value={endPeriod}
+                    onChange={change.bind(null, 'endPeriod')}
+                  />
+                </form>
               </div>
             );
           }}
         </Formik>
+        <DialogActions>
+          <Button variant="contained" color="primary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="contained" type="submit" disabled={submitting}>
+            Submit
+          </Button>
+        </DialogActions>
       </DialogContent>
     </Dialog>
   );
