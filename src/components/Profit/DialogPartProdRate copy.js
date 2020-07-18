@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import 'fontsource-roboto';
+// import 'fontsource-roboto';
 import { Formik } from 'formik';
 import * as yup from 'yup'; // for everything
 import Typography from '@material-ui/core/Typography';
@@ -9,9 +9,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import * as common from '@bgroves/common';
 
@@ -56,70 +53,7 @@ let validationSchema = yup.object().shape({
     .required('required'),
 });
 
-/*
-    })    // .test({
-    //   name: 'max',
-    //   exclusive: true,
-    //   params: { max },
-    //   message: '${path} must be less than ${max} characters',
-    //   test: value => value == null || value.length <= max,
-    // })    
-//    .when('endPeriod')
-    .when('endPeriod', (endPeriod, schema) => {
-      return schema.test({
-        test: startPeriod => { 
-          if (!endPeriod){
-            return true;
-          }else{
-            return endPeriod >= startPeriod;
-          }
-        },
-//        test: endPeriod => !!startPeriod && endPeriod >= startPeriod,
-        message: "Start should be <= End Period"
-      })
 
-  endPeriod: yup
-    .number()
-    .when('startPeriod', (startPeriod, schema) => {
-      return schema.test({
-        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
-        message: "Max should be > min"
-      })
-    })
-// .when(
-//   ["startPeriod", "endPeriod"],
-//   (startPeriod, endPeriod, schema) => {
-//       return !!startPeriod && startPeriod !== endPeriod
-//           ? schema.moreThan(
-//                   endPeriod,
-//                   "Max should be > min"
-//             )
-//           : schema;
-//   }
-// )
-test({
-  name: 'max',
-  exclusive: true,
-  params: { max },
-  message: '${path} must be less than ${max} characters',
-  test: value => value == null || value.length <= max,
-})
-    .when('startPeriod', (startPeriod, schema) => {
-      return schema.test({
-        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
-        message: "Max should be > min"
-      })
-    })
-*/
-/*
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(2),
-    },
-  },
-}));
-*/
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -128,30 +62,15 @@ const useStyles = makeStyles(theme => ({
       width: '25ch',
     },
   },
-  buttons: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-/*
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch'
-    },
-  },
   container: {
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4)
-  },  
+    paddingBottom: theme.spacing(4),
+  },
   paper: {
     marginTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),    
-  //  display: 'flex',
- //   flexDirection: 'column',
+    paddingBottom: theme.spacing(4),
+    //  display: 'flex',
+    //   flexDirection: 'column',
     alignItems: 'center',
   },
   header: {
@@ -160,9 +79,8 @@ const useStyles = makeStyles((theme) => ({
   s1: {
     padding: theme.spacing(2),
   },
-
 }));
-*/
+
 export default function DialogPartProdRate(params) {
   const {
     PartProdRateFetch,
@@ -234,62 +152,49 @@ export default function DialogPartProdRate(params) {
           return (
             <div>
               <Box
-                className={classes.root}
+                display="flex"
+                justifyContent="center"
                 m={1}
                 p={1}
                 bgcolor="background.paper"
               >
-                <form onSubmit={handleSubmit}>
-                  <Typography variant="h4" gutterBottom>
-                    Time Period Range
-                  </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Part time periods start at 0 and begin on March 1, 2019 and increment every
-                    480 production hours.
+                <form className={classes.root} onSubmit={handleSubmit}>
+                  <Typography variant="h5" gutterBottom>
+                    Select Part Time Period
                   </Typography>
 
-                  <Box p={1} className={classes.root}>
-                    <TextField
-                      id="startPeriod"
-                      name="startPeriod"
-                      helperText={touched.startPeriod ? errors.startPeriod : ''}
-                      error={touched.startPeriod && Boolean(errors.startPeriod)}
-                      label="Start"
-                      value={startPeriod}
-                      onChange={change.bind(null, 'startPeriod')}
-                    />
-                    <TextField
-                      id="endPeriod"
-                      name="endPeriod"
-                      helperText={touched.endPeriod ? errors.endPeriod : ''}
-                      error={touched.endPeriod && Boolean(errors.endPeriod)}
-                      label="End"
-                      value={endPeriod}
-                      onChange={change.bind(null, 'endPeriod')}
-                    />
-                  </Box>
-                  <Box p={1} className={classes.buttons}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleClose}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      disabled={submitting}
-                    >
-                      Submit
-                    </Button>
-                  </Box>
+                  <TextField
+                    id="startPeriod"
+                    name="startPeriod"
+                    helperText={touched.startPeriod ? errors.startPeriod : ''}
+                    error={touched.startPeriod && Boolean(errors.startPeriod)}
+                    label="Start"
+                    value={startPeriod}
+                    onChange={change.bind(null, 'startPeriod')}
+                  />
+                  <TextField
+                    id="endPeriod"
+                    name="endPeriod"
+                    helperText={touched.endPeriod ? errors.endPeriod : ''}
+                    error={touched.endPeriod && Boolean(errors.endPeriod)}
+                    label="End"
+                    value={endPeriod}
+                    onChange={change.bind(null, 'endPeriod')}
+                  />
                 </form>
               </Box>
             </div>
           );
         }}
       </Formik>
+      <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button variant="contained" type="submit" disabled={submitting}>
+          Submit
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
