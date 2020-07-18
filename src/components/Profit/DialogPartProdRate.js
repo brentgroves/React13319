@@ -1,7 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import 'fontsource-roboto';
 import { Formik } from 'formik';
 import * as yup from 'yup'; // for everything
+import Typography from "@material-ui/core/Typography";
+
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,7 +20,46 @@ import * as errorType from '../../constants/ErrorType';
 
 let validationSchema = yup.object().shape({
   startPeriod: yup
+  .number()
+  .typeError('Start must be a number')
+   .test('compare start and end period', 'Start should be equal to or come before the End period.)',
+   function (start) { // beware, don't use arrow function here otherwise you would not the reference to `this` object
+     let { endPeriod } = this.parent; // retrieve the value of the sibling form field with id `1st_number`
+     if (start > endPeriod)
+       return false;
+     else
+       return true;
+   })
+   .min(0, 'Start must be greater than or equal to 0')
+   .max(10, 'Start must be less than or equal to 4')
+//    .lessThan(yup.ref('endPeriod')+1, "End should be >= Start")
+
+  .required('required'),
+  endPeriod: yup
     .number()
+    .typeError('End must be a number')
+    .test('compare start and end period', 'End should be equal to or come after the start period.', 
+    function (end) {
+     const { startPeriod } = this.parent;
+      if (end >= startPeriod) {
+        return true;
+      }
+      return false;
+    })
+    .min(0, 'End must be greater than or equal to 0')
+    .max(10, 'End must be less than or equal to 4')
+    .required('required')
+});
+
+/*
+    })    // .test({
+    //   name: 'max',
+    //   exclusive: true,
+    //   params: { max },
+    //   message: '${path} must be less than ${max} characters',
+    //   test: value => value == null || value.length <= max,
+    // })    
+//    .when('endPeriod')
     .when('endPeriod', (endPeriod, schema) => {
       return schema.test({
         test: startPeriod => { 
@@ -29,18 +72,15 @@ let validationSchema = yup.object().shape({
 //        test: endPeriod => !!startPeriod && endPeriod >= startPeriod,
         message: "Start should be <= End Period"
       })
-    })    // .test({
-    //   name: 'max',
-    //   exclusive: true,
-    //   params: { max },
-    //   message: '${path} must be less than ${max} characters',
-    //   test: value => value == null || value.length <= max,
-    // })    
-//    .when('endPeriod')
 
-//    .min(0, 'must be >= 0')
-//    .max(10, 'must be <= 4')
-//    .moreThan(yup.ref('startPeriod'), "End should be >= Start")
+  endPeriod: yup
+    .number()
+    .when('startPeriod', (startPeriod, schema) => {
+      return schema.test({
+        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
+        message: "Max should be > min"
+      })
+    })
 // .when(
 //   ["startPeriod", "endPeriod"],
 //   (startPeriod, endPeriod, schema) => {
@@ -52,26 +92,6 @@ let validationSchema = yup.object().shape({
 //           : schema;
 //   }
 // )
-  .required('required'),
-  endPeriod: yup
-    .number()
-
- //   .min(0, 'must be >= 0')
- //   .max(10, 'must be <= 4')
-//    .moreThan(yup.ref('startPeriod'), "End should be >= Start")
-    .required('required'),
-});
-
-/*
-  endPeriod: yup
-    .number()
-    .when('startPeriod', (startPeriod, schema) => {
-      return schema.test({
-        test: endPeriod => !!startPeriod && endPeriod > startPeriod,
-        message: "Max should be > min"
-      })
-    })
-
 test({
   name: 'max',
   exclusive: true,
@@ -86,13 +106,41 @@ test({
       })
     })
 */
-
+/*
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(2),
     },
   },
+}));
+*/
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch'
+    },
+  },
+  container: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(4)
+  },  
+  paper: {
+    marginTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),    
+  //  display: 'flex',
+ //   flexDirection: 'column',
+    alignItems: 'center',
+  },
+  header: {
+    padding: theme.spacing(0),
+  },
+  s1: {
+    padding: theme.spacing(2),
+  },
+
 }));
 
 export default function DialogPartProdRate(params) {
@@ -115,11 +163,18 @@ export default function DialogPartProdRate(params) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Part Production Rate</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+      <Typography variant="h6" gutterBottom>
+                Part Production Rate
+      </Typography>
+
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Select the start and end period. Period 0 start on ??? and each period
+        <Typography variant="body1" gutterBottom>
+                Select the start and end period. Period 0 start on ??? and each period
           equates to 480 production hours worked.
+      </Typography>
         </DialogContentText>
         <Formik
           initialValues={{ startPeriod: 0, endPeriod: 4 }}
@@ -171,7 +226,10 @@ export default function DialogPartProdRate(params) {
             };
             return (
               <div>
+                <Box display="flex" justifyContent="center" m={1} p={1} bgcolor="background.paper">
                 <form className={classes.root} onSubmit={handleSubmit}>
+
+
                   <TextField
                     id="startPeriod"
                     name="startPeriod"
@@ -191,6 +249,7 @@ export default function DialogPartProdRate(params) {
                     onChange={change.bind(null, 'endPeriod')}
                   />
                 </form>
+                </Box>
               </div>
             );
           }}
@@ -203,6 +262,7 @@ export default function DialogPartProdRate(params) {
             Submit
           </Button>
         </DialogActions>
+
       </DialogContent>
     </Dialog>
   );

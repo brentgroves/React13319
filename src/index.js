@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import './index.css';
+//import './index.css';
 import { App } from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers';
