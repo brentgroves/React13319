@@ -190,7 +190,7 @@ export default function DialogPartProdRate(params) {
           Submitting(true); // buttons look at this to determine if they should be enabled?
           let start = values.startPeriod;
           common.log(start);
-          let end = values.endDate;
+          let end = values.endPeriod;
           common.log(end);
           //Compare the two dates and return 1 if the first date is after the second,
           // -1 if the first date is before the second or 0 if dates are equal.
@@ -208,7 +208,7 @@ export default function DialogPartProdRate(params) {
               end,
               1000,
               0,
-              '/profit/ViewProductionRate',
+              '/profit/ViewPartProdRate',
               true,
             ); // will set submitting to false after done.
           }

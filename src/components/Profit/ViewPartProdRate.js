@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { TablePartProdRate } from '../../containers/Profit/TablePartProdRate';
 
 // import * as common from '@bgroves/common';
 
@@ -36,12 +37,12 @@ export default function ViewPartProdRate(params) {
             Part Production Rates
           </Typography>
           <Typography variant="body1" gutterBottom>
-            These are the production rates for each part.
+            These are the production rates per hour during 480 production hour periods.
           </Typography>
         </div>
       </Box>
       <Box>
-        <h1>TableProductionRate</h1>
+        <TablePartProdRate />
       </Box>
     </Box>
   );
