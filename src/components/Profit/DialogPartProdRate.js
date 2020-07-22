@@ -33,7 +33,7 @@ let validationSchema = yup.object().shape({
       },
     )
     .min(0, 'Start must be greater than or equal to 0')
-    .max(10, 'Start must be less than or equal to 4')
+    // .max(10, 'Start must be less than or equal to 4')
     //    .lessThan(yup.ref('endPeriod')+1, "End should be >= Start")
 
     .required('required'),
@@ -52,7 +52,7 @@ let validationSchema = yup.object().shape({
       },
     )
     .min(0, 'End must be greater than or equal to 0')
-    .max(10, 'End must be less than or equal to 4')
+    //.max(10, 'End must be less than or equal to 4')
     .required('required'),
 });
 
@@ -184,7 +184,7 @@ export default function DialogPartProdRate(params) {
       aria-labelledby="form-dialog-title"
     >
       <Formik
-        initialValues={{ startPeriod: 0, endPeriod: 4 }}
+        initialValues={{ startPeriod: 0, endPeriod: 10 }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           Submitting(true); // buttons look at this to determine if they should be enabled?
@@ -244,7 +244,7 @@ export default function DialogPartProdRate(params) {
                     Time Period Range
                   </Typography>
                   <Typography variant="subtitle1" gutterBottom>
-                    Part time periods start at 0 and begin on March 1, 2019 and increment every
+                    Part time periods are unique to each part and start at 0 and increment every
                     480 production hours.
                   </Typography>
 

@@ -37,7 +37,11 @@ export default function ViewPartProdRate(params) {
             Part Production Rates
           </Typography>
           <Typography variant="body1" gutterBottom>
-            These are the production rates per hour during 480 production hour periods.
+            These are the production rates based on 480 production hour periods which start on 12 am of 04/01/2019 
+            and end on 11:59 pm of the last day of the month that is 2 months previous to todays date. 
+            The date range of each period is unique to every part. 
+            The total count of parts produced for each period is determined by looking at shipped containers only.
+            The shipped container's quantity is added to the period in which it was first moved to a finished location.
           </Typography>
         </div>
       </Box>

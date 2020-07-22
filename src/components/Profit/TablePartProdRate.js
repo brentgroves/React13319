@@ -241,7 +241,7 @@ export default function TablePartProdRate({
                 {row.end_date}
               </TableCell>
               <TableCell >{row.Quantity}</TableCell>
-              <TableCell >{row.ProdRate}</TableCell>
+              <TableCell >{row.Rate}</TableCell>
             </TableRow>
           ))}
 
