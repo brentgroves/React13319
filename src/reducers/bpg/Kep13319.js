@@ -7,7 +7,7 @@ const Kep13319 = (state = config, action) => {
       return {
         ...state,
         nodes: state.nodes.map((node, i) =>
-          i === action.updateId ? { ...node, value: action.value } : node,
+          i === action.updateId ? { ...node, value: action.value, transDate: action.transDate} : node,
         ),
       };
     }

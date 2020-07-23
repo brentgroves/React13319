@@ -11,9 +11,10 @@ export const SetNodes = (nodes) => ({
   nodes,
 });
 
-export const UpdateNode = (updateId, value) => ({
+export const UpdateNode = (updateId, value, transDate) => ({
   type: types.UPDATE_NODE,
   updateId,
   value,
+  transDate
 });
 

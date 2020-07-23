@@ -58,7 +58,7 @@ export default function LaunchMenu(params) {
     Push('/cnc');
   };
   const handleProfit = () => {
-    SetCurrentApp(AppId.CNC);
+    SetCurrentApp(AppId.PROFIT);
     Push('/profit');
   };
   const handleSensor = () => {
