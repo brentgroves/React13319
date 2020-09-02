@@ -95,7 +95,6 @@ export function* handleView200206(action) {
   }
 }
 // Not tested.
-// I don't think this is used at the moment.
 // Currently handleView200206 calls the create service.
 // Generator function
 export function* handleSproc200206Create(action) {

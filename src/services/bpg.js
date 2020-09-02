@@ -105,7 +105,54 @@ const setupServices = async (dispatch) => {
       // Show login page (potentially with `e.message`)
       console.error('reAuthenticate error', e);
     });
+/*
+  await srv
+    .service('kep13319')
+    .find({
+      query: {
+        $sort: {
+          ID: 1,
+        },
+      },
+    })
+    .then((nodes) => {
+      common.log('Done with Kep13319.find()');
+      //const obj = JSON.parse(nodes[0].toString()); // payload is a buffer
+      let msg = JSON.stringify(nodes[0]);
+      //const obj = JSON.parse(msg); // payload is a buffer
+      common.log(`Kep.Find()=>${msg}`);
 
+      dispatch(actions.SetNodes(nodes));
+    })
+    .catch((e) => {
+      // Show login page (potentially with `e.message`)
+      console.error('Kep13319.find() error', e);
+    });
+
+*/
+    // Test New services
+    await srv
+      .service('upcoming-tool-changes')
+      .find({
+        query: {
+          $table: 'rpt09020',
+          $limit: 10,
+          $skip: 0,
+          $sort: {
+            ID: 1,
+          },
+        },
+      })
+      .then((res) => {
+        common.log(`TEST upcoming-tool-changes ${JSON.stringify(res)}`);
+        dispatch(actions.SetUpcomingToolChangesData(res));
+        dispatch(actions.SetUpcomingToolChangesSkip(0));
+      })
+      .catch((e) => {
+        // Show login page (potentially with `e.message`)
+        console.error('upcoming-tool-change.find() error', e);
+      });
+  
   const kep13319 = srv.service('kep13319');
   kep13319.on('updated', (message, context) => {
     common.log('Kep13319.update=>', message);

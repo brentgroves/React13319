@@ -8,6 +8,7 @@ import Dialogs from './Dialogs'
 import Kep13319 from './Kep13319'
 import CompareContainer from './CompareContainer'
 import PartProdRate from './PartProdRate'
+import UpcomingToolChanges from './UpcomingToolChanges'
 
 const RootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -18,7 +19,8 @@ const RootReducer = (history) => combineReducers({
   Dialogs,
   Kep13319,
   CompareContainer,
-  PartProdRate
+  PartProdRate,
+  UpcomingToolChanges
 })
 
 export default RootReducer

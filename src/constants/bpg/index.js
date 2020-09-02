@@ -5,5 +5,6 @@ export * from './CompareContainer';
 export * from './PartProdRate';
 export * from './Sproc200206';
 export * from './Sproc200221';
+export * from './UpcomingToolChanges';
 export * from './User';
 export * from './Sagas';
