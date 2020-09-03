@@ -22,8 +22,10 @@ import { SideMenu } from '../../containers/CNC/SideMenu';
 import { Landing } from '../../containers/CNC/Landing';
 import { View13319 } from '../../containers/CNC/View13319';
 import { DialogCompareContainer } from '../../containers/CNC/DialogCompareContainer';
+import { DialogUpcomingToolChanges } from '../../containers/CNC/DialogUpcomingToolChanges';
 import { ViewCompareContainer } from '../../containers/CNC/ViewCompareContainer';
 import LinearIndeterminate from '../LinearIndeterminate';
+import ViewUpcomingToolChanges from './ViewUpcomingToolChanges';
 
 const drawerWidth = 200;
 
@@ -207,6 +209,12 @@ export default function App({
             </Route>
             <Route path={`${match.path}/dialogCompareContainer`}>
               <DialogCompareContainer />
+            </Route>
+            <Route path={`${match.path}/dialogUpcomingToolChanges`}>
+              <DialogUpcomingToolChanges />
+            </Route>
+            <Route path={`${match.path}/ViewUpcomingToolChanges`}>
+              <ViewUpcomingToolChanges />
             </Route>
             <Route path={`${match.path}/view13319`}>
               <View13319 />

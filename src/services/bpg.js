@@ -145,8 +145,12 @@ const setupServices = async (dispatch) => {
       })
       .then((res) => {
         common.log(`TEST upcoming-tool-changes ${JSON.stringify(res)}`);
-        dispatch(actions.SetUpcomingToolChangesData(res));
+        dispatch(actions.SetUpcomingToolChangesSproc('CreateUpcomingToolChanges'));
+        dispatch(actions.SetUpcomingToolChangesTable('rpt09020'));
+        dispatch(actions.SetUpcomingToolChangesTotal(12));
+        dispatch(actions.SetUpcomingToolChangesLimit(10));
         dispatch(actions.SetUpcomingToolChangesSkip(0));
+        dispatch(actions.SetUpcomingToolChangesData(res));
       })
       .catch((e) => {
         // Show login page (potentially with `e.message`)

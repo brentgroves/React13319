@@ -24,7 +24,7 @@ export function* handleUpcomingToolChangesCreate(action) {
       Building_Key: action.Building_Key
     });
     common.log(`res: ${res}`);
-    g_dispatch(actions.SetUpcomingToolChangesSproc(srvUpcomingToolChanges));
+    g_dispatch(actions.SetUpcomingToolChangesSproc('CreateUpcomingToolChanges'));
     g_dispatch(actions.SetUpcomingToolChangesTable(res.table));
     g_dispatch(actions.SetUpcomingToolChangesTotal(res.record_count));
     g_dispatch(actions.SetUpcomingToolChangesLimit(action.limit));
