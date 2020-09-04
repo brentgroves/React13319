@@ -1,10 +1,13 @@
 import { connect } from "react-redux";
 import ViewUpcomingToolChangesComponent from "../../components/CNC/ViewUpcomingToolChanges";
 import * as actions from '../../actions'
+import { UpcomingToolChangesFetch } from "../../actions";
 
 function mapStateToProps(state) {
-  const { User } = state
+  const { User,UpcomingToolChanges } = state
   return {
+    Building_Code: UpcomingToolChanges.Building_Code,
+    Building_Key: UpcomingToolChanges.Building_Key,
     isAuthenticated: User.isAuthenticated,
     isAdmin: User.isAdmin
   }

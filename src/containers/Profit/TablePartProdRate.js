@@ -6,6 +6,8 @@ function mapStateToProps(state) {
   const { User, PartProdRate, Global } = state;
   return {
     isAuthenticated: User.isAuthenticated,
+    start_period: PartProdRate.start_period,
+    end_period: PartProdRate.end_period,
     total: PartProdRate.total,
     limit: PartProdRate.limit,
     skip: PartProdRate.skip,

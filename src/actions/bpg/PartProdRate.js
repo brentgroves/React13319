@@ -17,6 +17,16 @@ export const PartProdRateFetch = (
   setSubmittingOff,
 });
 
+export const SetPartProdRateStartPeriod = (start_period) => ({
+  type: types.SET_PART_PROD_RATE_START_PERIOD,
+  start_period
+});
+
+export const SetPartProdRateEndPeriod = (end_period) => ({
+  type: types.SET_PART_PROD_RATE_END_PERIOD,
+  end_period
+});
+
 export const SetPartProdRateTotal = (total) => ({
   type: types.SET_PART_PROD_RATE_TOTAL,
   total,

@@ -24,8 +24,8 @@ import { View13319 } from '../../containers/CNC/View13319';
 import { DialogCompareContainer } from '../../containers/CNC/DialogCompareContainer';
 import { DialogUpcomingToolChanges } from '../../containers/CNC/DialogUpcomingToolChanges';
 import { ViewCompareContainer } from '../../containers/CNC/ViewCompareContainer';
+import { ViewUpcomingToolChanges } from '../../containers/CNC/ViewUpcomingToolChanges';
 import LinearIndeterminate from '../LinearIndeterminate';
-import ViewUpcomingToolChanges from './ViewUpcomingToolChanges';
 
 const drawerWidth = 200;
 

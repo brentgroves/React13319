@@ -18,13 +18,14 @@ export function* handleUpcomingToolChangesCreate(action) {
     `startDate : ${action.Building_Key}, fetch: ${action.fetch}, limit:${action.limit}, route:${action.route}, setSubmittingOff:${action.setSubmittingOff}`,
   );
   const srvUpcomingToolChanges = process.env.REACT_APP_FEATHERS_UPCOMING_TOOL_CHANGES_SERVICE;
+  const sproc = process.env.REACT_APP_UPCOMING_TOOL_CHANGES_SPROC;
   try {
     var res = yield g_services.service(srvUpcomingToolChanges).create({
       //        tableName: tableName,
       Building_Key: action.Building_Key
     });
     common.log(`res: ${res}`);
-    g_dispatch(actions.SetUpcomingToolChangesSproc('CreateUpcomingToolChanges'));
+    g_dispatch(actions.SetUpcomingToolChangesSproc(sproc));
     g_dispatch(actions.SetUpcomingToolChangesTable(res.table));
     g_dispatch(actions.SetUpcomingToolChangesTotal(res.record_count));
     g_dispatch(actions.SetUpcomingToolChangesLimit(action.limit));
@@ -32,7 +33,6 @@ export function* handleUpcomingToolChangesCreate(action) {
     if (action.fetch) {
       g_dispatch(
         actions.UpcomingToolChangesFetch(
-          srvUpcomingToolChanges,
           res.table,
           action.limit,
           0,
@@ -60,10 +60,12 @@ export function* handleUpcomingToolChangesFetch(action) {
   common.log('in handleUpcomingToolChangesFetch');
   //  const {Sproc} = g_store;
   common.log(
-    `sproc: ${action.sproc}, limit: ${action.limit},skip: ${action.skip}, table: ${action.table},route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `,
+    `table: ${action.table}, limit: ${action.limit},skip: ${action.skip}, route: ${action.route},setSubmittingOff:${action.setSubmittingOff} `,
   );
+  const srvUpcomingToolChanges = process.env.REACT_APP_FEATHERS_UPCOMING_TOOL_CHANGES_SERVICE;
+
   try {
-    var res = yield g_services.service(action.sproc).find({
+    var res = yield g_services.service(srvUpcomingToolChanges).find({
       query: {
         $table: action.table,
         $limit: action.limit,

@@ -166,6 +166,8 @@ const useStyles = makeStyles((theme) => ({
 export default function DialogPartProdRate(params) {
   const {
     PartProdRateFetch,
+    SetPartProdRateStartPeriod,
+    SetPartProdRateEndPeriod,
     Push,
     SetAppError,
     Submitting,
@@ -202,6 +204,8 @@ export default function DialogPartProdRate(params) {
             );
             Submitting(false);
           } else {
+            SetPartProdRateStartPeriod(start);
+            SetPartProdRateEndPeriod(end);
             Push('/profit/transition');
             PartProdRateFetch(
               start,

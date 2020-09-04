@@ -3,17 +3,18 @@ import TableUpcomingToolChangesComponent from "../../components/CNC/TableUpcomin
 import * as actions from "../../actions";
 
 function mapStateToProps(state) {
-  const { User, PartProdRate, Global } = state;
-  /*
+  const { User, PartProdRate, UpcomingToolChanges, Global } = state;
   return {
     isAuthenticated: User.isAuthenticated,
+    Building_Key: UpcomingToolChanges.Building_Key,
+    table: UpcomingToolChanges.table,
     total: UpcomingToolChanges.total,
     limit: UpcomingToolChanges.limit,
-    skip: PartProdRate.skip,
-    data: PartProdRate.data,
+    skip: UpcomingToolChanges.skip,
+    data: UpcomingToolChanges.data,
     submitting: Global.submitting
   };
-*/
+  /*
   return {
     isAuthenticated: User.isAuthenticated,
     total: PartProdRate.total,
@@ -22,15 +23,17 @@ function mapStateToProps(state) {
     data: PartProdRate.data,
     submitting: Global.submitting
   };
+  */
 }
 //UpcomingToolChanges
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     Push: () => dispatch(actions.Push()),
-    PartProdRateFetch: (limit, skip, route, setSubmittingOff) =>
+    UpcomingToolChangesFetch: (table,limit, skip, route, setSubmittingOff) =>
       dispatch(
-        actions.PartProdRateFetch(
+        actions.UpcomingToolChangesFetch(
+          table,
           limit,
           skip,
           route,
@@ -45,3 +48,14 @@ export const TableUpcomingToolChanges = connect(
   mapStateToProps,
   mapDispatchToProps
 )(TableUpcomingToolChangesComponent);
+/*
+    PartProdRateFetch: (limit, skip, route, setSubmittingOff) =>
+      dispatch(
+        actions.PartProdRateFetch(
+          limit,
+          skip,
+          route,
+          setSubmittingOff
+        )
+      ),
+*/

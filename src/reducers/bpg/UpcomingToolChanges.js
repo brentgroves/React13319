@@ -1,6 +1,8 @@
 import * as types from "../../constants/ActionTypes";
 
 const initState = {
+  Building_Key: 0,
+  Building_Code: '',
   sproc: '',
   table: '',
   total: 0,
@@ -11,6 +13,18 @@ const initState = {
 
 const UpcomingToolChanges = (state = initState, action) => {
   switch (action.type) {
+    case types.SET_UPCOMING_TOOL_CHANGES_BUILDING_KEY: {
+      return {
+        ...state,
+        Building_Key: action.Building_Key
+      }
+    }
+    case types.SET_UPCOMING_TOOL_CHANGES_BUILDING_CODE: {
+      return {
+        ...state,
+        Building_Code: action.Building_Code
+      }
+    }
     case types.SET_UPCOMING_TOOL_CHANGES_SPROC: {
       return {
         ...state,

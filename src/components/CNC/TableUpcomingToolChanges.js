@@ -17,9 +17,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import * as common from '@bgroves/common';
 
+let g_table;
 let g_total;
 let g_limit;
 let g_skip;
+let g_UpcomingToolChangesFetch;
 let g_PartProdRateFetch;
 let g_firstBuffPage;
 let g_lastBuffPage;
@@ -39,14 +41,16 @@ function TablePaginationActions(props) {
 
   const handleFirstPageButtonClick = event => {
     if (g_skip > 0) {
-      g_PartProdRateFetch(g_limit, 0, '', false);
+      g_UpcomingToolChangesFetch(g_table,g_limit, 0, '', false);
     }
     onChangePage(event, 0);
   };
 
   const handleBackButtonClick = event => {
     if (page === g_firstBuffPage) {
-      g_PartProdRateFetch(
+      g_UpcomingToolChangesFetch(
+        g_table,
+        g_total,
         g_limit,
         g_skip - g_limit,
         '',
@@ -59,7 +63,9 @@ function TablePaginationActions(props) {
   const handleNextButtonClick = event => {
     if (page === g_lastBuffPage) {
       common.log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`);
-      g_PartProdRateFetch(
+      g_UpcomingToolChangesFetch(
+        g_table,
+        g_total,
         g_limit,
         g_skip + g_limit,
         '',
@@ -71,7 +77,8 @@ function TablePaginationActions(props) {
 
   const handleLastPageButtonClick = event => {
     if (g_skip < g_total - g_limit) {
-      g_PartProdRateFetch(
+      g_UpcomingToolChangesFetch(
+        g_table,
         g_limit,
         g_total - g_limit,
         '',
@@ -139,17 +146,21 @@ const useStyles2 = makeStyles({
 
 export default function TableUpcomingToolChanges({
   isAuthenticated,
+  table,
   total,
   limit,
   skip,
   data,
   Push,
+  UpcomingToolChangesFetch,
   PartProdRateFetch,
 }) {
+  g_table = table;
   g_total = total;
   g_limit = limit;
   g_skip = skip;
   g_PartProdRateFetch = PartProdRateFetch;
+  g_UpcomingToolChangesFetch = UpcomingToolChangesFetch;
   useEffect(() => {
     // Update the document title using the browser API
     // document.title = `You clicked ${count} times`;
@@ -212,12 +223,12 @@ export default function TableUpcomingToolChanges({
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell>Part Number</TableCell>
-            <TableCell >Period</TableCell>
-            <TableCell >Start Date</TableCell>
-            <TableCell >End Date</TableCell>
-            <TableCell >Quantity</TableCell>
-            <TableCell >Rate</TableCell>
+            <TableCell>CNC</TableCell>
+            <TableCell >Part No</TableCell>
+            <TableCell >Tool Life</TableCell>
+            <TableCell >Current Value</TableCell>
+            <TableCell >Minutes Remaining</TableCell>
+            <TableCell >Last Update</TableCell>
           </TableRow>
         </TableHead>
 
@@ -231,17 +242,17 @@ export default function TableUpcomingToolChanges({
           ).map(row => (
             <TableRow key={row.PartProdRate_Key}>
               <TableCell component="th" scope="row">
-                {row.part_no}
+                {row.CNC}
               </TableCell>
               <TableCell >
-                {row.period}
+                {row.Part_No}
               </TableCell>
-              <TableCell >{row.start_date}</TableCell>
+              <TableCell >{row.Tool_Life}</TableCell>
               <TableCell >
-                {row.end_date}
+                {row.Current_Value}
               </TableCell>
-              <TableCell >{row.Quantity}</TableCell>
-              <TableCell >{row.Rate}</TableCell>
+              <TableCell >{row.iMinutes_Remaining}</TableCell>
+              <TableCell >{row.Last_Update}</TableCell>
             </TableRow>
           ))}
 

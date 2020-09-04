@@ -22,6 +22,8 @@ import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite"
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
+import * as BuildingKey from '../../constants/BuildingKey';
+import * as BuildingCode from '../../constants/BuildingCode';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,35 +51,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DialogUpcomingToolChanges(params) {
   const {
+    UpcomingToolChangesCreate,
+    SetUpcomingToolChangesBuildingKey,
+    SetUpcomingToolChangesBuildingCode,
     PartProdRateFetch,
-    firstDayOfWeek,
-    lastDayOfWeek,
-    OpenDialog200206,
-    View200206,
     Push,
-    SetAppError,
-    Submitting,
-    submitting
   } = params;
 
 
   const classes = useStyles();
 
   const handlePlant11 = () => {
+    
     let start = 0;
     let end = 10;
 //    let start = '08/30/2020';
 //    let end = '09/05/2020';
     Push('/cnc/transition');
-    PartProdRateFetch(
-      start,
-      end,
-      1000,
-      0,
-      '/cnc/ViewUpcomingToolChanges',
-//      '/profit/ViewPartProdRate',
+    SetUpcomingToolChangesBuildingKey(BuildingKey.PLANT_11); // Avilla
+    SetUpcomingToolChangesBuildingCode(BuildingCode.PLANT_11); // Avilla
+    UpcomingToolChangesCreate(
+      BuildingKey.PLANT_11,
       true,
-    ); // will set submitting to false after done.
+      1000,
+      '/cnc/ViewUpcomingToolChanges',
+      true);
 
 //    View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
 };
@@ -85,14 +83,14 @@ export default function DialogUpcomingToolChanges(params) {
     let start = 0;
     let end = 10;
     Push('/cnc/transition');
-    PartProdRateFetch(
-      start,
-      end,
-      1000,
-      0,
-      '/cnc/ViewUpcomingToolChanges',
+    SetUpcomingToolChangesBuildingKey(BuildingKey.PLANT_11); // Plant 8 5641
+    SetUpcomingToolChangesBuildingCode(BuildingCode.PLANT_11); // Avilla
+    UpcomingToolChangesCreate(
+      BuildingKey.PLANT_11,
       true,
-    ); // will set submitting to false after done.
+      1000,
+      '/cnc/ViewUpcomingToolChanges',
+      true);
 
     //    View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
 };

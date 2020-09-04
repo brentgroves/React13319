@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewUpcomingToolChanges(params) {
   //  const { Push, total, SetAppError } = params;
+  const {Building_Code,Building_Key} = params;
   useEffect(() => {
     // if (total === 0) {
     //   SetAppError(
@@ -29,16 +30,21 @@ export default function ViewUpcomingToolChanges(params) {
     // }
   });
   const classes = useStyles();
-
   return (
+    <div>
     <Box display="flex" flexDirection="column">
       <Box p={1} bgcolor="grey.300">
         <div className={classes.root}>
           <Typography variant="h6" align="center" gutterBottom>
-            Part Production Rates
+   {Building_Code} Upcoming Tool Changes.
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Upcoming Tool Changes
+            This report lists the upcoming tool changes for a building and is in
+            ascending order.  The estimate of when a tool change will be needed is 
+            based upon the current tool counter value, the last recorded tool life
+            in the OTLM.SSB subroutine, and the fastest cycle time as recorded by 
+            App13319.  It can be improved by changing the code to lower the priority
+            of CNC that are not currently running.
           </Typography>
         </div>
       </Box>
@@ -46,6 +52,7 @@ export default function ViewUpcomingToolChanges(params) {
         <TableUpcomingToolChanges />
       </Box>
     </Box>
+    </div>
   );
 }
 

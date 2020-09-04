@@ -16,7 +16,6 @@ export const UpcomingToolChangesCreate = (
 });
 
 export const UpcomingToolChangesFetch = (
-  sproc,
   table,
   limit,
   skip,
@@ -24,13 +23,23 @@ export const UpcomingToolChangesFetch = (
   setSubmittingOff,
 ) => ({
   type: types.UPCOMING_TOOL_CHANGES_FETCH,
-  sproc,
   table,
   limit,
   skip,
   route,
   setSubmittingOff,
 });
+
+export const SetUpcomingToolChangesBuildingKey = (Building_Key) => ({
+  type: types.SET_UPCOMING_TOOL_CHANGES_BUILDING_KEY,
+  Building_Key,
+});
+
+export const SetUpcomingToolChangesBuildingCode = (Building_Code) => ({
+  type: types.SET_UPCOMING_TOOL_CHANGES_BUILDING_CODE,
+  Building_Code,
+});
+
 
 export const SetUpcomingToolChangesSproc = (sproc) => ({
   type: types.SET_UPCOMING_TOOL_CHANGES_SPROC,

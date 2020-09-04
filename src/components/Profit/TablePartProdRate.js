@@ -17,6 +17,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import * as common from '@bgroves/common';
 
+let g_start_period;
+let g_end_period;
 let g_total;
 let g_limit;
 let g_skip;
@@ -39,14 +41,26 @@ function TablePaginationActions(props) {
 
   const handleFirstPageButtonClick = event => {
     if (g_skip > 0) {
-      g_PartProdRateFetch(g_limit, 0, '', false);
+      g_PartProdRateFetch(g_start_period,g_end_period,g_limit, 0, '', false);
     }
     onChangePage(event, 0);
   };
+/*
+            PartProdRateFetch(
+              start,
+              end,
+              1000,
+              0,
+              '/profit/ViewPartProdRate',
+              true,
+            ); // will set submitting to false after done.
 
+*/
   const handleBackButtonClick = event => {
     if (page === g_firstBuffPage) {
       g_PartProdRateFetch(
+        g_start_period,
+        g_end_period,
         g_limit,
         g_skip - g_limit,
         '',
@@ -60,6 +74,8 @@ function TablePaginationActions(props) {
     if (page === g_lastBuffPage) {
       common.log(`page: ${page},g_lastBuffPage: ${g_lastBuffPage}`);
       g_PartProdRateFetch(
+        g_start_period,
+        g_end_period,
         g_limit,
         g_skip + g_limit,
         '',
@@ -72,6 +88,8 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = event => {
     if (g_skip < g_total - g_limit) {
       g_PartProdRateFetch(
+        g_start_period,
+        g_end_period,
         g_limit,
         g_total - g_limit,
         '',
@@ -139,6 +157,8 @@ const useStyles2 = makeStyles({
 
 export default function TablePartProdRate({
   isAuthenticated,
+  start_period,
+  end_period,
   total,
   limit,
   skip,
@@ -146,6 +166,8 @@ export default function TablePartProdRate({
   Push,
   PartProdRateFetch,
 }) {
+  g_start_period = start_period;
+  g_end_period = end_period;
   g_total = total;
   g_limit = limit;
   g_skip = skip;
