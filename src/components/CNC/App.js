@@ -25,6 +25,8 @@ import { DialogCompareContainer } from '../../containers/CNC/DialogCompareContai
 import { DialogUpcomingToolChanges } from '../../containers/CNC/DialogUpcomingToolChanges';
 import { ViewCompareContainer } from '../../containers/CNC/ViewCompareContainer';
 import { ViewUpcomingToolChanges } from '../../containers/CNC/ViewUpcomingToolChanges';
+import { DialogToolChangeSummary } from '../../containers/CNC/DialogToolChangeSummary';
+import { ViewToolChangeSummary } from '../../containers/CNC/ViewToolChangeSummary';
 import LinearIndeterminate from '../LinearIndeterminate';
 
 const drawerWidth = 200;
@@ -215,6 +217,12 @@ export default function App({
             </Route>
             <Route path={`${match.path}/ViewUpcomingToolChanges`}>
               <ViewUpcomingToolChanges />
+            </Route>
+            <Route path={`${match.path}/dialogToolChangeSummary`}>
+              <DialogToolChangeSummary />
+            </Route>
+            <Route path={`${match.path}/ViewToolChangeSummary`}>
+              <ViewToolChangeSummary />
             </Route>
             <Route path={`${match.path}/view13319`}>
               <View13319 />

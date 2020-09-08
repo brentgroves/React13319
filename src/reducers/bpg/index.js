@@ -9,6 +9,7 @@ import Kep13319 from './Kep13319'
 import CompareContainer from './CompareContainer'
 import PartProdRate from './PartProdRate'
 import UpcomingToolChanges from './UpcomingToolChanges'
+import ToolChangeSummary from './ToolChangeSummary'
 
 const RootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -20,7 +21,8 @@ const RootReducer = (history) => combineReducers({
   Kep13319,
   CompareContainer,
   PartProdRate,
-  UpcomingToolChanges
+  UpcomingToolChanges,
+  ToolChangeSummary
 })
 
 export default RootReducer

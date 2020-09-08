@@ -7,3 +7,4 @@ export * from './Sagas';
 export * from './CompareContainer';
 export * from './PartProdRate';
 export * from './UpcomingToolChanges';
+export * from './ToolChangeSummary';
