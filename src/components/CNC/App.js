@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  useRouteMatch
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -119,6 +115,7 @@ export default function App({
   ClearAppError,
   appError,
   openDialog200206,
+  openDialogToolChangeSummary,
   Submitting,
   submitting,
 }) {
@@ -140,36 +137,36 @@ export default function App({
   let match = useRouteMatch();
   return (
     <React.Fragment>
-    <CssBaseline />
-    {isAuthenticated && pathname !== "/login" && pathname !== "/" && (
-              <React.Fragment>
-<AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden,
-            )}
+      <CssBaseline />
+      {isAuthenticated && pathname !== '/login' && pathname !== '/' && (
+        <React.Fragment>
+          <AppBar
+            position="absolute"
+            className={clsx(classes.appBar, open && classes.appBarShift)}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            CNC Visualizations
-          </Typography>
-          {/* 
+            <Toolbar className={classes.toolbar}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                className={clsx(
+                  classes.menuButton,
+                  open && classes.menuButtonHidden,
+                )}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={classes.title}
+              >
+                CNC Visualizations
+              </Typography>
+              {/* 
                 <IconButton color="inherit">
                   <Badge badgeContent={0} color="secondary">
                     <AppsIcon />
@@ -181,33 +178,35 @@ export default function App({
                   </Badge>
                 </IconButton>                
                 */}
-          <AppMenu />
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <SideMenu />
-      </Drawer>
-              </React.Fragment>
-              )}
+              <AppMenu />
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: clsx(
+                classes.drawerPaper,
+                !open && classes.drawerPaperClose,
+              ),
+            }}
+            open={open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <SideMenu />
+          </Drawer>
+        </React.Fragment>
+      )}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Switch>
-          <Route path={`${match.path}/transition`}>
+            <Route path={`${match.path}/transition`}>
               <LinearIndeterminate />
-
             </Route>
             <Route path={`${match.path}/dialogCompareContainer`}>
               <DialogCompareContainer />
@@ -215,29 +214,28 @@ export default function App({
             <Route path={`${match.path}/dialogUpcomingToolChanges`}>
               <DialogUpcomingToolChanges />
             </Route>
-            <Route path={`${match.path}/ViewUpcomingToolChanges`}>
-              <ViewUpcomingToolChanges />
-            </Route>
             <Route path={`${match.path}/dialogToolChangeSummary`}>
               <DialogToolChangeSummary />
             </Route>
             <Route path={`${match.path}/ViewToolChangeSummary`}>
               <ViewToolChangeSummary />
             </Route>
+            <Route path={`${match.path}/ViewUpcomingToolChanges`}>
+              <ViewUpcomingToolChanges />
+            </Route>
             <Route path={`${match.path}/view13319`}>
               <View13319 />
             </Route>
             <Route path={`${match.path}/viewCompareContainer`}>
               <ViewCompareContainer />
-
             </Route>
             <Route path={match.path}>
               <Landing />
-            </Route>            
+            </Route>
           </Switch>
         </Container>
       </main>
-      </React.Fragment>
+    </React.Fragment>
   );
 }
 

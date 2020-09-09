@@ -35,11 +35,12 @@ export default function ViewToolChangeSummary(params) {
       <Box p={1} bgcolor="grey.300">
         <div className={classes.root}>
           <Typography variant="h6" align="center" gutterBottom>
-          Tool Change Summary from {startDate} to {endDate}.
+          Tool Change Summary
           </Typography>
           <Typography variant="body1" gutterBottom>
             This report shows the average tool life for each tool assembly by part operation
-            for a given period of time.
+            for the selected time frame.  The tool life that equal 999999 have not been set 
+            in the OTLM.SSB subroutine.  I
           </Typography>
         </div>
       </Box>

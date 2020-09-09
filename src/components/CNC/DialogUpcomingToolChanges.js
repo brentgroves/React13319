@@ -1,22 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import BuildIcon from '@material-ui/icons/Build';
-import SpeedIcon from '@material-ui/icons/Speed';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from "@material-ui/core/Paper";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -54,7 +45,6 @@ export default function DialogUpcomingToolChanges(params) {
     UpcomingToolChangesCreate,
     SetUpcomingToolChangesBuildingKey,
     SetUpcomingToolChangesBuildingCode,
-    PartProdRateFetch,
     Push,
   } = params;
 
@@ -76,8 +66,6 @@ export default function DialogUpcomingToolChanges(params) {
       1000,
       '/cnc/ViewUpcomingToolChanges',
       true);
-
-//    View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
 };
   const handlePlant8 = () => {
     let start = 0;
@@ -92,11 +80,9 @@ export default function DialogUpcomingToolChanges(params) {
       '/cnc/ViewUpcomingToolChanges',
       true);
 
-    //    View200206(start, end, 1000, "/oee/view200206", true);  // will set submitting to false after done.
 };
   const handleClose = () => {
-    Push("/");
-    // OpenDialog200206(false);
+    Push("/cnc");
   };
 
   return (

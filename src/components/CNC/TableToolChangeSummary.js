@@ -165,7 +165,7 @@ export default function TableToolChangeSummary({
       Push('/login');
     }
     if (total === 0) {
-      Push('/');
+      Push('/cnc');
     }
   });
   const classes = useStyles2();
@@ -187,14 +187,6 @@ export default function TableToolChangeSummary({
    setPage(g_lastPage);
  }
 
-/* I THINK THIS IS WRONG SO I CHANGED IT
- let emptyRows;
- if(rowsPerPage>data.length){
-   emptyRows = 0;
- }else{
-   emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
- }
-*/
 
  let emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
 
@@ -222,6 +214,7 @@ export default function TableToolChangeSummary({
           <TableRow>
             <TableCell>CNC</TableCell>
             <TableCell >Part No</TableCell>
+            <TableCell >Operation</TableCell>
             <TableCell >Assembly No</TableCell>
             <TableCell >Description</TableCell>
             <TableCell >Tool Life</TableCell>
@@ -237,12 +230,15 @@ export default function TableToolChangeSummary({
               )
             : data
           ).map(row => (
-            <TableRow key={row.PartProdRate_Key}>
+            <TableRow key={row.primary_key}>
               <TableCell component="th" scope="row">
                 {row.CNC}
               </TableCell>
               <TableCell >
                 {row.Part_No}
+              </TableCell>
+              <TableCell >
+                {row.Operation_Code}
               </TableCell>
               <TableCell >{row.Assembly_No}</TableCell>
               <TableCell >

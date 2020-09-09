@@ -29,11 +29,9 @@ export default function SideMenu(params) {
   };
   const handleViewUpcomingToolChanges = () => {
     Push('/cnc/dialogUpcomingToolChanges');
-//    Push('/cnc/dialogToolChanges');
-
-    // Push('/cnc/transition');
-    // Submitting(true); // Buttons look at this to see if they should be enabled
-    // View200206(firstDayOfWeek, lastDayOfWeek, 1000, '/cnc/view200206', true);
+  };
+  const handleViewToolChangeSummary = () => {
+    Push('/cnc/dialogToolChangeSummary');
   };
   /*
   const handleView200206ThisWeek = () => {
@@ -74,6 +72,13 @@ export default function SideMenu(params) {
         </ListItemIcon>
         <ListItemText primary="Tool Changes" />
       </ListItem>
+      <ListItem button onClick={handleViewToolChangeSummary}>
+        <ListItemIcon>
+          <GroupWorkIcon />
+        </ListItemIcon>
+        <ListItemText primary="Tool Life" />
+      </ListItem>
+
     </List>
   );
 }

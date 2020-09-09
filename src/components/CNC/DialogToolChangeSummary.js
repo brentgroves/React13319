@@ -57,8 +57,9 @@ export default function DialogToolChangeSummary(params) {
   const {
     firstDayOfWeek,
     lastDayOfWeek,
-    OpenDialogToolChangeSummary,
-    ViewToolChangeSummary,
+    CreateToolChangeSummary,
+    SetToolChangeSummaryStartDate,
+    SetToolChangeSummaryEndDate,
     Push,
     SetAppError,
     Submitting,
@@ -66,8 +67,7 @@ export default function DialogToolChangeSummary(params) {
   } = params;
 
   const handleClose = () => {
-    Push("/");
-    OpenDialogToolChangeSummary(false);
+    Push("/cnc");
   };
   return (
     <Dialog
@@ -75,7 +75,7 @@ export default function DialogToolChangeSummary(params) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">OEE by Part</DialogTitle>
+      <DialogTitle id="form-dialog-title">Tool Change Summary</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Select the start and end date. The start date's time is 00:00:00 and
@@ -103,8 +103,16 @@ export default function DialogToolChangeSummary(params) {
               Submitting(false);
             } else {
               Push('/cnc/transition');
-              ViewToolChangeSummary(start, end, 1000, "/cnd/viewToolChangeSummary", true);  // will set submitting to false after done.
-           //   OpenDialogToolChangeSummary(false);
+              SetToolChangeSummaryStartDate(start);
+              SetToolChangeSummaryEndDate(end);
+              CreateToolChangeSummary(
+                start,
+                end,
+                true,
+                1000,
+                '/cnc/ViewToolChangeSummary',
+                true);
+          
             }
           }}
         >

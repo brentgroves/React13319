@@ -14,16 +14,6 @@ function mapStateToProps(state) {
     data: UpcomingToolChanges.data,
     submitting: Global.submitting
   };
-  /*
-  return {
-    isAuthenticated: User.isAuthenticated,
-    total: PartProdRate.total,
-    limit: PartProdRate.limit,
-    skip: PartProdRate.skip,
-    data: PartProdRate.data,
-    submitting: Global.submitting
-  };
-  */
 }
 //UpcomingToolChanges
 const mapDispatchToProps = dispatch => {
@@ -48,14 +38,3 @@ export const TableUpcomingToolChanges = connect(
   mapStateToProps,
   mapDispatchToProps
 )(TableUpcomingToolChangesComponent);
-/*
-    PartProdRateFetch: (limit, skip, route, setSubmittingOff) =>
-      dispatch(
-        actions.PartProdRateFetch(
-          limit,
-          skip,
-          route,
-          setSubmittingOff
-        )
-      ),
-*/

@@ -1,6 +1,7 @@
 import * as types from "../../constants/ActionTypes";
 
 const initState = {
+  openDialogToolChangeSummary: false,
   startDate: '2020-09-08 00:00:00',
   endDate: '2020-09-08 00:00:00',
   sproc: '',
@@ -13,6 +14,12 @@ const initState = {
 
 const ToolChangeSummary = (state = initState, action) => {
   switch (action.type) {
+    case types.OPEN_DIALOG_TOOL_CHANGE_SUMMARY: {
+      return {
+        ...state,
+        openDialogToolChangeSummary: action.open
+      }
+    }
     case types.SET_TOOL_CHANGE_SUMMARY_START_DATE: {
       return {
         ...state,

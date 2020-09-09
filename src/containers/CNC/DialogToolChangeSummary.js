@@ -14,7 +14,9 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     // dispatching plain actions
-    OpenDialogToolChangeSummary: (open) => dispatch(actions.OpenDialogToolChangeSummary(open)),
+    CreateToolChangeSummary: (startDate,endDate,fetch,limit,route, setSubmittingOff) => dispatch(actions.CreateToolChangeSummary(startDate,endDate,fetch,limit,route, setSubmittingOff)),
+    SetToolChangeSummaryStartDate: (startDate) => dispatch(actions.SetToolChangeSummaryStartDate(startDate)),
+    SetToolChangeSummaryEndDate: (endDate) => dispatch(actions.SetToolChangeSummaryEndDate(endDate)),
     Push: (path) => dispatch(actions.Push(path)),
     Submitting: (submitting) => dispatch(actions.Submitting(submitting)),
     SetAppError: (message, errorType, errorSeverity) =>

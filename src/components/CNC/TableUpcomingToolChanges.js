@@ -22,7 +22,6 @@ let g_total;
 let g_limit;
 let g_skip;
 let g_UpcomingToolChangesFetch;
-let g_PartProdRateFetch;
 let g_firstBuffPage;
 let g_lastBuffPage;
 let g_lastPage;
@@ -152,14 +151,12 @@ export default function TableUpcomingToolChanges({
   skip,
   data,
   Push,
-  UpcomingToolChangesFetch,
-  PartProdRateFetch,
+  UpcomingToolChangesFetch
 }) {
   g_table = table;
   g_total = total;
   g_limit = limit;
   g_skip = skip;
-  g_PartProdRateFetch = PartProdRateFetch;
   g_UpcomingToolChangesFetch = UpcomingToolChangesFetch;
   useEffect(() => {
     // Update the document title using the browser API
@@ -168,7 +165,7 @@ export default function TableUpcomingToolChanges({
       Push('/login');
     }
     if (total === 0) {
-      Push('/');
+      Push('/cnc');
     }
   });
   const classes = useStyles2();
@@ -189,15 +186,6 @@ export default function TableUpcomingToolChanges({
  if(page>g_lastPage){
    setPage(g_lastPage);
  }
-
-/* I THINK THIS IS WRONG SO I CHANGED IT
- let emptyRows;
- if(rowsPerPage>data.length){
-   emptyRows = 0;
- }else{
-   emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
- }
-*/
 
  let emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage); // Won't work as a useState variable.
 
@@ -240,7 +228,7 @@ export default function TableUpcomingToolChanges({
               )
             : data
           ).map(row => (
-            <TableRow key={row.PartProdRate_Key}>
+            <TableRow key={row.primary_key}>
               <TableCell component="th" scope="row">
                 {row.CNC}
               </TableCell>

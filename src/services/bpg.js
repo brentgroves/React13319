@@ -132,10 +132,10 @@ const setupServices = async (dispatch) => {
 */
     // Test New services
     await srv
-      .service('upcoming-tool-changes')
+      .service('tool-change-summary')
       .find({
         query: {
-          $table: 'rpt09020',
+          $table: 'rpt0909',
           $limit: 10,
           $skip: 0,
           $sort: {
@@ -144,17 +144,19 @@ const setupServices = async (dispatch) => {
         },
       })
       .then((res) => {
-        common.log(`TEST upcoming-tool-changes ${JSON.stringify(res)}`);
-        dispatch(actions.SetUpcomingToolChangesSproc('CreateUpcomingToolChanges'));
-        dispatch(actions.SetUpcomingToolChangesTable('rpt09020'));
-        dispatch(actions.SetUpcomingToolChangesTotal(12));
-        dispatch(actions.SetUpcomingToolChangesLimit(10));
-        dispatch(actions.SetUpcomingToolChangesSkip(0));
-        dispatch(actions.SetUpcomingToolChangesData(res));
+        common.log(`TEST tool-change-summary ${JSON.stringify(res)}`);
+        dispatch(actions.SetToolChangeSummaryStartDate('2020-09-05 00:00:00'));
+        dispatch(actions.SetToolChangeSummaryEndDate('2020-09-08 23:59:59'));
+        dispatch(actions.SetToolChangeSummarySproc('CreateToolChangeSummary'));
+        dispatch(actions.SetToolChangeSummaryTable('rpt0909'));
+        dispatch(actions.SetToolChangeSummaryTotal(12));
+        dispatch(actions.SetToolChangeSummaryLimit(10));
+        dispatch(actions.SetToolChangeSummarySkip(0));
+        dispatch(actions.SetToolChangeSummaryData(res));
       })
       .catch((e) => {
         // Show login page (potentially with `e.message`)
-        console.error('upcoming-tool-change.find() error', e);
+        console.error('tool-change-summary.find() error', e);
       });
   
   const kep13319 = srv.service('kep13319');

@@ -5,6 +5,7 @@ import * as users from './Users';
 import * as sproc200206 from './Sproc200206';
 import * as sproc200221 from './Sproc200221';
 import * as upcomingToolChanges from './UpcomingToolChanges';
+import * as toolChangeSummary from './ToolChangeSummary';
 import * as kep13319 from './Kep13319';
 import * as compareContainer from './CompareContainer';
 import * as partProdRate from './PartProdRate';
@@ -43,6 +44,8 @@ export default function* rootSaga() {
     sproc200221.watchSproc200221Fetch(),
     upcomingToolChanges.watchUpcomingToolChangesCreate(),
     upcomingToolChanges.watchUpcomingToolChangesFetch(),
+    toolChangeSummary.watchCreateToolChangeSummary(),
+    toolChangeSummary.watchFetchToolChangeSummary(),
     kep13319.watchKep13319Fetch(),
     compareContainer.watchCompareContainerFetch(),
     partProdRate.watchPartProdRateFetch()
@@ -60,6 +63,7 @@ export function setSAGA(services, dispatch) {
   compareContainer.setSAGA(services, dispatch);
   partProdRate.setSAGA(services, dispatch);
   upcomingToolChanges.setSAGA(services,dispatch);
+  toolChangeSummary.setSAGA(services,dispatch);
 }
 /*
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
