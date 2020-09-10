@@ -15,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewToolChangeSummary(params) {
-  //  const { Push, total, SetAppError } = params;
-  const {startDate,endDate} = params;
   useEffect(() => {
     // if (total === 0) {
     //   SetAppError(

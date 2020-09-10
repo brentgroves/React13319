@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import ViewToolChangeSummaryComponent from "../../components/CNC/ViewToolChangeSummary";
 import * as actions from '../../actions'
-import { ToolChangeSummary } from "../../actions";
 
 function mapStateToProps(state) {
   const { User,ToolChangeSummary } = state

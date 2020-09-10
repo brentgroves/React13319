@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { TablePartProdRate } from '../../containers/Profit/TablePartProdRate';
 import { TableUpcomingToolChanges } from '../../containers/CNC/TableUpcomingToolChanges';
 
 // import * as common from '@bgroves/common';
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewUpcomingToolChanges(params) {
   //  const { Push, total, SetAppError } = params;
-  const {Building_Code,Building_Key} = params;
+  const {Building_Code} = params;
   useEffect(() => {
     // if (total === 0) {
     //   SetAppError(

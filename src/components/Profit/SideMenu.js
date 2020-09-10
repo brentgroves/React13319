@@ -39,12 +39,15 @@ export default function SideMenu(params) {
         <ListItemText primary="Production" />
       </ListItem>
       <Divider />
+    </List>
+  );
+}
+/*
       <ListItem button onClick={handleViewToolingRate}>
         <ListItemIcon>
           <GroupWorkIcon />
         </ListItemIcon>
         <ListItemText primary="Tooling" />
       </ListItem>
-    </List>
-  );
-}
+
+*/

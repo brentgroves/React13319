@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import ViewUpcomingToolChangesComponent from "../../components/CNC/ViewUpcomingToolChanges";
 import * as actions from '../../actions'
-import { UpcomingToolChangesFetch } from "../../actions";
 
 function mapStateToProps(state) {
   const { User,UpcomingToolChanges } = state

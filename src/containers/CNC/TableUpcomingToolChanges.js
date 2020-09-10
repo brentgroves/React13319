@@ -3,7 +3,7 @@ import TableUpcomingToolChangesComponent from "../../components/CNC/TableUpcomin
 import * as actions from "../../actions";
 
 function mapStateToProps(state) {
-  const { User, PartProdRate, UpcomingToolChanges, Global } = state;
+  const { User, UpcomingToolChanges, Global } = state;
   return {
     isAuthenticated: User.isAuthenticated,
     Building_Key: UpcomingToolChanges.Building_Key,
