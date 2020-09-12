@@ -131,6 +131,7 @@ const setupServices = async (dispatch) => {
 
 */
     // Test New services
+    /*
     await srv
       .service('tool-change-summary')
       .find({
@@ -158,7 +159,7 @@ const setupServices = async (dispatch) => {
         // Show login page (potentially with `e.message`)
         console.error('tool-change-summary.find() error', e);
       });
-  
+  */
   const kep13319 = srv.service('kep13319');
   kep13319.on('updated', (message, context) => {
     common.log('Kep13319.update=>', message);
