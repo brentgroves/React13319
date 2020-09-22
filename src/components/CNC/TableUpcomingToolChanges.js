@@ -213,6 +213,7 @@ export default function TableUpcomingToolChanges({
           <TableRow>
             <TableCell>CNC</TableCell>
             <TableCell >Part No</TableCell>
+            <TableCell >Tool No</TableCell>
             <TableCell >Tool Life</TableCell>
             <TableCell >Current Value</TableCell>
             <TableCell >Minutes Remaining</TableCell>
@@ -233,9 +234,8 @@ export default function TableUpcomingToolChanges({
               <TableCell component="th" scope="row">
                 {row.CNC}
               </TableCell>
-              <TableCell >
-                {row.Part_No}
-              </TableCell>
+              <TableCell >{row.Part_No}</TableCell>
+              <TableCell >{row.Assembly_No}</TableCell>
               <TableCell >{row.Tool_Life}</TableCell>
               <TableCell >
                 {row.Current_Value}
