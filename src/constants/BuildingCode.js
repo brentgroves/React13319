@@ -5,4 +5,5 @@
 
 export const PLANT_11 = 'Mobex Global Avilla'
 export const PLANT_8 = 'Mobex Global Plant 8'
+export const PLANT_6 = 'Mobex Global Plant 6'
 

@@ -216,6 +216,7 @@ export default function TableUpcomingToolChanges({
             <TableCell >Tool Life</TableCell>
             <TableCell >Current Value</TableCell>
             <TableCell >Minutes Remaining</TableCell>
+            <TableCell >Fastest Cycle</TableCell>
             <TableCell >Last Update</TableCell>
           </TableRow>
         </TableHead>
@@ -240,6 +241,7 @@ export default function TableUpcomingToolChanges({
                 {row.Current_Value}
               </TableCell>
               <TableCell >{row.iMinutes_Remaining}</TableCell>
+              <TableCell >{row.iFastest_Cycle_Time + '(s)'}</TableCell>
               <TableCell >{row.Last_Update}</TableCell>
             </TableRow>
           ))}

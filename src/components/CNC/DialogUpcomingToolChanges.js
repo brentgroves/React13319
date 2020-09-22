@@ -63,12 +63,12 @@ export default function DialogUpcomingToolChanges(params) {
       '/cnc/ViewUpcomingToolChanges',
       true);
 };
-  const handlePlant8 = () => {
+  const handlePlant6 = () => {
     Push('/cnc/transition');
-    SetUpcomingToolChangesBuildingKey(BuildingKey.PLANT_11); // Plant 8 5641
-    SetUpcomingToolChangesBuildingCode(BuildingCode.PLANT_11); // Avilla
+    SetUpcomingToolChangesBuildingKey(BuildingKey.PLANT_6); // Plant 8 5641
+    SetUpcomingToolChangesBuildingCode(BuildingCode.PLANT_6); // Avilla
     UpcomingToolChangesCreate(
-      BuildingKey.PLANT_11,
+      BuildingKey.PLANT_6,
       true,
       1000,
       '/cnc/ViewUpcomingToolChanges',
@@ -102,6 +102,9 @@ export default function DialogUpcomingToolChanges(params) {
           </Paper>
               </ListSubheader>
               <Divider />
+              <ListItem button onClick={handlePlant6}>
+                <ListItemText bgcolor="primary.main" primary="Plant 6" />
+              </ListItem>
               <ListItem button onClick={handlePlant11}>
                 <ListItemText bgcolor="primary.main" primary="Plant 11" />
               </ListItem>
