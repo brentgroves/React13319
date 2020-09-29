@@ -212,13 +212,18 @@ export default function TableToolChangeSummary({
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
+            <TableCell>Plant</TableCell>
             <TableCell>CNC</TableCell>
             <TableCell >Part No</TableCell>
             <TableCell >Operation</TableCell>
             <TableCell >Assembly No</TableCell>
             <TableCell >Description</TableCell>
-            <TableCell >Tool Life</TableCell>
-            <TableCell >Average</TableCell>
+            <TableCell>Year-Week</TableCell>
+            <TableCell >Std TL</TableCell>
+            <TableCell >Std CPU</TableCell>
+            <TableCell >Week TL</TableCell>
+            <TableCell >Week CPU</TableCell>
+            <TableCell >Tool Changes</TableCell>
           </TableRow>
         </TableHead>
 
@@ -232,6 +237,9 @@ export default function TableToolChangeSummary({
           ).map(row => (
             <TableRow key={row.primary_key}>
               <TableCell component="th" scope="row">
+                {row.Building_No}
+              </TableCell>
+              <TableCell >
                 {row.CNC}
               </TableCell>
               <TableCell >
@@ -244,8 +252,12 @@ export default function TableToolChangeSummary({
               <TableCell >
                 {row.Description}
               </TableCell>
-              <TableCell >{row.Tool_Life}</TableCell>
-              <TableCell >{row.Avg_Tool_Life}</TableCell>
+              <TableCell >{row.year_week_fmt}</TableCell>
+              <TableCell >{row.STD_Tool_Life}</TableCell>
+              <TableCell >{row.STD_CPU}</TableCell>
+              <TableCell >{row.Week_Tool_Life}</TableCell>
+              <TableCell >{row.Week_CPU}</TableCell>
+              <TableCell >{row.Tool_Change_Count}</TableCell>
             </TableRow>
           ))}
 

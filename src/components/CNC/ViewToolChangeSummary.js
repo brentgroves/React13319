@@ -36,9 +36,10 @@ export default function ViewToolChangeSummary(params) {
           Tool Change Summary
           </Typography>
           <Typography variant="body1" gutterBottom>
-            This report shows the average tool life for each tool assembly by part operation
-            for the selected time frame.  The tool life that equal 999999 have not been set 
-            in the OTLM.SSB subroutine.  I
+          This report shows the weekly tool life average,Week TL, for each tool assembly
+          as recorded by the Plex Tool Tracker.  The standard tool life,STD TL, is taken from the 
+          CNC’s OTLM.SSB subroutine.  The standard cost per unit, STD CPU, is based upon the 
+          standard tool life and weekly CPU, Week CPU, is based upon the weekly tool life.
           </Typography>
         </div>
       </Box>
