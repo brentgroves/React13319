@@ -9,7 +9,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-
 import { loginRequest } from "../config/authConfig";
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 
@@ -38,9 +37,6 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  instructions: {
-    padding: 14
-  }
 }));
 
 // https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
@@ -54,7 +50,6 @@ const SignIn = ({
 }) => {
   //  const referer = props.location.state.referer || '/';
   const classes = useStyles();
-  const { instance } = useMsal();
 
   return (
     <Formik
@@ -62,9 +57,8 @@ const SignIn = ({
       onSubmit={(values, { setSubmitting }) => {
         common.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
         common.log(values.email);
-        // Submitting(true);
-        // AuthenticateSaga(values.email, values.password, '/', true);
-        instance.loginRedirect(loginRequest);
+        Submitting(true);
+        AuthenticateSaga(values.email, values.password, '/', true);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -135,15 +129,8 @@ const SignIn = ({
                   >
                     Sign In
                   </Button>
-
                 </form>
             </Container>
-            <UnauthenticatedTemplate>
-                    <Typography variant="h6" >
-                    Not Authenticated.
-                    </Typography>
-                  </UnauthenticatedTemplate>
-
             </React.Fragment>
         );
       }}

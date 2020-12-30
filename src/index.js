@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, useAccount } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { msalConfig, loginRequest } from "./config/authConfig";
+
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
@@ -56,15 +60,18 @@ async function main() {
   
   //sagaMiddleware.run(handleNewMessage, { services, username })
   sagaMiddleware.run(rootSaga);
+  const msalInstance = new PublicClientApplication(msalConfig);
 
   ReactDOM.render(
+    <MsalProvider instance={msalInstance}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         {' '}
         {/* place ConnectedRouter under Provider */}
         <App />
       </ConnectedRouter>
-    </Provider>,
+    </Provider>
+    </MsalProvider>,
     document.getElementById('root'),
   );
 
