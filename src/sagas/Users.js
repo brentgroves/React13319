@@ -31,7 +31,7 @@ export const handleSignUp = function* handleSignUp({services,dispatch}) {
 
 
 function* handleAuthenticate(action) {
-  common.log("in handleAuthenticate");
+  common.log(`in handleAuthenticate email=${action.email},password=${action.password}`);
 
   try {
     var res = yield g_services.authenticate({
