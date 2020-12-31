@@ -3,9 +3,7 @@ import { LogLevel } from "@azure/msal-browser";
 // Config object to be passed to Msal on creation
 export const msalConfig = {
     auth: {
-        clientId: "d1fbb8f3-444f-467e-93ff-7272a56df4c7",
-        authority: 'https://login.microsoftonline.com/b4b87e8f-df64-41ff-9ba4-a4930ebc804b', // This is your tenant info
-        redirectUri: 'http://localhost',
+        clientId: "7d3b271e-8a9f-4923-8167-d637b6011248",
     },
     system: {
         loggerOptions: {

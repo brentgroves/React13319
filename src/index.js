@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, useAccount } from "@azure/msal-react";
+import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, useAccount,useIsAuthenticated } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig, loginRequest } from "./config/authConfig";
+import { ProfileData, callMsGraph } from "./graph.jsx";
+
+import Button from '@material-ui/core/Button';
 
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
@@ -21,64 +24,80 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
 export const history = createBrowserHistory();
 
-async function main() {
-  const sagaMiddleware = createSagaMiddleware();
-  let store;
-  /* https://github.com/facebook/react-devtools/issues/191
-  if (!window.location.port && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
-    window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
-  } */
 
-  if (process.env.NODE_ENV === 'production') {
-    disableReactDevTools();
+const ProfileContent = () => {
+  const { instance, accounts } = useMsal();
+  const account = useAccount(accounts[0] || {});
+  const [graphData, setGraphData] = useState(null);
+
+  function RequestProfileData() {
+      instance.acquireTokenSilent({
+          ...loginRequest,
+          account: account
+      }).then((response) => {
+          callMsGraph(response.accessToken).then(response => setGraphData(response));
+      });
   }
 
-  // store = setupStore();
-  if (process.env.NODE_ENV === 'production') {
-    store = createStore(
-      reducers(history), // root reducer with router state
-      applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        sagaMiddleware,
-      ),
-    );
-  } else {
-    store = createStore(
-      reducers(history), // root reducer with router state
-      composeWithDevTools(
-        applyMiddleware(
-          routerMiddleware(history), // for dispatching history actions
-          sagaMiddleware,
-        ),
-      ),
-    );
-  }
-  console.log('After apply middleware');
-  //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
-
-  await setupServices(store.dispatch);
-  
-  //sagaMiddleware.run(handleNewMessage, { services, username })
-  sagaMiddleware.run(rootSaga);
-  const msalInstance = new PublicClientApplication(msalConfig);
-
-  ReactDOM.render(
-    <MsalProvider instance={msalInstance}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        {' '}
-        {/* place ConnectedRouter under Provider */}
-        <App />
-      </ConnectedRouter>
-    </Provider>
-    </MsalProvider>,
-    document.getElementById('root'),
+  return (
+      <>
+          <h5 >Welcome {account && account.name}</h5>
+          {graphData ? 
+              <ProfileData graphData={graphData} />
+              :
+              <Button onClick={RequestProfileData}>Request Profile Information</Button>
+          }
+      </>
   );
+};
 
-  // If you want your app to work offline and load faster, you can change
-  // unregister() to register() below. Note this comes with some pitfalls.
-  // Learn more about service workers: https://bit.ly/CRA-PWA
-  serviceWorker.unregister();
+const MainContent = () => {    
+  const { instance } = useMsal();
+  const isAuthenticatedAAD = useIsAuthenticated();
+  const handleSignOut = event => {
+    alert('Sign Out');
+    instance.logout();
+    // instance.loginRedirect(loginRequest);
+  };
+  const handleSignIn = event => {
+    alert('Sign In');
+    instance.loginRedirect(loginRequest);
+    // instance.loginRedirect(loginRequest);
+  };
+  return (
+    <React.Fragment>
+          <p>Anyone can see this paragraph.</p>
+            {isAuthenticatedAAD && (
+                <ProfileContent />
+            )}
+            {!isAuthenticatedAAD && (
+                <p>No users are signed in!</p>
+            )}
+
+            <Button onClick={handleSignOut}>
+              Sign Out
+            </Button>
+
+            <Button onClick={handleSignIn}>
+              Sign In
+            </Button>
+
+      </React.Fragment>
+   );
 }
 
-main();
+function AppTest() {
+  const msalInstance = new PublicClientApplication(msalConfig);
+
+  return (
+      <MsalProvider instance={msalInstance}>
+        <MainContent />
+      </MsalProvider>
+  );
+}
+ReactDOM.render(
+  <React.StrictMode>
+      <AppTest />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
