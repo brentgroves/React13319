@@ -59,8 +59,7 @@ async function main() {
   await setupServices(store.dispatch);
   
   //sagaMiddleware.run(handleNewMessage, { services, username })
-  // 12/31/20 Added Await
-  await sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSaga);
 
   ReactDOM.render(
     <Provider store={store}>

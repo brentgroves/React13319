@@ -16,14 +16,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import { App } from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import reducers from './reducers';
 import rootSaga from './sagas';
 import setupServices from './services';
 import { ConnectedRouter } from 'connected-react-router';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
-
-export const history = createBrowserHistory();
-
+import store,{history} from './store'
+import { SignIn } from './containers/SignIn';
 
 const ProfileContent = () => {
   const { instance, accounts } = useMsal();
@@ -91,13 +89,39 @@ function AppTest() {
 
   return (
       <MsalProvider instance={msalInstance}>
-        <MainContent />
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </Provider>
       </MsalProvider>
   );
 }
-ReactDOM.render(
-  <React.StrictMode>
-      <AppTest />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+
+
+async function main() 
+{
+
+  if (process.env.NODE_ENV === 'production') {
+    disableReactDevTools();
+  }
+  //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
+
+  await setupServices(store.dispatch);
+
+
+  ReactDOM.render(
+    <React.StrictMode>
+        <AppTest />
+    </React.StrictMode>,
+    document.getElementById("root")
+  );
+
+  // If you want your app to work offline and load faster, you can change
+  // unregister() to register() below. Note this comes with some pitfalls.
+  // Learn more about service workers: https://bit.ly/CRA-PWA
+  serviceWorker.unregister();
+  
+}
+
+main();
