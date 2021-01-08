@@ -165,9 +165,6 @@ export default function Table200206({
   useEffect(() => {
     // Update the document title using the browser API
     // document.title = `You clicked ${count} times`;
-    if (!isAuthenticated) {
-      Push('/login');
-    }
     if (total === 0) {
       Push('/');
     }

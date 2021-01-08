@@ -1,5 +1,6 @@
 export * from './Dialogs';
 export * from './Global';
+export * from './Msal';
 export * from './Kep13319';
 export * from './CompareContainer';
 export * from './PartProdRate';

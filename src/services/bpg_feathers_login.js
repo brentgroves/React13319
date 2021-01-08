@@ -1,8 +1,6 @@
 import * as actions from '../actions';
 import { setSAGA } from '../sagas';
 import * as common from '@bgroves/common';
-
-
 const feathers = require('@feathersjs/feathers');
 const socketio = require('@feathersjs/socketio-client');
 const io = require('socket.io-client');
@@ -16,7 +14,7 @@ const setupServices = async (dispatch) => {
   common.log(
     `In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`,
   );
-  
+
   const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
   common.log(`connectionString: ${connectionString}`);
   const socket = io(connectionString);
@@ -64,7 +62,7 @@ const setupServices = async (dispatch) => {
       console.error('Kep13319.find() error', e);
     });
 
-/*
+  common.log('Before reAuthenticate');
   await srv
     .reAuthenticate()
     .then((res) => {
@@ -77,7 +75,6 @@ const setupServices = async (dispatch) => {
       dispatch(actions.SetLastName(res.user.lastName));
       dispatch(actions.SetEmail(res.user.email));
       dispatch(actions.SetRoles(res.user.roles));
-      */
       /* 
       If you want to base the set on user.roles
       instead of hardcoding into .env file. If
@@ -102,13 +99,12 @@ const setupServices = async (dispatch) => {
       }
       dispatch(actions.SetAppSet(set));
       */
-/*
+
     })
     .catch((e) => {
       // Show login page (potentially with `e.message`)
       console.error('reAuthenticate error', e);
     });
-    */
 /*
   await srv
     .service('kep13319')

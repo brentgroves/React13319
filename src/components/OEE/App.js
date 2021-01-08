@@ -136,7 +136,7 @@ export default function App({
   return (
     <React.Fragment>
     <CssBaseline />
-    {isAuthenticated && pathname !== "/login" && pathname !== "/" && (
+    {pathname !== "/login" && pathname !== "/" && (
               <React.Fragment>
 <AppBar
         position="absolute"

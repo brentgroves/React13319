@@ -7,7 +7,6 @@ import {
 import { OEE } from '../containers/OEE/App';
 import { CNC } from '../containers/CNC/App';
 import { Profit } from '../containers/Profit/App';
-import { ProfileContent } from '../containers/ProfileContent'
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -24,12 +23,6 @@ import { ErrorBoundary } from "./ErrorBoundary.jsx";
 import { ProfileData, callMsGraph } from "./graph.jsx";
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  }
-
-}));
 
 /*
 const ProfileContent = () => {
@@ -58,8 +51,11 @@ const ProfileContent = () => {
   );
 };
 */
-/*
-const ProfileContent = () => {
+
+export default function ProfileContent({
+  msalInstance,
+  SetIsAuthenticated
+}) {
   const { instance, accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const [graphData, setGraphData] = useState(null);
@@ -73,10 +69,15 @@ const ProfileContent = () => {
       ...loginRequest,
       account: account
     }).then((response) => {
-        callMsGraph(response.accessToken).then(response => setGraphData(response));
+        callMsGraph(response.accessToken).then(response => 
+          {
+            setGraphData(response);
+            SetIsAuthenticated(true);
+
+          });
     });
 
-  });
+  },[account]);
 
   function RequestProfileData() {
       instance.acquireTokenSilent({
@@ -90,57 +91,13 @@ const ProfileContent = () => {
   return (
       <>
           <h5 className="card-title">Welcome {account && account.name}</h5>
+          {/* <ProfileData graphData={graphData} /> */}
+          {/* {graphData ? 
+              <ProfileData graphData={graphData} />
+              :
+              <Button onClick={RequestProfileData}>Request Profile Information</Button>
+          } */}
       </>
   );
 };
-*/
-const InProgressComponent = ({inProgress}) => {
-  return <h5>{inProgress} In Progress</h5>;
-}
-
-const ErrorComponent = ({error}) => {
-  return <h5>This is a protected page and the following error occurred during authentication: <strong>{error.errorCode}</strong></h5>;
-}
-
-
-export default function App({
-  msalInstance,
-  appSet,
-  currentApp,
-  ClearAppError,
-  appError,
-  isAuthenticated,
-  Push,
-}) {
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    //document.title = `You clicked ${count} times`;
-    // if (!isAuthenticated) {
-    //   Push('/login');
-    // }
-  });
-  const handleClose = (event, reason) => {
-    ClearAppError();
-    if (reason === 'clickaway') {
-      return;
-    }
-    //    setOpen(false);
-  };
-
-  const classes = useStyles();
- // const msalInstance = new PublicClientApplication(msalConfig);
-  return (
-    <MsalProvider instance={msalInstance}>
-    <ErrorBoundary>
-    <MsalAuthenticationTemplate interactionType="redirect" loadingComponent={InProgressComponent} errorComponent={ErrorComponent}>
-                    <ProfileContent />
-
-                </MsalAuthenticationTemplate>
-            </ErrorBoundary>
-
-    </MsalProvider>
-  );
-}
-
 

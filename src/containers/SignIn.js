@@ -12,8 +12,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 function mapStateToProps(state) {
-  const { User,Global } = state
+  const { User,Global,Msal } = state
   return {
+    msalInstance: Msal.msalInstance,
     appError: Global.appError,
     isAuthenticated: User.isAuthenticated,
     submitting: Global.submitting

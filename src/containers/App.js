@@ -14,8 +14,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 function mapStateToProps(state) {
-  const { User, router, Global } = state;
+  const { User, router, Global,Msal } = state;
   return {
+    msalInstance: Msal.msalInstance,
     isAuthenticated: User.isAuthenticated,
     isAdmin: User.isAdmin,
     userName: User.userName,
