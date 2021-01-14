@@ -7,6 +7,8 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     SetIsAuthenticated: (isAuthenticated) => dispatch(actions.SetIsAuthenticated(isAuthenticated)),
+    SetAccount: (account) => dispatch(actions.SetAccount(account)),
+    SetGraph: (graph) => dispatch(actions.SetGraph(graph)),
     Push: path => dispatch(actions.Push(path)),
     Logout: () => dispatch(actions.Logout()),
     ClearAppError: () => dispatch(actions.ClearAppError()),

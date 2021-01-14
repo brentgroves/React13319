@@ -6,6 +6,8 @@ import * as actions from "../actions";
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
+    SetAccount: (account) => dispatch(actions.SetAccount(account)),
+    SetGraph: (graph) => dispatch(actions.SetGraph(graph)),
     Push: path => dispatch(actions.Push(path)),
     Logout: () => dispatch(actions.Logout()),
     ClearAppError: () => dispatch(actions.ClearAppError()),

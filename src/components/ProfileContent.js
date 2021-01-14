@@ -54,6 +54,8 @@ const ProfileContent = () => {
 
 export default function ProfileContent({
   msalInstance,
+  SetAccount,
+  SetGraph,
   SetIsAuthenticated
 }) {
   const { instance, accounts } = useMsal();
@@ -65,6 +67,7 @@ export default function ProfileContent({
     // if (!isAuthenticated) {
     //   Push('/login');
     // }
+    SetAccount(account);
     instance.acquireTokenSilent({
       ...loginRequest,
       account: account
@@ -72,10 +75,12 @@ export default function ProfileContent({
         callMsGraph(response.accessToken).then(response => 
           {
             setGraphData(response);
-            SetIsAuthenticated(true);
-
+            SetGraph(response);
+          //  SetIsAuthenticated(true);
+// PUT GRAPH DATA INTO MSAL REDUCER
           });
     });
+
 
   },[account]);
 
@@ -87,7 +92,18 @@ export default function ProfileContent({
           callMsGraph(response.accessToken).then(response => setGraphData(response));
       });
   }
-
+/*
+{
+    // home account identifier for this account object
+    homeAccountId: string;
+    // Entity who issued the token represented as a full host of it (e.g. login.microsoftonline.com)
+    environment: string;
+    // Full tenant or organizational id that this account belongs to
+    tenantId: string;
+    // preferred_username claim of the id_token that represents this account.
+    username: string;
+};
+*/
   return (
       <>
           <h5 className="card-title">Welcome {account && account.name}</h5>

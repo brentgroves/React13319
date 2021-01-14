@@ -102,9 +102,14 @@ const ErrorComponent = ({error}) => {
   return <h5>This is a protected page and the following error occurred during authentication: <strong>{error.errorCode}</strong></h5>;
 }
 
-
+/* 
+Describes an alternate way to do this.
+https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/hooks.md#useaccount-hook
+*/
 export default function App({
   msalInstance,
+  SetAccount,
+  SetGraph,
   appSet,
   currentApp,
   ClearAppError,
@@ -138,9 +143,29 @@ export default function App({
 
                 </MsalAuthenticationTemplate>
             </ErrorBoundary>
-
+            {/* <AuthenticatedTemplate>
+                <p>User is signed in!</p>
+            </AuthenticatedTemplate> */}
+            <UnauthenticatedTemplate>
+                <p>No users are signed in!</p>
+            </UnauthenticatedTemplate>
     </MsalProvider>
   );
 }
 
+/*
+  return (
+    <MsalProvider instance={msalInstance}>
+    <ErrorBoundary>
+    <MsalAuthenticationTemplate interactionType="redirect" loadingComponent={InProgressComponent} errorComponent={ErrorComponent}>
+                    <ProfileContent />
 
+                </MsalAuthenticationTemplate>
+            </ErrorBoundary>
+            <UnauthenticatedTemplate>
+                <p>No users are signed in!</p>
+            </UnauthenticatedTemplate>
+    </MsalProvider>
+  );
+
+*/

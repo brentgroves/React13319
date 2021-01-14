@@ -10,14 +10,28 @@ const msalInstance = new PublicClientApplication(msalConfig);
 
 const initState = {
   msalInstance: msalInstance, 
+  account:null
 };
 
 const Msal = (state = initState, action) => {
   switch (action.type) {
     case types.SET_MSAL: {
+      console.log('in SetMsal');
       // Keep a reference to the service object created in sockets initialization code.
       return Object.assign({}, state, {
         msalInstance: action.msalInstance,
+      });
+    }
+    case types.SET_ACCOUNT: {
+      console.log('in SetAccount');
+      return Object.assign({}, state, {
+        account: action.account,
+      });
+    }
+    case types.SET_GRAPH: {
+      console.log('in SetGraph');
+      return Object.assign({}, state, {
+        graph: action.graph,
       });
     }
     default:
