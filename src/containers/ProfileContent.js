@@ -9,6 +9,8 @@ const mapDispatchToProps = dispatch => {
     SetIsAuthenticated: (isAuthenticated) => dispatch(actions.SetIsAuthenticated(isAuthenticated)),
     SetAccount: (account) => dispatch(actions.SetAccount(account)),
     SetGraph: (graph) => dispatch(actions.SetGraph(graph)),
+    SetGroups: (groups) => dispatch(actions.SetGroups(groups)),
+    SetProfile: (profile) => dispatch(actions.SetProfile(profile)),
     Push: path => dispatch(actions.Push(path)),
     Logout: () => dispatch(actions.Logout()),
     ClearAppError: () => dispatch(actions.ClearAppError()),

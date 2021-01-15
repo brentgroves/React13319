@@ -10,7 +10,9 @@ const msalInstance = new PublicClientApplication(msalConfig);
 
 const initState = {
   msalInstance: msalInstance, 
-  account:null
+  account:null,
+  graph:null,
+  profile:null,
 };
 
 const Msal = (state = initState, action) => {
@@ -23,15 +25,27 @@ const Msal = (state = initState, action) => {
       });
     }
     case types.SET_ACCOUNT: {
-      console.log('in SetAccount');
+      console.log(`in SetAccount ${action.account}`);
       return Object.assign({}, state, {
         account: action.account,
       });
     }
     case types.SET_GRAPH: {
-      console.log('in SetGraph');
+      console.log(`in SetGraph ${action.graph}`);
       return Object.assign({}, state, {
         graph: action.graph,
+      });
+    }
+    case types.SET_GROUPS: {
+      console.log(`in SetGroups ${action.groups}`);
+      return Object.assign({}, state, {
+        groups: action.groups,
+      });
+    }
+    case types.SET_PROFILE: {
+      console.log(`in SetProfile ${action.profile}`);
+      return Object.assign({}, state, {
+        profile: action.profile,
       });
     }
     default:

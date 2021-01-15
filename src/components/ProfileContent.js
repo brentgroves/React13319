@@ -20,9 +20,9 @@ import { MsalProvider, MsalAuthenticationTemplate, UnauthenticatedTemplate, useM
 import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig, loginRequest } from "../config/authConfig";
 import { ErrorBoundary } from "./ErrorBoundary.jsx";
-import { ProfileData, callMsGraph } from "./graph.jsx";
+import { ProfileData, callMsGraph,GetProfile,GetGroups,SendMail } from "./graph.jsx";
 
-
+// https://docs.microsoft.com/en-us/graph/api/user-list-transitivememberof?view=graph-rest-1.0&tabs=http
 
 /*
 const ProfileContent = () => {
@@ -56,6 +56,8 @@ export default function ProfileContent({
   msalInstance,
   SetAccount,
   SetGraph,
+  SetGroups,
+  SetProfile,
   SetIsAuthenticated
 }) {
   const { instance, accounts } = useMsal();
@@ -67,19 +69,39 @@ export default function ProfileContent({
     // if (!isAuthenticated) {
     //   Push('/login');
     // }
-    SetAccount(account);
     instance.acquireTokenSilent({
       ...loginRequest,
       account: account
     }).then((response) => {
+      SetAccount(account);
         callMsGraph(response.accessToken).then(response => 
           {
             setGraphData(response);
             SetGraph(response);
-          //  SetIsAuthenticated(true);
-// PUT GRAPH DATA INTO MSAL REDUCER
           });
-    });
+         /*
+          GetGroups(response.accessToken).then(response => 
+            {
+              console.log(`before SetGroups`);
+              SetGroups(response)
+            });
+            */
+           GetProfile(response.accessToken).then(response => 
+            {
+              console.log(`before SetProfile ${response}`);
+              SetProfile(response.positions[0].detail)
+            });
+            /*
+            SendMail(response.accessToken).then(response => 
+              {
+                console.log(`Mail Sent: Response=>${JSON.stringify(Response)}`);
+              })
+              .catch(error => {
+                console.log(error);
+                console.log(`SendMail error caught`);
+              });
+              */
+        });
 
 
   },[account]);

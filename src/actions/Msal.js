@@ -13,3 +13,12 @@ export const SetGraph = (graph) => ({
   graph,
 });
 
+export const SetGroups = (groups) => ({
+  type: types.SET_GROUPS,
+  groups,
+});
+
+export const SetProfile = (profile) => ({
+  type: types.SET_PROFILE,
+  profile,
+});
