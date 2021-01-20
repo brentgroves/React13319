@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { grey,blueGrey,lightBlue,indigo,deepOrange, deepPurple } from '@material-ui/core/colors';
+import { white,grey,blueGrey,lightBlue,indigo,deepOrange, deepPurple } from '@material-ui/core/colors';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
@@ -77,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
   avatar:  {
     width: theme.spacing(4),
     height: theme.spacing(4),
-    color: theme.palette.getContrastText(grey[900]),
-    backgroundColor: grey[900],
+    color: indigo[500],
+    backgroundColor: theme.palette.common.white,
 //    color: theme.palette.getContrastText(indigo[500]),
 //    backgroundColor: indigo[500],
   },
