@@ -1,13 +1,11 @@
 import { connect } from "react-redux";
-import AppComponent from "../components/App";
+import AppComponent from "../../components/Tracker/App";
 
-import * as actions from "../actions";
+import * as actions from "../../actions";
 
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    SetAccount: (account) => dispatch(actions.SetAccount(account)),
-    SetGraph: (graph) => dispatch(actions.SetGraph(graph)),
     Push: path => dispatch(actions.Push(path)),
     Logout: () => dispatch(actions.Logout()),
     ClearAppError: () => dispatch(actions.ClearAppError()),
@@ -16,9 +14,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 function mapStateToProps(state) {
-  const { User, router, Global,Msal } = state;
+  const { User, router, Global,Msal, Dialogs,ToolChangeSummary } = state;
   return {
     msalInstance: Msal.msalInstance,
+    initials:Msal.initials,
     isAuthenticated: User.isAuthenticated,
     isAdmin: User.isAdmin,
     userName: User.userName,
@@ -28,13 +27,13 @@ function mapStateToProps(state) {
     search: router.location.search,
     hash: router.location.hash,
     submitting: Global.submitting,
-    appSet: Global.appSet,
     appError: Global.appError,
-    currentApp: Global.currentApp,
+    // openDialog200206: Dialogs.openDialog200206,
+    // openDialogToolChangeSummary: ToolChangeSummary.openDialogToolChangeSummary
   };
 }
 
-export const App = connect(
+export const Tracker = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AppComponent);

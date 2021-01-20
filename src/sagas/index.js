@@ -19,7 +19,7 @@ import * as common from '@bgroves/common';
     unsure if it works when called from UI menu item click via an action dispatch.
 */
 function* handlePush(action) {
-  common.log('in handlePush()');
+  common.log(`in handlePush() = ${action.path}`);
   yield put(push(action.path));
   //  yield put(push("/login"));
 }

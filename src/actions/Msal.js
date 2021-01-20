@@ -22,3 +22,8 @@ export const SetProfile = (profile) => ({
   type: types.SET_PROFILE,
   profile,
 });
+
+export const SetDepartment = (department) => ({
+  type: types.SET_DEPARTMENT,
+  department,
+});

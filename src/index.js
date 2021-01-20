@@ -17,7 +17,7 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 // import App  from './components/App.jsx';
-import { App } from './containers/App';
+import { Authenticate } from './containers/Authenticate';
 import * as serviceWorker from './serviceWorker';
 import rootSaga from './sagas';
 import setupServices from './services';
@@ -210,16 +210,16 @@ async function main()
 
 
   ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         {' '}
         {/* place ConnectedRouter under Provider */}
 
-        <App />
+        <Authenticate />
         </ConnectedRouter>
-    </Provider>
-    </React.StrictMode>,
+    </Provider>,
+    // </React.StrictMode>,
     document.getElementById("root")
   );
 

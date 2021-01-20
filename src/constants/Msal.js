@@ -7,4 +7,5 @@ export const GET_GRAPH ='GET_GRAPH'
 export const SET_GRAPH ='SET_GRAPH'
 export const SET_GROUPS ='SET_GROUPS'
 export const SET_PROFILE ='SET_PROFILE'
+export const SET_DEPARTMENT ='SET_DEPARTMENT'
 

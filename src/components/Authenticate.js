@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import { AppSwitch } from '../containers/AppSwitch';
 import { OEE } from '../containers/OEE/App';
 import { CNC } from '../containers/CNC/App';
 import { Profit } from '../containers/Profit/App';
@@ -106,7 +107,7 @@ const ErrorComponent = ({error}) => {
 Describes an alternate way to do this.
 https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/hooks.md#useaccount-hook
 */
-export default function App({
+export default function Authenticate({
   msalInstance,
   SetAccount,
   SetGraph,
@@ -125,30 +126,99 @@ export default function App({
     //   Push('/login');
     // }
   });
-  const handleClose = (event, reason) => {
-    ClearAppError();
+  const handleCloseSnackBar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
+    ClearAppError();
+
     //    setOpen(false);
   };
-
   const classes = useStyles();
  // const msalInstance = new PublicClientApplication(msalConfig);
   return (
     <MsalProvider instance={msalInstance}>
     <ErrorBoundary>
     <MsalAuthenticationTemplate interactionType="redirect" loadingComponent={InProgressComponent} errorComponent={ErrorComponent}>
-                    <ProfileContent />
+                    {/* <ProfileContent /> */}
+                    <AppSwitch />
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={appError.error}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+        message={appError.message}
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleCloseSnackBar}>
+              Fail
+            </Button>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseSnackBar}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+        />
+
+        {/* <Switch>
+          <Route path="/oee">
+            <OEE />
+          </Route>
+          <Route path="/cnc">
+            <CNC />
+          </Route>
+          <Route path="/profit">
+            <Profit />
+          </Route>
+          <Route exact path="/transition" component={LinearIndeterminate} />
+          <Route exact path="/" component={LaunchMenu} />
+          <Route path="/login" component={SignIn} />
+        </Switch> */}
+
+
 
                 </MsalAuthenticationTemplate>
             </ErrorBoundary>
+        {/* <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={false}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={appError.message}
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+              Fail
+            </Button>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      /> */}
+
             {/* <AuthenticatedTemplate>
                 <p>User is signed in!</p>
             </AuthenticatedTemplate> */}
-            <UnauthenticatedTemplate>
+            {/* <UnauthenticatedTemplate>
                 <p>No users are signed in!</p>
-            </UnauthenticatedTemplate>
+            </UnauthenticatedTemplate> */}
     </MsalProvider>
   );
 }

@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import { Tracker } from '../containers/Tracker/App';
 import { OEE } from '../containers/OEE/App';
 import { CNC } from '../containers/CNC/App';
 import { Profit } from '../containers/Profit/App';
@@ -21,7 +22,14 @@ import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig, loginRequest } from "../config/authConfig";
 import { ErrorBoundary } from "./ErrorBoundary.jsx";
 import { ProfileData, callMsGraph,GetProfile,GetGroups,SendMail } from "./graph.jsx";
+import { SetDepartment } from "../actions";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  }
+
+}));
 // https://docs.microsoft.com/en-us/graph/api/user-list-transitivememberof?view=graph-rest-1.0&tabs=http
 
 /*
@@ -52,12 +60,16 @@ const ProfileContent = () => {
 };
 */
 
-export default function ProfileContent({
+export default function AppSwitch({
   msalInstance,
   SetAccount,
   SetGraph,
   SetGroups,
   SetProfile,
+  SetDepartment,
+  Push,
+  appError,
+  ClearAppError,
   SetIsAuthenticated
 }) {
   const { instance, accounts } = useMsal();
@@ -73,12 +85,12 @@ export default function ProfileContent({
       ...loginRequest,
       account: account
     }).then((response) => {
-      SetAccount(account);
+        SetAccount(account);
         callMsGraph(response.accessToken).then(response => 
-          {
-            setGraphData(response);
-            SetGraph(response);
-          });
+        {
+          setGraphData(response);
+          SetGraph(response);
+        });
          /*
           GetGroups(response.accessToken).then(response => 
             {
@@ -86,11 +98,27 @@ export default function ProfileContent({
               SetGroups(response)
             });
             */
-           GetProfile(response.accessToken).then(response => 
+          GetProfile(response.accessToken).then(response => 
+          {
+            console.log(`before SetProfile ${response}`);
+            SetProfile(response.positions[0].detail);
+            const department = response.positions[0].detail.company.department;
+            SetDepartment(department); 
+            switch(department)
             {
-              console.log(`before SetProfile ${response}`);
-              SetProfile(response.positions[0].detail)
-            });
+              case 'Production':
+                console.log(`Redirecting to Production`);
+                Push('/tracker')
+                break;
+                case 'Engineering':
+                  console.log(`Redirecting to Production`);
+                  Push('/tracker')
+                  break;
+                default:
+                break;
+            }
+          });
+          // switch()
             /*
             SendMail(response.accessToken).then(response => 
               {
@@ -126,27 +154,23 @@ export default function ProfileContent({
   function Logout() {
     msalInstance.logout();
   }
-  /*
-                <Button variant="secondary" onClick={() => instance.logout()} className="ml-auto">Sign Out</Button>
-  <Dropdown.Item as="button" onClick={() => instance.loginPopup(loginRequest)}>Sign in using Popup</Dropdown.Item>
-  <Dropdown.Item as="button" onClick={() => instance.loginRedirect(loginRequest)}>Sign in using Redirect</Dropdown.Item>
-*/
-/*
-{
-    // home account identifier for this account object
-    homeAccountId: string;
-    // Entity who issued the token represented as a full host of it (e.g. login.microsoftonline.com)
-    environment: string;
-    // Full tenant or organizational id that this account belongs to
-    tenantId: string;
-    // preferred_username claim of the id_token that represents this account.
-    username: string;
-};
-*/
+
+  const handleClose = (event, reason) => {
+   // ClearAppError();
+    if (reason === 'clickaway') {
+      return;
+    }
+    //    setOpen(false);
+  };
+
+
+  const classes = useStyles();
+
   return (
-      <>
-          <h5 className="card-title">Welcome {account && account.name}</h5>
-          <Button onClick={Logout}>Logout</Button>
+    // Need This style for placement
+    <div className={classes.root}>
+          {/* <h5 className="card-title">Welcome {account && account.name}</h5>
+          <Button onClick={Logout}>Logout</Button> */}
 
           {/* <ProfileData graphData={graphData} /> */}
           {/* {graphData ? 
@@ -154,7 +178,13 @@ export default function ProfileContent({
               :
               <Button onClick={RequestProfileData}>Request Profile Information</Button>
           } */}
-      </>
+
+        <CssBaseline />
+        <Switch>
+          <Route exact path="/tracker" component={Tracker} />
+          <Route exact path="/transition" component={LinearIndeterminate} />
+        </Switch>
+    </div>
   );
 };
 

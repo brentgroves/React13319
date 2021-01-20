@@ -9,9 +9,6 @@ import * as AppId from '../constants/AppId';
 import * as AppSet from '../constants/AppSet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as common from '@bgroves/common';
-import { SetAccount } from '../actions';
-import * as errorType from '../constants/ErrorType'
-import * as errorSeverity from '../constants/ErrorSeverity'
 
 export default function AppMenu({
   isAuthenticated,
@@ -19,11 +16,10 @@ export default function AppMenu({
   Push,
   currentApp,
   SetCurrentApp,
-  SetAppError,
   appSet,
   Logout,
 }) {
- // common.log(`currentApp=${currentApp}`);
+  common.log(`currentApp=${currentApp}`);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   useEffect(() => {
@@ -42,8 +38,8 @@ export default function AppMenu({
   };
   const handleOEE = () => {
     setAnchorEl(null);
-//    Push('/oee');
-//    SetCurrentApp(AppId.OEE);
+    Push('/oee');
+    SetCurrentApp(AppId.OEE);
   };
   const handleCNC = () => {
     setAnchorEl(null);
@@ -67,9 +63,7 @@ export default function AppMenu({
   };
 */
   const handleLogout = () => {
-    setAnchorEl(null);
-    msalInstance.logout();
-    SetAppError('Test',errorType.SAGA,errorSeverity.LOW);
+    Logout();
   };
 
   return (
