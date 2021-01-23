@@ -176,10 +176,21 @@ async function main()
   const sagaMiddleware = createSagaMiddleware();
   let store;
 
+  store = createStore(
+    reducers(history), // root reducer with router state
+    composeWithDevTools(
+      applyMiddleware(
+        routerMiddleware(history), // for dispatching history actions
+        sagaMiddleware,
+      ),
+    ),
+  );
 
+/*
   if (process.env.NODE_ENV === 'production') {
     disableReactDevTools();
   }
+ 
   // store = setupStore();
   if (process.env.NODE_ENV === 'production') {
     store = createStore(
@@ -200,6 +211,7 @@ async function main()
       ),
     );
   }
+*/
   console.log('After apply middleware');
   //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 

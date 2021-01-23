@@ -6,6 +6,7 @@ import * as actions from "../../actions";
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
+    AuthenticateSaga: (email,password,route,setSubmittingOff) => dispatch(actions.AuthenticateSaga(email,password,route,setSubmittingOff)),
     Push: path => dispatch(actions.Push(path)),
     Logout: () => dispatch(actions.Logout()),
     ClearAppError: () => dispatch(actions.ClearAppError()),

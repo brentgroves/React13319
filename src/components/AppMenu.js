@@ -68,6 +68,7 @@ export default function AppMenu({
 */
   const handleLogout = () => {
     setAnchorEl(null);
+    Push('/');
     msalInstance.logout();
     SetAppError('Test',errorType.SAGA,errorSeverity.LOW);
   };

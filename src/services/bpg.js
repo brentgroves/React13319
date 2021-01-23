@@ -17,7 +17,17 @@ const setupServices = async (dispatch) => {
     `In settupServices: ${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}:${process.env.REACT_APP_FEATHERS_200206_SERVICE}`,
   );
   
-  const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
+  /*
+  Mixed Content: The page at '<URL>' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint '<URL>'. 
+  This request has been blocked; the content must be served over HTTPS.
+  */
+ const connectionString = `https://moto`;
+// const connectionString = `https://motorest`;  invalid cert name
+// postman can connect with http://motorest but not http://moto
+// Error: unable to verify the first certificate
+
+// const connectionString = `https://motorest:${process.env.REACT_APP_FEATHERS_PORT}`;
+// const connectionString = `http://${process.env.REACT_APP_FEATHERS_HOSTNAME}:${process.env.REACT_APP_FEATHERS_PORT}`;
   common.log(`connectionString: ${connectionString}`);
   const socket = io(connectionString);
 

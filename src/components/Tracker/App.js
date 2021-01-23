@@ -160,6 +160,7 @@ export default function App({
   Push,
   Logout,
   ClearAppError,
+  AuthenticateSaga,
   appError,
   openDialog200206,
   openDialogToolChangeSummary,
@@ -206,6 +207,11 @@ export default function App({
     }
     //    setOpen(false);
   };
+  const handleTest = (event, reason) => {
+    console.log(`In handleTest`);
+    AuthenticateSaga('user@buschegroup.com', 'password', '/tracker', false);
+  };
+//         AuthenticateSaga(values.email, values.password, '/', true);
 
   let match = useRouteMatch();
   return (
@@ -283,6 +289,9 @@ export default function App({
             </Route>
             <Route path={match.path}>
             <h1>Tracker</h1>
+            <Button color="secondary" size="small" onClick={handleTest}>
+              Test
+            </Button>
             </Route>
           </Switch>
         </Container>
