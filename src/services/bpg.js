@@ -21,7 +21,7 @@ const setupServices = async (dispatch) => {
   Mixed Content: The page at '<URL>' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint '<URL>'. 
   This request has been blocked; the content must be served over HTTPS.
   */
- const connectionString = `https://moto`;
+ const connectionString = `https://motorest`;
 // const connectionString = `https://motorest`;  invalid cert name
 // postman can connect with http://motorest but not http://moto
 // Error: unable to verify the first certificate
