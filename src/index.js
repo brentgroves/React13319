@@ -176,23 +176,37 @@ async function main()
   const sagaMiddleware = createSagaMiddleware();
   let store;
 
-  store = createStore(
-    reducers(history), // root reducer with router state
-    composeWithDevTools(
-      applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        sagaMiddleware,
-      ),
-    ),
-  );
+  // store = createStore(
+  //   reducers(history), // root reducer with router state
+  //   composeWithDevTools(
+  //     applyMiddleware(
+  //       routerMiddleware(history), // for dispatching history actions
+  //       sagaMiddleware,
+  //     ),
+  //   ),
+  // );
 
-/*
-  if (process.env.NODE_ENV === 'production') {
+  // Until recently I could always use NODE_ENV 01/26/21
+  // There is also a built-in environment variable called NODE_ENV. 
+  // You can read it from process.env.NODE_ENV. When you run npm start, 
+  // it is always equal to 'development', when you run npm test it is 
+  // always equal to 'test', and when you run npm run build to make a 
+  // production bundle, it is always equal to 'production'. You cannot 
+  // override NODE_ENV manually. This prevents developers from 
+  // accidentally deploying a slow development build to production.
+
+
+  console.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
+  console.log(`process.env.REACT_APP_NODE_ENV=${process.env.REACT_APP_NODE_ENV}`);
+
+  if (process.env.REACT_APP_NODE_ENV === 'production') {
+    console.log('calling disableReactDevTools');
     disableReactDevTools();
   }
  
   // store = setupStore();
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.REACT_APP_NODE_ENV === 'production') {
+    console.log('createStore without DevTools');
     store = createStore(
       reducers(history), // root reducer with router state
       applyMiddleware(
@@ -201,6 +215,7 @@ async function main()
       ),
     );
   } else {
+    console.log('createStore with DevTools');
     store = createStore(
       reducers(history), // root reducer with router state
       composeWithDevTools(
@@ -211,7 +226,7 @@ async function main()
       ),
     );
   }
-*/
+  
   console.log('After apply middleware');
   //https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-navigate-with-redux-action
 
